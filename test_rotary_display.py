@@ -25,6 +25,16 @@ class EightByEightPlus(EightByEight):
 
         return result
 
+    def set_values(self, values, selected=0):
+        lookup_add = [2, 4, 8, 16, 32, 64, 128]
+        for row in range(0, 8):
+            row_value = 1 of row == selected else 0
+            for col in range(0, 7):
+                if values[row] < col * 10:
+                    row_value += lookup_add[col]
+            grid.writeRowRaw(row, row_value, update=False)
+        grid.writeDisplay()
+
 
 class SevenSegmentPlus(SevenSegment):
     pass
@@ -32,7 +42,8 @@ class SevenSegmentPlus(SevenSegment):
 grid = EightByEightPlus(address=0x70)
 segment = SevenSegmentPlus(address=0x74)
 
-value = 0
+values = 8*[0]
+selected = 0
 
 print 'Test display and rotary encoder'
 
@@ -59,5 +70,5 @@ while(True):
         #   for y in range(0, 8):
         #       color = 1 if (y*8+x) < value else 0
         #       grid.setPixel(x, y, color)
-        grid.writeRowRaw(0, value % 256)
+        grid.set_values(values)
     # sleep(0.001)
