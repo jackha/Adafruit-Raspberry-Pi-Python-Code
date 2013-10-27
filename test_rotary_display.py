@@ -21,7 +21,7 @@ encoder_thread.start()
 class EightByEightPlus(EightByEight):
     """Better Eight By Eight by being smarter"""
     def __init__(self, *args, **kwargs):
-        result = super().__init__(*args, **kwargs)
+        result = super(EightByEightPlus, self).__init__(*args, **kwargs)
 
         return result
 
