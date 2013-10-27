@@ -26,8 +26,8 @@ class EightByEightPlus(EightByEight):
         return result
 
     def test(self, value):
-        self.__buffer[0] = value
-        self.writeDisplay()
+        self.disp.__buffer[0] = value
+        self.disp.writeDisplay()
 
 class SevenSegmentPlus(SevenSegment):
     pass
