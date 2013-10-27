@@ -93,7 +93,7 @@ class Communication():
         sock.sendall(message)  # echo all messages
 
 
-class ServerThread(threading.Thread):
+class ListenThread(threading.Thread):
     def __init__(self, communication, *args, **kwargs):
         self.communication = communication
         super(ServerThread, self).__init__(*args, **kwargs)
@@ -105,11 +105,11 @@ while(True):
 
     # Create a socket (SOCK_STREAM means a TCP socket)
     # client of puredata: use 'netreceive 3000' in pd
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.connect(('localhost', 3000))
+    send_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    send_sock.connect(('localhost', 3000))
 
     communication = Communication(sock=sock)
-    server_thread = ServerThread(communication=communication)  # listen to messages from Pd
+    server_thread = ListenThread(communication=communication)  # listen to messages from Pd
     server_thread.daemon = True
     server_thread.start()
 
@@ -132,14 +132,14 @@ while(True):
         #segment.setColon(0)              # Toggle colon at 1Hz
 
         # send test message to Pd server
-        sock.sendall('%f;' % (value*0.001))
+        send_sock.sendall('%f;' % (value*0.001))
 
-        if value < 20:
-            grid.grid_array(smiley_neutral)
-        elif value < 60:
-            grid.grid_array(smiley)
-        else:
-            grid.set_values(values)
+        # if value < 20:
+        #     grid.grid_array(smiley_neutral)
+        # elif value < 60:
+        #     grid.grid_array(smiley)
+        # else:
+        grid.set_values(values)
 
         startup = False
     # sleep(0.001)
