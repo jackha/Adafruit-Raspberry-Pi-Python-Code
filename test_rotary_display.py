@@ -69,14 +69,14 @@ smiley = [
     [0,1,0,0,0,0,1,0],
     [0,0,1,1,1,1,0,0]]
 
-smiley_sad = [
+smiley_weird = [
     [0,0,1,1,1,1,0,0],
     [0,1,0,0,0,0,1,0],
     [1,0,1,0,0,1,0,1],
     [1,0,1,0,0,1,0,1],
     [1,0,0,0,0,0,0,1],
-    [1,0,0,1,1,0,0,1],
-    [0,1,1,0,0,1,1,0],
+    [1,0,0,1,0,1,0,1],
+    [0,1,1,0,1,0,1,0],
     [0,0,1,1,1,1,0,0]]
 
 smiley_neutral = [
@@ -117,7 +117,7 @@ while(True):
         #grid.set_values(values)
 
         if value < 20:
-            grid.grid_array(smiley_sad)
+            grid.grid_array(smiley_weird)
         elif value < 40:
             grid.grid_array(smiley_neutral)
         elif value < 60:
