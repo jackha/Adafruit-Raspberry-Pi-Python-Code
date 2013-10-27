@@ -45,7 +45,7 @@ if __name__ == '__main__':
     server_thread.daemon = True
     server_thread.start()
 
-    sock.sendall('1 0;')
+    sock.sendall('0;')
 
     # TODO: handle events from input device
     while True:
