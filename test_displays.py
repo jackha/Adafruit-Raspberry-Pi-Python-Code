@@ -25,6 +25,7 @@ while(True):
   hour = now.hour
   minute = now.minute
   second = now.second
+ 
   # Set hours
   segment.writeDigit(0, int(hour / 10))     # Tens
   segment.writeDigit(1, hour % 10)          # Ones
