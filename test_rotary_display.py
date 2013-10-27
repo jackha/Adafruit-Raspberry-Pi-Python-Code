@@ -30,9 +30,9 @@ class EightByEightPlus(EightByEight):
         print 'display values'
         for row in range(0, 8):
             row_value = 1 if row == selected else 0
-            for col in range(0, 7):
-                if values[row] < col * 10:
-                    row_value += lookup_add[col]
+            #for col in range(0, 7):
+            #    if values[row] < col * 10:
+            #        row_value += lookup_add[col]
             print 'row, rowvalue %d %d' % (row, row_value)
             grid.writeRowRaw(row, row_value, update=False)
         grid.disp.writeDisplay()
