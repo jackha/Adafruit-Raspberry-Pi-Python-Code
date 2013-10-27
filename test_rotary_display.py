@@ -54,6 +54,7 @@ while(True):
 
     if delta != 0:
         values[selected] += delta
+        value = values[selected]
         print 'change value: %s delta %d' % (value, delta) 
     	
         # Set 7 segment
