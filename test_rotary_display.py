@@ -94,9 +94,10 @@ class Communication():
 
 
 class ListenThread(threading.Thread):
+    """Listen to incoming events from Pd"""
     def __init__(self, communication, *args, **kwargs):
         self.communication = communication
-        super(ServerThread, self).__init__(*args, **kwargs)
+        super(ListenThread, self).__init__(*args, **kwargs)
 
     def run(self):
         server('localhost', 3001, communication=self.communication)
