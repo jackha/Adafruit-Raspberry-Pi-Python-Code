@@ -38,7 +38,7 @@ class EightByEightPlus(EightByEight):
             grid.writeRowRaw(row, row_value, update=False)
         grid.disp.writeDisplay()
 
-    def grid_array(arr):
+    def grid_array(self, arr):
         """Grid array"""
         for y in range(8):
             for x in range(8):
