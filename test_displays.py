@@ -34,11 +34,12 @@ while(True):
   # Toggle color
   segment.setColon(second % 2)              # Toggle colon at 1Hz
 
+  grid.setPixel(c % 8, c / 8)
+
   c = c + 1
   if c == 64:
     c = 0
     grid.clear()
-  grid.setPixel(c % 8, c / 8)
 
   # Wait one second
   time.sleep(1)
