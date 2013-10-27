@@ -17,12 +17,12 @@ class EightByEight(object):
       print "Initializing a new instance of LEDBackpack at 0x%02X" % address
     self.disp = LEDBackpack(address=address, debug=debug)
 
-  def writeRowRaw(self, charNumber, value):
+  def writeRowRaw(self, charNumber, value, update=True):
     "Sets a row of pixels using a raw 16-bit value"
     if (charNumber > 7):
       return
     # Set the appropriate row
-    self.disp.setBufferRow(charNumber, value)
+    self.disp.setBufferRow(charNumber, value, update=update)
 
   def clearPixel(self, x, y):
     "A wrapper function to clear pixels (purely cosmetic)"

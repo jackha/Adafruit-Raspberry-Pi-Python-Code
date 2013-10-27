@@ -25,9 +25,6 @@ class EightByEightPlus(EightByEight):
 
         return result
 
-    def test(self, value):
-        self.disp.__buffer[0] = value
-        self.disp.writeDisplay()
 
 class SevenSegmentPlus(SevenSegment):
     pass
@@ -62,5 +59,5 @@ while(True):
         #   for y in range(0, 8):
         #       color = 1 if (y*8+x) < value else 0
         #       grid.setPixel(x, y, color)
-        grid.test(value % 256)
+        grid.writeRowRaw(0, value % 256)
     # sleep(0.001)
