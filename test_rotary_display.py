@@ -108,7 +108,7 @@ while(True):
     send_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     send_sock.connect(('localhost', 3000))
 
-    communication = Communication(sock=sock)
+    communication = Communication(sock=send_sock)
     server_thread = ListenThread(communication=communication)  # listen to messages from Pd
     server_thread.daemon = True
     server_thread.start()
