@@ -26,10 +26,11 @@ class EightByEightPlus(EightByEight):
         return result
 
     def set_values(self, values, selected=0):
-        lookup_add = [2, 4, 8, 16, 32, 64, 128]
+        lookup_add = [1, 2, 4, 8, 16, 32, 64]
         print 'display values'
         for row in range(0, 8):
-            row_value = 1 if row == selected else 0
+            # strangely 128 is the first pixel, not 1
+            row_value = 128 if row == selected else 0
             #for col in range(0, 7):
             #    if values[row] < col * 10:
             #        row_value += lookup_add[col]
