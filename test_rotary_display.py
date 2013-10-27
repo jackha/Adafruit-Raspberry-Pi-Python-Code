@@ -35,10 +35,10 @@ while(True):
     	
         # Set 7 segment
         # Set hours
-        segment.writeDigit(0, int(value/10000)%10000)
-        segment.writeDigit(1, int(value/1000)%1000) 
+        segment.writeDigit(0, int(value/1000)%10)
+        segment.writeDigit(1, int(value/100)%10) 
         # Set minutes
-        segment.writeDigit(3, int(value / 100) % 100)   # Tens
+        segment.writeDigit(3, int(value / 10) % 10)   # Tens
         segment.writeDigit(4, value % 10)        # Ones
         # Toggle color
         #segment.setColon(0)              # Toggle colon at 1Hz
