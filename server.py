@@ -2,7 +2,7 @@ import socket
 
 BUFFER_SIZE = 100  # Normally 1024, but we want fast response
 
-def server(host, port, communication={}): 
+def server(host, port, communication=None): 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((host, port))
     s.listen(1)
@@ -12,8 +12,12 @@ def server(host, port, communication={}):
     while 1:
         data = conn.recv(BUFFER_SIZE)
         if not data: break
-        print "received data:", data        
-        communication.set(data.strip('\n'))
+        print "received data:", data
+        try:  
+            communication.set(data.strip('\n'))
+        except AttributeError:
+            print "communcation object has no attribute 'set'"
+            pass
 
     conn.close()
 
