@@ -19,8 +19,8 @@ while(True):
 
     # Set 7 segment
     # Set hours
-    segment.writeDigit(0, int(value/10000%10000)     # Tens
-    segment.writeDigit(1, int(value/1000)%1000)          # Ones
+    segment.writeDigit(0, int(value/10000)%10000)
+    segment.writeDigit(1, int(value/1000)%1000) 
     # Set minutes
     segment.writeDigit(3, int(value / 100) % 100)   # Tens
     segment.writeDigit(4, value % 10)        # Ones
