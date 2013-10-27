@@ -38,6 +38,12 @@ class EightByEightPlus(EightByEight):
             grid.writeRowRaw(row, row_value, update=False)
         grid.disp.writeDisplay()
 
+    def grid_array(arr):
+        """Grid array"""
+        for y in range(8):
+            for x in range(8):
+                grid.setPixel(x, y, arr[x,y])
+
 
 class SevenSegmentPlus(SevenSegment):
     pass
@@ -50,6 +56,19 @@ selected = 0
 
 print 'Test display and rotary encoder'
 startup = True
+
+
+"""For Janita: make smiley on display"""
+smiley = [
+    [0,0,1,1,1,1,0,0],
+    [0,1,0,0,0,0,1,0],
+    [1,0,1,0,0,1,0,1],
+    [1,0,1,0,0,1,0,1],
+    [1,1,0,0,0,0,1,1],
+    [1,0,1,1,1,1,0,1],
+    [0,1,0,0,0,0,1,0],
+    [0,0,1,1,1,1,0,0]]
+
 
 while(True):
 
@@ -75,6 +94,12 @@ while(True):
         #   for y in range(0, 8):
         #       color = 1 if (y*8+x) < value else 0
         #       grid.setPixel(x, y, color)
-        grid.set_values(values)
+        #grid.set_values(values)
+
+        if value < 10:
+            grid.grid_array(smiley)
+        else:
+            grid.set_values(values)
+
         startup = False
     # sleep(0.001)
