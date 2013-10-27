@@ -100,7 +100,9 @@ class ListenThread(threading.Thread):
         super(ListenThread, self).__init__(*args, **kwargs)
 
     def run(self):
+        print "Start listening to Pd..."
         server('localhost', 3001, communication=self.communication)
+        print "Stopped listening to Pd."
 
 while(True):
 
