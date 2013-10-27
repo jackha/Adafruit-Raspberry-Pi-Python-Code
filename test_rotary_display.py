@@ -1,11 +1,21 @@
 # test rotary encoder and displays
 import rotary_encoder
+import threading
 from Adafruit_LEDBackpack.Adafruit_7Segment import SevenSegment
 from Adafruit_LEDBackpack.Adafruit_8x8 import EightByEight
 
+# react on ctrl-c
+import signal 
+import sys
+def signal_handler(signal, frame):
+        sys.exit(0)
+signal.signal(signal.SIGINT, signal_handler)
+
 A_PIN = 5  # use wiring pin numbers here
 B_PIN = 4
-encoder = rotary_encoder.RotaryEncoder(A_PIN, B_PIN)
+#encoder = rotary_encoder.RotaryEncoder(A_PIN, B_PIN)
+encoder_thread = rotary_encoder.RotaryEncoder.Worker(A_PIN, B_PIN)
+encoder_thread.start()
 
 grid = EightByEight(address=0x70)
 segment = SevenSegment(address=0x74)
@@ -17,10 +27,10 @@ print 'Test display and rotary encoder'
 while(True):
 
     # read rotary encoder
-    delta = encoder.get_delta()
+    delta = encoder_thread.get_delta()
 
     if delta != 0:
-	value += delta
+        value += delta
         print 'change value: %s delta %d' % (value, delta) 
     	
         # Set 7 segment
