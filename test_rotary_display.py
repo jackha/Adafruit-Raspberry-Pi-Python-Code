@@ -17,8 +17,23 @@ B_PIN = 4
 encoder_thread = rotary_encoder.RotaryEncoder.Worker(A_PIN, B_PIN)
 encoder_thread.start()
 
-grid = EightByEight(address=0x70)
-segment = SevenSegment(address=0x74)
+
+class EightByEightPlus(EightByEight):
+    """Better Eight By Eight by being smarter"""
+    def __init__(self, *args, **kwargs):
+        result = super(EightByEightPlus, self).__init__(*args, **kwargs)
+
+        return result
+
+    def test(self, value):
+        self.__buffer[0] = value
+        self.writeDisplay()
+
+class SevenSegmentPlus(SevenSegment):
+    pass
+
+grid = EightByEightPlus(address=0x70)
+segment = SevenSegmentPlus(address=0x74)
 
 value = 0
 
@@ -43,9 +58,9 @@ while(True):
         # Toggle color
         #segment.setColon(0)              # Toggle colon at 1Hz
 
-        for x in range(0, 8):
-           for y in range(0, 8):
-               color = 1 if (y*8+x) < value else 0
-               grid.setPixel(x, y, color)
-
+        #for x in range(0, 8):
+        #   for y in range(0, 8):
+        #       color = 1 if (y*8+x) < value else 0
+        #       grid.setPixel(x, y, color)
+        grid.test(value % 256)
     # sleep(0.001)
