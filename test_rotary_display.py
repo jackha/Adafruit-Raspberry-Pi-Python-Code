@@ -53,7 +53,7 @@ while(True):
     delta = encoder_thread.get_delta()
 
     if delta != 0:
-        value += delta
+        values[selected] += delta
         print 'change value: %s delta %d' % (value, delta) 
     	
         # Set 7 segment
