@@ -117,6 +117,30 @@ cd ..
 Audio interface
 ===============
 
+See if it is listed::
+
+$ cat /proc/asound/cards
+ 0 [ALSA           ]: BRCM bcm2835 ALSbcm2835 ALSA - bcm2835 ALSA
+                      bcm2835 ALSA
+ 1 [USB            ]: USB-Audio - Scarlett 2i2 USB
+                      Focusrite Scarlett 2i2 USB at usb-bcm2708_usb-1.3, high speed
+
+
+Set the Alsa USB audio device to have priority 0::
+
+    # sudo nano /etc/modprobe.d/alsa-base.conf
+
+Change the line with snd-usb-audio to::
+
+options snd-usb-audio index=0
+
+
+$ speaker-test -c2 -D hw:0,0 -F S32_LE
+
+(somehow only the sample format S32_LE works...)
+
+
+
 Expression pedal
 ================
 
