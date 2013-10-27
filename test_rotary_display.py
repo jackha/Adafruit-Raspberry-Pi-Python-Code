@@ -31,9 +31,9 @@ class EightByEightPlus(EightByEight):
         for row in range(0, 8):
             # strangely 128 is the first pixel, not 1
             row_value = 128 if row == selected else 0
-            #for col in range(0, 7):
-            #    if values[row] < col * 10:
-            #        row_value += lookup_add[col]
+            for col in range(0, 7):
+                if values[row] < col * 10:
+                    row_value += lookup_add[col]
             print 'row, rowvalue %d %d' % (row, row_value)
             grid.writeRowRaw(row, row_value, update=False)
         grid.disp.writeDisplay()
