@@ -33,7 +33,7 @@ class EightByEightPlus(EightByEight):
                 if values[row] < col * 10:
                     row_value += lookup_add[col]
             grid.writeRowRaw(row, row_value, update=False)
-        grid.writeDisplay()
+        grid.disp.writeDisplay()
 
 
 class SevenSegmentPlus(SevenSegment):
