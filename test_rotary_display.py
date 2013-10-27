@@ -42,7 +42,7 @@ class EightByEightPlus(EightByEight):
         """Grid array"""
         for y in range(8):
             for x in range(8):
-                grid.setPixel(x, y, arr[x,y])
+                grid.setPixel(x, y, arr[x][y])
 
 
 class SevenSegmentPlus(SevenSegment):
