@@ -42,7 +42,7 @@ class EightByEightPlus(EightByEight):
         """Grid array"""
         for y in range(8):
             for x in range(8):
-                grid.setPixel(x, y, arr[x][y])
+                grid.setPixel(x, y, arr[y][x])
 
 
 class SevenSegmentPlus(SevenSegment):
@@ -65,6 +65,26 @@ smiley = [
     [1,0,1,0,0,1,0,1],
     [1,0,1,0,0,1,0,1],
     [1,1,0,0,0,0,1,1],
+    [1,0,1,1,1,1,0,1],
+    [0,1,0,0,0,0,1,0],
+    [0,0,1,1,1,1,0,0]]
+
+smiley_sad = [
+    [0,0,1,1,1,1,0,0],
+    [0,1,0,0,0,0,1,0],
+    [1,0,1,0,0,1,0,1],
+    [1,0,1,0,0,1,0,1],
+    [1,0,0,0,0,0,0,1],
+    [1,0,0,1,1,0,0,1],
+    [0,1,1,0,0,1,1,0],
+    [0,0,1,1,1,1,0,0]]
+
+smiley_neutral = [
+    [0,0,1,1,1,1,0,0],
+    [0,1,0,0,0,0,1,0],
+    [1,0,1,0,0,1,0,1],
+    [1,0,1,0,0,1,0,1],
+    [1,0,0,0,0,0,0,1],
     [1,0,1,1,1,1,0,1],
     [0,1,0,0,0,0,1,0],
     [0,0,1,1,1,1,0,0]]
@@ -96,7 +116,11 @@ while(True):
         #       grid.setPixel(x, y, color)
         #grid.set_values(values)
 
-        if value < 10:
+        if value < 20:
+            grid.grid_array(smiley_sad)
+        elif value < 40:
+            grid.grid_array(smiley_neutral)
+        elif value < 60:
             grid.grid_array(smiley)
         else:
             grid.set_values(values)
