@@ -1,8 +1,11 @@
 # test rotary encoder and displays
+import socket
 import rotary_encoder
 import threading
 from Adafruit_LEDBackpack.Adafruit_7Segment import SevenSegment
 from Adafruit_LEDBackpack.Adafruit_8x8 import EightByEight
+
+from server import server
 
 # react on ctrl-c
 import signal 
@@ -80,7 +83,35 @@ smiley_neutral = [
     [0,0,1,1,1,1,0,0]]
 
 
+# Communication with Pd
+class Communication():
+    def __init__(self, sock, *args, **kwargs):
+        self.sock = sock
+
+    def set(self, message):
+        print 'echo %s' % message
+        sock.sendall(message)  # echo all messages
+
+
+class ServerThread(threading.Thread):
+    def __init__(self, communication, *args, **kwargs):
+        self.communication = communication
+        super(ServerThread, self).__init__(*args, **kwargs)
+
+    def run(self):
+        server('localhost', 3001, communication=self.communication)
+
 while(True):
+
+    # Create a socket (SOCK_STREAM means a TCP socket)
+    # client of puredata: use 'netreceive 3000' in pd
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect(('localhost', 3000))
+
+    communication = Communication(sock=sock)
+    server_thread = ServerThread(communication=communication)  # listen to messages from Pd
+    server_thread.daemon = True
+    server_thread.start()
 
     # read rotary encoder
     delta = encoder_thread.get_delta()
@@ -100,11 +131,8 @@ while(True):
         # Toggle color
         #segment.setColon(0)              # Toggle colon at 1Hz
 
-        #for x in range(0, 8):
-        #   for y in range(0, 8):
-        #       color = 1 if (y*8+x) < value else 0
-        #       grid.setPixel(x, y, color)
-        #grid.set_values(values)
+        # send test message to Pd server
+        sock.sendall('%f;' % (value*0.001))
 
         if value < 20:
             grid.grid_array(smiley_neutral)
