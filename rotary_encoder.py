@@ -33,6 +33,8 @@ class RotaryEncoder:
     #----------------------------------------------------------------------
     # Pass the wiring pin numbers here.  See:
     #  https://projects.drogon.net/raspberry-pi/wiringpi2/pins/
+    # http://wiringpi.com/pins/
+    #  https://projects.drogon.net/raspberry-pi/wiringpi/pins/
     #----------------------------------------------------------------------
     def __init__(self, a_pin, b_pin):
         self.a_pin = a_pin
