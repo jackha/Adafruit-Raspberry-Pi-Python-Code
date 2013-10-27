@@ -32,7 +32,7 @@ class EightByEightPlus(EightByEight):
             # strangely 128 is the first pixel, not 1
             row_value = 128 if row == selected else 0
             for col in range(0, 7):
-                if values[row] < col * 10:
+                if values[row] > col * 10:
                     row_value += lookup_add[col]
             print 'row, rowvalue %d %d' % (row, row_value)
             grid.writeRowRaw(row, row_value, update=False)
@@ -49,13 +49,14 @@ values = 8*[0]
 selected = 0
 
 print 'Test display and rotary encoder'
+startup = True
 
 while(True):
 
     # read rotary encoder
     delta = encoder_thread.get_delta()
 
-    if delta != 0:
+    if delta != 0 or startup:
         values[selected] += delta
         value = values[selected]
         print 'change value: %s delta %d' % (value, delta) 
@@ -75,4 +76,5 @@ while(True):
         #       color = 1 if (y*8+x) < value else 0
         #       grid.setPixel(x, y, color)
         grid.set_values(values)
+        startup = False
     # sleep(0.001)
