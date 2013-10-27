@@ -112,9 +112,11 @@ while(True):
     send_sock.connect(('localhost', 3000))
 
     communication = Communication(sock=send_sock)
-    server_thread = ListenThread(communication=communication)  # listen to messages from Pd
-    server_thread.daemon = True
-    server_thread.start()
+
+    # Listen to Pd
+    #server_thread = ListenThread(communication=communication)  # listen to messages from Pd
+    #server_thread.daemon = True
+    #server_thread.start()
 
     # read rotary encoder
     delta = encoder_thread.get_delta()
