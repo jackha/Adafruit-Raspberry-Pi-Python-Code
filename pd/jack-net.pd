@@ -1,4 +1,4 @@
-#N canvas 516 22 700 321 10;
+#N canvas 516 22 933 541 10;
 #X obj 77 201 print tcp;
 #X obj 314 109 netsend;
 #X msg 312 47 connect localhost 3001;
@@ -13,6 +13,10 @@
 #X msg 550 79 send 0.5;
 #X msg 355 82 send 1;
 #X msg 221 191 880;
+#X obj 798 138 dsp;
+#X obj 801 105 1;
+#X obj 800 27 loadbang;
+#X obj 803 65 delay 100;
 #X connect 1 0 3 0;
 #X connect 2 0 1 0;
 #X connect 4 0 1 0;
@@ -25,3 +29,6 @@
 #X connect 11 0 1 0;
 #X connect 12 0 1 0;
 #X connect 13 0 7 0;
+#X connect 15 0 14 0;
+#X connect 16 0 17 0;
+#X connect 17 0 15 0;
