@@ -135,7 +135,7 @@ if __name__ == '__main__':
     encoder1.start()
 
     encoder2 = rotary_encoder.RotaryEncoder.Worker(
-        ENC2_PIN_A, ENC2_PIN_B, push_pin=ENC1_PIN_C)
+        ENC2_PIN_A, ENC2_PIN_B, push_pin=ENC2_PIN_C)
     encoder2.start()
 
     # Create a socket (SOCK_STREAM means a TCP socket)
