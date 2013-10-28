@@ -2,6 +2,7 @@
 import socket
 import rotary_encoder
 import threading
+import datetime
 from Adafruit_LEDBackpack.Adafruit_7Segment import SevenSegment
 from Adafruit_LEDBackpack.Adafruit_8x8 import EightByEight
 
@@ -82,6 +83,26 @@ smiley = [
     [0,1,0,0,0,0,1,0],
     [0,0,1,1,1,1,0,0]]
 
+janita = [
+    [1,0,1,0,1,0,0,0],
+    [1,1,1,0,1,0,0,0],
+    [1,0,1,0,1,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,1,0,0,1,0,0],
+    [0,0,1,0,1,0,1,0],
+    [1,0,1,0,1,1,1,0],
+    [0,1,0,0,1,0,1,0]]
+
+janita2 = [
+    [1,0,0,1,0,1,0,0],
+    [1,1,0,1,0,1,0,0],
+    [1,0,1,1,0,1,0,0],
+    [1,0,0,1,0,1,0,0],
+    [0,0,0,0,0,0,1,0],
+    [0,1,1,1,0,1,0,1],
+    [0,0,1,0,0,1,1,1],
+    [0,0,1,0,0,1,0,1]]
+
 smiley_neutral = [
     [0,0,1,1,1,1,0,0],
     [0,1,0,0,0,0,1,0],
@@ -154,6 +175,8 @@ if __name__ == '__main__':
     print "init to Pd..."
     send_sock.sendall('init;')  # makes Pd connect back on port 3001
 
+    push_timer_expiration = datetime.datetime.now()
+
     while(True):
         # read rotary encoder
         delta1 = encoder1.get_delta()
@@ -169,6 +192,9 @@ if __name__ == '__main__':
             print 'change value: selected %s(%s) value %s delta1 %d delta2 %d p1 %r p2 %r' % (
                 selected_idx, selected, value, delta1, delta2, push1, push2) 
             
+            if push1 or push2:
+                push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=4)
+
             # Set 7 segment
             # Set hours
             segment.writeDigit(0, int(value/1000)%10)
@@ -183,6 +209,20 @@ if __name__ == '__main__':
             print "Volume to Pd..."
             send_sock.sendall('volume %f;' % (value*0.001))
 
+
+            startup = False
+
+        # grid display
+        if push_timer_expiration > datetime.datetime.now():
+            # display smiley
+            if push1:
+                grid.grid_array(smiley)
+            if push2:
+                if push_timer_expiration > datetime.datetime.now() + datetime.timedelta(seconds=2):
+                    grid.grid_array(janita)
+                else:
+                    grid.grid_array(janita2)
+        else:
             # if value < 20:
             #     grid.grid_array(smiley_neutral)
             # elif value < 60:
@@ -190,5 +230,4 @@ if __name__ == '__main__':
             # else:
             grid.set_values(values, selected=selected_idx)
 
-            startup = False
         # sleep(0.001)
