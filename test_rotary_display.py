@@ -218,7 +218,7 @@ if __name__ == '__main__':
             if push1:
                 grid.grid_array(smiley)
             if push2:
-                if push_timer_expiration + datetime.timedelta(seconds=2) > datetime.datetime.now() :
+                if push_timer_expiration - datetime.timedelta(seconds=2) > datetime.datetime.now() :
                     grid.grid_array(janita)
                 else:
                     grid.grid_array(janita2)
