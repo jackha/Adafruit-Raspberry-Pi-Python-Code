@@ -30,22 +30,27 @@ class EightByEightPlus(EightByEight):
 
     def set_values(self, values, selected=0):
         lookup_add = [1, 2, 4, 8, 16, 32, 64]
-        print 'display values'
+        #print 'display values'
         for row in range(0, 8):
             # strangely 128 is the first pixel, not 1
             row_value = 128 if row == selected else 0
             for col in range(0, 7):
                 if values[row] > col * 10:
                     row_value += lookup_add[col]
-            print 'row, rowvalue %d %d' % (row, row_value)
+            #print 'row, rowvalue %d %d' % (row, row_value)
             grid.writeRowRaw(row, row_value, update=False)
         grid.disp.writeDisplay()
 
     def grid_array(self, arr):
         """Grid array"""
+        lookup_add = [128, 1, 2, 4, 8, 16, 32, 64]
+        
         for y in range(8):
+            byte_value = 0
             for x in range(8):
-                grid.setPixel(x, y, arr[y][x])
+                byte_value += lookup_add[x] * arr[y][x]
+                #grid.setPixel(x, y, arr[y][x])
+            grid.writeRowRaw(y, byte_value, update=True)
 
 
 class SevenSegmentPlus(SevenSegment):
