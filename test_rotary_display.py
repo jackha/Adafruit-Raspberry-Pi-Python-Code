@@ -1,6 +1,7 @@
 # test rotary encoder and displays
 import socket
 import rotary_encoder
+import gpio_buttons
 import threading
 from Adafruit_LEDBackpack.Adafruit_7Segment import SevenSegment
 from Adafruit_LEDBackpack.Adafruit_8x8 import EightByEight
@@ -130,10 +131,12 @@ if __name__ == '__main__':
     startup = True
 
     #encoder = rotary_encoder.RotaryEncoder(A_PIN, B_PIN)
-    encoder1 = rotary_encoder.RotaryEncoder.Worker(ENC1_PIN_A, ENC1_PIN_B)
+    encoder1 = rotary_encoder.RotaryEncoder.Worker(
+        ENC1_PIN_A, ENC1_PIN_B, push_pin=ENC1_PIN_C)
     encoder1.start()
 
-    encoder2 = rotary_encoder.RotaryEncoder.Worker(ENC2_PIN_A, ENC2_PIN_B)
+    encoder2 = rotary_encoder.RotaryEncoder.Worker(
+        ENC2_PIN_A, ENC2_PIN_B, push_pin=ENC1_PIN_C)
     encoder2.start()
 
     # Create a socket (SOCK_STREAM means a TCP socket)
@@ -156,15 +159,16 @@ if __name__ == '__main__':
         # read rotary encoder
         delta1 = encoder1.get_delta()
         delta2 = encoder2.get_delta()
+        push1 = encoder1.get_button()
+        push2 = encoder2.get_button()
 
-        if delta1 != 0 or delta2 != 0 or startup:
+        if delta1 != 0 or delta2 != 0 or push1 is not None or push2 is not None or startup:
             selected = (selected + delta2) % (8*8)  # make it slower
             selected_idx = selected/8
-            print 'selected %d' % selected_idx
             values[selected_idx] += delta1
             value = values[selected_idx]
-            print 'change value: selected %s(%s) value %s delta1 %d delta2 %d' % (
-                selected_idx, selected, value, delta1, delta2) 
+            print 'change value: selected %s(%s) value %s delta1 %d delta2 %d p1 %r p2 %r' % (
+                selected_idx, selected, value, delta1, delta2, push1, push2) 
             
             # Set 7 segment
             # Set hours

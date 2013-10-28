@@ -36,7 +36,7 @@ class RotaryEncoder:
     # http://wiringpi.com/pins/
     #  https://projects.drogon.net/raspberry-pi/wiringpi/pins/
     #----------------------------------------------------------------------
-    def __init__(self, a_pin, b_pin):
+    def __init__(self, a_pin, b_pin, push_pin=None):
         self.a_pin = a_pin
         self.b_pin = b_pin
 
@@ -47,6 +47,11 @@ class RotaryEncoder:
 
         self.gpio.pinMode(self.b_pin, self.gpio.INPUT)
         self.gpio.pullUpDnControl(self.b_pin, self.gpio.PUD_UP)
+
+        if push_pin:
+            self.push_pin = push_pin
+            self.gpio.pinMode(self.push_pin, self.gpio.INPUT)
+            self.gpio.pullUpDnControl(self.b_pin, self.gpio.PUD_UP)
 
         self.last_delta = 0
         self.r_seq = self.rotation_sequence()
@@ -120,6 +125,10 @@ class RotaryEncoder:
         self.remainder %= self.steps_per_cycle # remainder always remains positive
         return cycles
 
+    def get_button(self):
+        if self.push_pin is not None:
+            return self.gpio.digitalRead(self.push_pin)
+
     class Worker(threading.Thread):
         def __init__(self, a_pin, b_pin):
             threading.Thread.__init__(self)
@@ -141,3 +150,6 @@ class RotaryEncoder:
                 delta = self.delta
                 self.delta = 0
             return delta
+
+        def get_button(self):
+            return self.encoder.get_button()
