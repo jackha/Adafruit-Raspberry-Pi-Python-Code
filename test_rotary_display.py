@@ -65,7 +65,7 @@ class EightByEightPlus(EightByEight):
 
 
 class SevenSegmentPlus(SevenSegment):
-    def __init__(self, brightness=15, *args, **kwargs)
+    def __init__(self, brightness=15, *args, **kwargs):
         result = super(SevenSegmentPlus, self).__init__(*args, **kwargs)
         self.disp.setBrightness(brightness)
         return result
