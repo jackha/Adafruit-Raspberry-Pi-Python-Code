@@ -1,7 +1,6 @@
 # test rotary encoder and displays
 import socket
 import rotary_encoder
-import gpio_buttons
 import threading
 from Adafruit_LEDBackpack.Adafruit_7Segment import SevenSegment
 from Adafruit_LEDBackpack.Adafruit_8x8 import EightByEight
