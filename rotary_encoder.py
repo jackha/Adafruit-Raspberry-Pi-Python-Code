@@ -51,7 +51,7 @@ class RotaryEncoder:
         if push_pin:
             self.push_pin = push_pin
             self.gpio.pinMode(self.push_pin, self.gpio.INPUT)
-            self.gpio.pullUpDnControl(self.b_pin, self.gpio.PUD_UP)
+            self.gpio.pullUpDnControl(self.push_pin, self.gpio.PUD_UP)
 
         self.last_delta = 0
         self.r_seq = self.rotation_sequence()
