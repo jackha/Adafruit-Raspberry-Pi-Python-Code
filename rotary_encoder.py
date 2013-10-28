@@ -127,7 +127,7 @@ class RotaryEncoder:
 
     def get_button(self):
         if self.push_pin is not None:
-            return self.gpio.digitalRead(self.push_pin)
+            return self.gpio.digitalRead(self.push_pin) == wiringpi2.GPIO.HIGH
 
     class Worker(threading.Thread):
         def __init__(self, a_pin, b_pin, push_pin=None):
