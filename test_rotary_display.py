@@ -215,13 +215,13 @@ if __name__ == '__main__':
         # grid display
         if push_timer_expiration > datetime.datetime.now():
             # display smiley
-            if push1:
-                grid.grid_array(smiley)
-            if push2:
-                if push_timer_expiration - datetime.timedelta(seconds=2) > datetime.datetime.now() :
-                    grid.grid_array(janita)
-                else:
-                    grid.grid_array(janita2)
+            #if push1:
+            #    grid.grid_array(smiley)
+            #if push2:
+            if push_timer_expiration - datetime.timedelta(seconds=2) > datetime.datetime.now() :
+                grid.grid_array(janita)
+            else:
+                grid.grid_array(janita2)
         else:
             # if value < 20:
             #     grid.grid_array(smiley_neutral)
