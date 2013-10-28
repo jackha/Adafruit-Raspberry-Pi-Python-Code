@@ -161,7 +161,7 @@ if __name__ == '__main__':
         push1 = encoder1.get_button()
         push2 = encoder2.get_button()
 
-        if delta1 != 0 or delta2 != 0 or push1 is not None or push2 is not None or startup:
+        if delta1 != 0 or delta2 != 0 or push1 or push2 or startup:
             selected = (selected + delta2) % (8*8)  # make it slower
             selected_idx = selected/8
             values[selected_idx] += delta1
