@@ -114,20 +114,22 @@ class ListenThread(threading.Thread):
 if __name__ == '__main__':
     print "Starting Raspberry-Stomp..."
 
+
+    # Create a socket (SOCK_STREAM means a TCP socket)
+    # client of puredata: use 'netreceive 3000' in pd
+    print "init send socket to Pd..."
+    send_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    send_sock.connect(('localhost', 3000))
+
     print "listen to Pd..."
     # Listen to Pd
+    communication = Communication(sock=send_sock)
     server_thread = ListenThread(communication=communication)  # listen to messages from Pd
     server_thread.daemon = True
     server_thread.start()
 
-    # Create a socket (SOCK_STREAM means a TCP socket)
-    # client of puredata: use 'netreceive 3000' in pd
-    send_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    send_sock.connect(('localhost', 3000))
     print "init to Pd..."
     send_sock.sendall('init;')  # makes Pd connect back on port 3001
-
-    communication = Communication(sock=send_sock)
 
     while(True):
         # read rotary encoder
