@@ -172,7 +172,7 @@ if __name__ == '__main__':
             # elif value < 60:
             #     grid.grid_array(smiley)
             # else:
-            grid.set_values(values, selected=selected)
+            grid.set_values(values, selected=selected_idx)
 
             startup = False
         # sleep(0.001)
