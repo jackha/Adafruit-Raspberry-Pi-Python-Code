@@ -147,7 +147,7 @@ if __name__ == '__main__':
         if delta1 != 0 or delta2 != 0 or startup:
             selected += delta2 % (8*8)  # make it slower
             values[selected/8] += delta1
-            value = values[selected]
+            value = values[selected/8]
             print 'change value: selected %s value %s delta1 %d delta2 %d' % (
                 selected, value, delta1, delta2) 
             
