@@ -146,11 +146,12 @@ if __name__ == '__main__':
 
         if delta1 != 0 or delta2 != 0 or startup:
             selected = (selected + delta2) % (8*8)  # make it slower
-            print 'selected %d' % selected
-            values[selected/8] += delta1
-            value = values[selected/8]
-            print 'change value: selected %s value %s delta1 %d delta2 %d' % (
-                selected, value, delta1, delta2) 
+            selected_idx = selected/8
+            print 'selected %d' % selected_idx
+            values[selected_idx] += delta1
+            value = values[selected_idx]
+            print 'change value: selected %s(%s) value %s delta1 %d delta2 %d' % (
+                selected_idx, selected, value, delta1, delta2) 
             
             # Set 7 segment
             # Set hours
