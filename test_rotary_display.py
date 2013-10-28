@@ -110,47 +110,54 @@ class ListenThread(threading.Thread):
         server('localhost', 3001, communication=self.communication)
         print "Stopped listening to Pd."
 
-while(True):
+
+if __name__ == '__main__':
+    print "Starting Raspberry-Stomp..."
+
+    print "listen to Pd..."
+    # Listen to Pd
+    server_thread = ListenThread(communication=communication)  # listen to messages from Pd
+    server_thread.daemon = True
+    server_thread.start()
 
     # Create a socket (SOCK_STREAM means a TCP socket)
     # client of puredata: use 'netreceive 3000' in pd
     send_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     send_sock.connect(('localhost', 3000))
+    print "init to Pd..."
+    send_sock.sendall('init;')  # makes Pd connect back on port 3001
 
     communication = Communication(sock=send_sock)
 
-    # Listen to Pd
-    #server_thread = ListenThread(communication=communication)  # listen to messages from Pd
-    #server_thread.daemon = True
-    #server_thread.start()
+    while(True):
+        # read rotary encoder
+        delta = encoder_thread.get_delta()
 
-    # read rotary encoder
-    delta = encoder_thread.get_delta()
+        if delta != 0 or startup:
+            values[selected] += delta
+            value = values[selected]
+            print 'change value: %s delta %d' % (value, delta) 
+        	
+            # Set 7 segment
+            # Set hours
+            segment.writeDigit(0, int(value/1000)%10)
+            segment.writeDigit(1, int(value/100)%10) 
+            # Set minutes
+            segment.writeDigit(3, int(value / 10) % 10)   # Tens
+            segment.writeDigit(4, value % 10)        # Ones
+            # Toggle color
+            #segment.setColon(0)              # Toggle colon at 1Hz
 
-    if delta != 0 or startup:
-        values[selected] += delta
-        value = values[selected]
-        print 'change value: %s delta %d' % (value, delta) 
-    	
-        # Set 7 segment
-        # Set hours
-        segment.writeDigit(0, int(value/1000)%10)
-        segment.writeDigit(1, int(value/100)%10) 
-        # Set minutes
-        segment.writeDigit(3, int(value / 10) % 10)   # Tens
-        segment.writeDigit(4, value % 10)        # Ones
-        # Toggle color
-        #segment.setColon(0)              # Toggle colon at 1Hz
+            # send test message to Pd server
+            print "Volume to Pd..."
+            send_sock.sendall('volume %f;' % (value*0.001))
 
-        # send test message to Pd server
-        send_sock.sendall('%f;' % (value*0.001))
+            # if value < 20:
+            #     grid.grid_array(smiley_neutral)
+            # elif value < 60:
+            #     grid.grid_array(smiley)
+            # else:
+            grid.set_values(values)
 
-        # if value < 20:
-        #     grid.grid_array(smiley_neutral)
-        # elif value < 60:
-        #     grid.grid_array(smiley)
-        # else:
-        grid.set_values(values)
-
-        startup = False
-    # sleep(0.001)
+            startup = False
+        # sleep(0.001)
