@@ -24,12 +24,18 @@ ENC2_PIN_A = 0  # use wiring pin numbers here
 ENC2_PIN_B = 2
 ENC2_PIN_C = 3  # Push button
 
+EIGHT_BY_EIGHT_ADDRESS = 0x70
+EIGHT_BY_EIGHT_BRIGHTNESS = 7
+
+SEVEN_SEGMENT_ADDRESS= 0x74
+SEVEN_SEGMENT_BRIGHTNESS = 7
+
 
 class EightByEightPlus(EightByEight):
     """Better Eight By Eight by being smarter"""
-    def __init__(self, *args, **kwargs):
+    def __init__(self, brightness=15, *args, **kwargs):
         result = super(EightByEightPlus, self).__init__(*args, **kwargs)
-
+        self.disp.setBrightness(brightness)
         return result
 
     def set_values(self, values, selected=0):
@@ -59,7 +65,10 @@ class EightByEightPlus(EightByEight):
 
 
 class SevenSegmentPlus(SevenSegment):
-    pass
+    def __init__(self, brightness=15, *args, **kwargs)
+        result = super(SevenSegmentPlus, self).__init__(*args, **kwargs)
+        self.disp.setBrightness(brightness)
+        return result
 
 
 """For Janita: make smiley on display"""
@@ -109,8 +118,12 @@ class ListenThread(threading.Thread):
 if __name__ == '__main__':
     print "Starting Raspberry-Stomp..."
 
-    grid = EightByEightPlus(address=0x70)
-    segment = SevenSegmentPlus(address=0x74)
+    grid = EightByEightPlus(
+        address=EIGHT_BY_EIGHT_ADDRESS, 
+        brightness=EIGHT_BY_EIGHT_BRIGHTNESS)
+    segment = SevenSegmentPlus(
+        address=SEVEN_SEGMENT_ADDRESS, 
+        brightness=SEVEN_SEGMENT_BRIGHTNESS)
 
     values = 8*[0]
     selected = 0

@@ -11,7 +11,7 @@ from Adafruit_LEDBackpack import LEDBackpack
 # This class is meant to be used with the four-character, seven segment
 # displays available from Adafruit
 
-class SevenSegment:
+class SevenSegment(object):
   disp = None
  
   # Hexadecimal character lookup table (row 1 = 0..9, row 2 = A..F)
