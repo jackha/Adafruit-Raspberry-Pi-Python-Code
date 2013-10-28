@@ -61,15 +61,6 @@ class EightByEightPlus(EightByEight):
 class SevenSegmentPlus(SevenSegment):
     pass
 
-grid = EightByEightPlus(address=0x70)
-segment = SevenSegmentPlus(address=0x74)
-
-values = 8*[0]
-selected = 0
-
-print 'Test display and rotary encoder'
-startup = True
-
 
 """For Janita: make smiley on display"""
 smiley = [
@@ -118,6 +109,12 @@ class ListenThread(threading.Thread):
 if __name__ == '__main__':
     print "Starting Raspberry-Stomp..."
 
+    grid = EightByEightPlus(address=0x70)
+    segment = SevenSegmentPlus(address=0x74)
+
+    values = 8*[0]
+    selected = 0
+    startup = True
 
     #encoder = rotary_encoder.RotaryEncoder(A_PIN, B_PIN)
     encoder1 = rotary_encoder.RotaryEncoder.Worker(ENC1_PIN_A, ENC1_PIN_B)
@@ -152,8 +149,9 @@ if __name__ == '__main__':
 
             values[selected] += delta1
             value = values[selected]
-            print 'change value: %s delta %d' % (value, delta1) 
-        	
+            print 'change value: selected %s value %s delta1 %d delta2 %d' % (
+                selected, value, delta1, delta2) 
+            
             # Set 7 segment
             # Set hours
             segment.writeDigit(0, int(value/1000)%10)
