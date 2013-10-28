@@ -14,11 +14,15 @@ def signal_handler(signal, frame):
         sys.exit(0)
 signal.signal(signal.SIGINT, signal_handler)
 
-A_PIN = 5  # use wiring pin numbers here
-B_PIN = 4
-#encoder = rotary_encoder.RotaryEncoder(A_PIN, B_PIN)
-encoder_thread = rotary_encoder.RotaryEncoder.Worker(A_PIN, B_PIN)
-encoder_thread.start()
+
+
+ENC1_PIN_A = 5  # use wiring pin numbers here
+ENC1_PIN_B = 4
+ENC1_PIN_C = 6  # Push button
+
+ENC2_PIN_A = 0  # use wiring pin numbers here
+ENC2_PIN_B = 2
+ENC2_PIN_C = 3  # Push button
 
 
 class EightByEightPlus(EightByEight):
@@ -115,6 +119,13 @@ if __name__ == '__main__':
     print "Starting Raspberry-Stomp..."
 
 
+    #encoder = rotary_encoder.RotaryEncoder(A_PIN, B_PIN)
+    encoder1 = rotary_encoder.RotaryEncoder.Worker(ENC1_PIN_A, ENC1_PIN_B)
+    encoder1.start()
+
+    encoder2 = rotary_encoder.RotaryEncoder.Worker(ENC2_PIN_A, ENC2_PIN_B)
+    encoder2.start()
+
     # Create a socket (SOCK_STREAM means a TCP socket)
     # client of puredata: use 'netreceive 3000' in pd
     print "init send socket to Pd..."
@@ -133,12 +144,15 @@ if __name__ == '__main__':
 
     while(True):
         # read rotary encoder
-        delta = encoder_thread.get_delta()
+        delta1 = encoder1.get_delta()
+        delta2 = encoder2.get_delta()
 
-        if delta != 0 or startup:
-            values[selected] += delta
+        if delta1 != 0 or delta2 != 0 or startup:
+            selected += (delta2 / 4) % 8
+
+            values[selected] += delta1
             value = values[selected]
-            print 'change value: %s delta %d' % (value, delta) 
+            print 'change value: %s delta %d' % (value, delta1) 
         	
             # Set 7 segment
             # Set hours
@@ -159,7 +173,7 @@ if __name__ == '__main__':
             # elif value < 60:
             #     grid.grid_array(smiley)
             # else:
-            grid.set_values(values)
+            grid.set_values(values, selected=selected)
 
             startup = False
         # sleep(0.001)
