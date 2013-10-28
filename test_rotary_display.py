@@ -50,7 +50,8 @@ class EightByEightPlus(EightByEight):
             for x in range(8):
                 byte_value += lookup_add[x] * arr[y][x]
                 #grid.setPixel(x, y, arr[y][x])
-            grid.writeRowRaw(y, byte_value, update=True)
+            grid.writeRowRaw(y, byte_value, update=False)
+        grid.disp.writeDisplay()
 
 
 class SevenSegmentPlus(SevenSegment):
