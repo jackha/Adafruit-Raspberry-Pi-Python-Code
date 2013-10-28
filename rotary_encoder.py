@@ -51,7 +51,7 @@ class RotaryEncoder:
         if push_pin:
             self.push_pin = push_pin
             self.gpio.pinMode(self.push_pin, self.gpio.INPUT)
-            self.gpio.pullUpDnControl(self.push_pin, self.gpio.PUD_DOWN)
+            self.gpio.pullUpDnControl(self.push_pin, self.gpio.PUD_UP)
 
         self.last_delta = 0
         self.r_seq = self.rotation_sequence()
@@ -127,7 +127,7 @@ class RotaryEncoder:
 
     def get_button(self):
         if self.push_pin is not None:
-            return self.gpio.digitalRead(self.push_pin) == wiringpi2.GPIO.HIGH
+            return self.gpio.digitalRead(self.push_pin) == wiringpi2.GPIO.LOW
 
     class Worker(threading.Thread):
         def __init__(self, a_pin, b_pin, push_pin=None):
