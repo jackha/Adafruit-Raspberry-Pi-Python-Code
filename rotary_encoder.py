@@ -130,10 +130,10 @@ class RotaryEncoder:
             return self.gpio.digitalRead(self.push_pin)
 
     class Worker(threading.Thread):
-        def __init__(self, a_pin, b_pin):
+        def __init__(self, a_pin, b_pin, push_pin=None):
             threading.Thread.__init__(self)
             self.lock = threading.Lock()
-            self.encoder = RotaryEncoder(a_pin, b_pin)
+            self.encoder = RotaryEncoder(a_pin, b_pin, push_pin=push_pin)
             self.daemon = True
             self.delta = 0
 
