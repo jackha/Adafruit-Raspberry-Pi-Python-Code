@@ -145,7 +145,7 @@ if __name__ == '__main__':
         delta2 = encoder2.get_delta()
 
         if delta1 != 0 or delta2 != 0 or startup:
-            selected += delta2 % (8*8)  # make it slower
+            selected = (selected + delta2) % (8*8)  # make it slower
             print 'selected %d' % selected
             values[selected/8] += delta1
             value = values[selected/8]
