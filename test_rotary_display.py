@@ -7,6 +7,7 @@ from Adafruit_LEDBackpack.Adafruit_7Segment import SevenSegment
 from Adafruit_LEDBackpack.Adafruit_8x8 import EightByEight
 
 from server import server
+from time import sleep
 
 # react on ctrl-c
 import signal 
@@ -172,8 +173,9 @@ if __name__ == '__main__':
     server_thread.daemon = True
     server_thread.start()
 
-    #print "init to Pd..."
-    #send_sock.sendall('init;')  # makes Pd connect back on port 3001
+    sleep(1)
+    print "init to Pd..."
+    send_sock.sendall('init;')  # makes Pd connect back on port 3001
 
     push_timer_expiration = datetime.datetime.now()
 
