@@ -179,7 +179,7 @@ if __name__ == '__main__':
 
     push_timer_expiration = datetime.datetime.now()
 
-    initialized = False
+    #initialized = False
 
     while(True):
         # read rotary encoder
@@ -196,13 +196,13 @@ if __name__ == '__main__':
             print 'change value: selected %s(%s) value %s delta1 %d delta2 %d p1 %r p2 %r' % (
                 selected_idx, selected, value, delta1, delta2, push1, push2) 
             
-            #if push1 or push2:
-            #    push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=4)
+            if push1 or push2:
+                push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=4)
 
-            if push1 and not initialized:
-                print "init to Pd..."
-                send_sock.sendall('init;')  # makes Pd connect back on port 3001
-                initialized = True
+            #if push1 and not initialized:
+            #    print "init to Pd..."
+            #    send_sock.sendall('init;')  # makes Pd connect back on port 3001
+            #    initialized = True
 
             if push2:
                 print 'sending la la...'
