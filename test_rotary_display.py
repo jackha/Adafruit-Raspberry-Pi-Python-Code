@@ -121,7 +121,7 @@ class Communication():
 
     def set(self, message):
         print 'echo %s' % message
-        sock.sendall(message)  # echo all messages
+        #self.sock.sendall(message)  # echo all messages
 
 
 class ListenThread(threading.Thread):
