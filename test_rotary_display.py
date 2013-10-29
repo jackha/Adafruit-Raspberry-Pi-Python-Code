@@ -196,8 +196,8 @@ if __name__ == '__main__':
                 push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=4)
 
             if push2:
-                print 'sending la la la...'
-                send_sock.sendall('la la la;')
+                print 'sending la la...'
+                send_sock.sendall('la la;')
 
             # Set 7 segment
             # Set hours
