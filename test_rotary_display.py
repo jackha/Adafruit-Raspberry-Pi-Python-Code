@@ -198,6 +198,7 @@ if __name__ == '__main__':
             #    push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=4)
 
             if push1 and not initialized:
+                print "init to Pd..."
                 send_sock.sendall('init;')  # makes Pd connect back on port 3001
                 initialized = True
 
