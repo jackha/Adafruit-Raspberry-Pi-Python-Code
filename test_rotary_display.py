@@ -173,7 +173,7 @@ if __name__ == '__main__':
     server_thread.daemon = True
     server_thread.start()
 
-    sleep(1)
+    sleep(0.5)
     print "init to Pd..."
     send_sock.sendall('init;')  # makes Pd connect back on port 3001
 
