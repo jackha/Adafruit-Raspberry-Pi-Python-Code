@@ -223,9 +223,11 @@ if __name__ == '__main__':
             #send_sock.sendall('volume %f;' % (value*0.001))
 
             if selected_idx == 0:
-                send_sock.sendall('option_a %f;' % value*128/1000)
+                print "option_a  %s" % value
+                send_sock.sendall('option_a %s;' % str(value))
             if selected_idx == 1:
-                send_sock.sendall('option_b %f;' % value*128/1000)
+                print "option_b  %s" % value
+                send_sock.sendall('option_b %s;' % str(value))
 
             startup = False
 
