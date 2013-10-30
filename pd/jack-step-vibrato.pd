@@ -1,11 +1,11 @@
-#N canvas 94 257 518 602 10;
+#N canvas 510 183 518 602 10;
 #X obj 323 156 adc~;
 #X obj 323 183 +~;
 #X obj 41 320 dac~;
 #X obj 132 97 hsl 200 25 0.5 30 1 1 empty empty vibrato-speed 20 12
 0 14 -228856 -260097 -1 10600 0;
 #X obj 65 230 hsl 200 25 0 1 0 0 empty empty output-level 20 12 0 14
--228856 -260097 -1 11600 1;
+-228856 -260097 -1 9950 1;
 #X floatatom 76 267 5 0 0 0 - - -;
 #X obj 41 268 *~ 0;
 #X text 354 153 input from soundcard;
