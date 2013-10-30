@@ -3,6 +3,7 @@ import socket
 import rotary_encoder
 import threading
 import datetime
+import wiringpi2
 from Adafruit_LEDBackpack.Adafruit_7Segment import SevenSegment
 from Adafruit_LEDBackpack.Adafruit_8x8 import EightByEight
 
@@ -25,7 +26,7 @@ ENC2_PIN_A = 0  # use wiring pin numbers here
 ENC2_PIN_B = 2
 #ENC2_PIN_C = 3  # Push button
 
-PUSH_BUTTON_PINS = [6, 3, 12, 13, 14]
+PUSH_BUTTON_PINS = [6, 3, 12, 7, 14]
 
 EIGHT_BY_EIGHT_ADDRESS = 0x70
 EIGHT_BY_EIGHT_BRIGHTNESS = 0
@@ -34,7 +35,7 @@ SEVEN_SEGMENT_ADDRESS= 0x74
 SEVEN_SEGMENT_BRIGHTNESS = 0
 
 SLEEP_TIME = 0.02  # In seconds: give audio more time.
-
+SLEEP_TIME_ROTARY = 0.005
 
 class EightByEightPlus(EightByEight):
     """Better Eight By Eight by being smarter"""
@@ -142,6 +143,7 @@ class ListenThread(threading.Thread):
 
 class PushButtons(object):
     def __init__(self, button_pins, sleep_time=0.05):
+        self.gpio = wiringpi2.GPIO(wiringpi2.GPIO.WPI_MODE_PINS)
         self.button_pins = button_pins
 
         for button_pin in self.button_pins:
@@ -168,11 +170,11 @@ if __name__ == '__main__':
 
     #encoder = rotary_encoder.RotaryEncoder(A_PIN, B_PIN)
     encoder1 = rotary_encoder.RotaryEncoder.Worker(
-        ENC1_PIN_A, ENC1_PIN_B, sleep_time=SLEEP_TIME)
+        ENC1_PIN_A, ENC1_PIN_B, sleep_time=SLEEP_TIME_ROTARY)
     encoder1.start()
 
     encoder2 = rotary_encoder.RotaryEncoder.Worker(
-        ENC2_PIN_A, ENC2_PIN_B, sleep_time=SLEEP_TIME)
+        ENC2_PIN_A, ENC2_PIN_B, sleep_time=SLEEP_TIME_ROTARY)
     encoder2.start()
 
     push_buttons = PushButtons(PUSH_BUTTON_PINS)
@@ -217,14 +219,18 @@ if __name__ == '__main__':
         if push[0]:
             push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             grid.grid_array(janita)
+	    grid_needs_updating = True
 
         if push[1]:
             push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             grid.grid_array(janita2)
+	    grid_needs_updating = True
 
         if push[2] or push[3] or push[4]:
             push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             grid.grid_array(smiley)
+	    grid_needs_updating = True
+	    print push
 
 
         if delta1 != 0 or delta2 != 0 or startup:
@@ -268,7 +274,7 @@ if __name__ == '__main__':
             grid_needs_updating = True
 
         # grid display: default view
-        if datetime.datetime.now() > push_timer_expiration and grid_needs_updating or grid_needs_updating:
+        if datetime.datetime.now() > push_timer_expiration and grid_needs_updating:
             grid.set_values(values, selected=selected_idx)
             grid_needs_updating = False
             push_timer_expiration = datetime.datetime.now()
