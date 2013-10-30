@@ -17,7 +17,6 @@ def signal_handler(signal, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 
-
 ENC1_PIN_A = 5  # use wiring pin numbers here
 ENC1_PIN_B = 4
 ENC1_PIN_C = 6  # Push button
@@ -169,9 +168,9 @@ if __name__ == '__main__':
     print "listen to Pd..."
     # Listen to Pd
     communication = Communication(sock=send_sock)
-    server_thread = ListenThread(communication=communication)  # listen to messages from Pd
-    server_thread.daemon = True
-    server_thread.start()
+    #server_thread = ListenThread(communication=communication)  # listen to messages from Pd
+    #server_thread.daemon = True
+    #server_thread.start()
 
     sleep(1)
     print "init to Pd..."
