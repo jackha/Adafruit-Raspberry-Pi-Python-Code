@@ -186,7 +186,10 @@ http://www.debian-administration.org/articles/28
 Temporary hack::
 
     $ sudo ln -s ~/raspberry-stomp/jackstart.sh /etc/init.d
+    $ sudo ln -s ~/raspberry-stomp/supervisord/supervisord.sh /etc/init.d
+    $ sudo ln -s ~/raspberry-stomp/supervisord/supervisord.conf /etc/default/supervisord
     $ sudo update-rc.d jackstart.sh defaults
+    $ sudo update-rc.d supervisord.sh defaults
 
 http://stackoverflow.com/questions/13953268/daemonizing-a-python-script-in-debian
 
