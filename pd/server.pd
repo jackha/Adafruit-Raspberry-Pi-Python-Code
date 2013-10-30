@@ -1,4 +1,4 @@
-#N canvas 689 76 933 541 10;
+#N canvas 665 74 933 541 10;
 #X obj 74 105 print tcp;
 #X obj 725 363 netsend;
 #X msg 628 188 connect localhost 3001;
