@@ -42,4 +42,5 @@ cd ~pi/raspberry-stomp
 
 pd-extended -jack -nogui pd/server.pd&
 
-python rpstart.py
+# let supervisor handle this
+#/usr/bin/python rpstart.py
