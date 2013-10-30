@@ -111,6 +111,7 @@ crw-rw-rwT 1 root i2c 89, 1 Oct 27 13:08 /dev/i2c-1
 
 Now you can interact with the displays without being superuser.
 
+
 Rotary encoders
 ===============
 
@@ -138,6 +139,11 @@ cd ..
 ```
 
 
+trying this::
+
+    $ sudo apt-get install python-rpi.gpio 
+
+https://code.google.com/p/raspberry-gpio-python/wiki/Examples
 
 Audio interface
 ===============
@@ -168,6 +174,26 @@ $ speaker-test -c2 -D hw:0,0 -F S32_LE
 
 Expression pedal
 ================
+
+
+
+Finishing up the software
+=========================
+
+
+http://www.debian-administration.org/articles/28
+
+Temporary hack::
+
+    $ sudo ln -s ~/raspberry-stomp/jackstart.sh /etc/init.d
+    $ sudo update-rc.d jackstart.sh defaults
+
+http://stackoverflow.com/questions/13953268/daemonizing-a-python-script-in-debian
+
+Supervisord::
+
+https://gist.github.com/howthebodyworks/176149
+
 
 
 Background info
