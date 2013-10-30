@@ -30,8 +30,8 @@ http://learn.adafruit.com/matrix-7-segment-led-backpack-with-the-raspberry-pi/ho
 d and c are in parallel for the 2 displays.
 
 
-Setting up your raspberry pi
-----------------------------
+Setting up your software
+------------------------
 
 OS
 ==
@@ -39,6 +39,29 @@ OS
 - install raspbian wheezy on an SD card (I used 2013-09-25-wheezy-raspbian)
 
 http://www.raspberrypi.org/downloads
+
+- git clone https://github.com/jackha/raspberry-stomp
+
+- overclock /boot/config.txt
+
+http://wiki.linuxaudio.org/wiki/raspberrypi
+
+arm_freq=800
+gpu_mem=16
+
+
+JACK
+====
+
+Add audio repository::
+
+wget -O - http://rpi.autostatic.com/autostatic.gpg.key| sudo apt-key add -
+sudo wget -O /etc/apt/sources.list.d/autostatic-audio-raspbian.list http://rpi.autostatic.com/autostatic-audio-raspbian.list
+sudo apt-get update
+
+Install JACK (there is also a JACK2, for us it's no difference)
+
+   $ sudo apt-get --no-install-recommends install jackd1
 
 
 Displays

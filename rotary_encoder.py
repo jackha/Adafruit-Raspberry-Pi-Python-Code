@@ -142,7 +142,7 @@ class RotaryEncoder:
                 delta = self.encoder.get_delta()
                 with self.lock:
                     self.delta += delta
-                time.sleep(0.001)
+                time.sleep(0.01)
 
         def get_delta(self):
             # revisit - should use locking

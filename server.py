@@ -1,4 +1,5 @@
 import socket
+from time import sleep
 
 BUFFER_SIZE = 100  # Normally 1024, but we want fast response
 
@@ -18,6 +19,7 @@ def server(host, port, communication=None):
         except AttributeError:
             print "communcation object has no attribute 'set'"
             pass
+        sleep(0.01)
 
     conn.close()
 
