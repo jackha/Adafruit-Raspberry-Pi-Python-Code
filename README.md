@@ -47,6 +47,8 @@ http://www.raspberrypi.org/downloads
 http://wiki.linuxaudio.org/wiki/raspberrypi
 
 arm_freq=800
+core_freq=350
+sdram_freq=500
 gpu_mem=16
 
 
