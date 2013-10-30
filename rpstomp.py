@@ -226,7 +226,7 @@ if __name__ == '__main__':
             #print "Volume to Pd..."
             #send_sock.sendall('volume %f;' % (value*0.001))
 
-            print "Option %d %s: %s" % (selected_idx, option_name[selected_idx], str(value))
+            print "Option %d %s: %s" % (selected_idx, option_names[selected_idx], str(value))
             send_sock.sendall('%s %d;' % (option_names[selected_idx], values[selected_idx]))
 
             startup = False
