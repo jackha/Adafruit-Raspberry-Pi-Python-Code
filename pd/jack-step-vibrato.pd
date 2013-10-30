@@ -1,4 +1,4 @@
-#N canvas 510 183 518 602 10;
+#N canvas 302 177 518 602 10;
 #X obj 323 156 adc~;
 #X obj 323 183 +~;
 #X obj 41 320 dac~;
@@ -81,7 +81,6 @@ lower tone is negative so the sound is played backwards.;
 #X obj 417 262 loadbang;
 #X obj 415 298 delay 100;
 #X connect 0 0 1 0;
-#X connect 0 1 1 1;
 #X connect 1 0 8 0;
 #X connect 3 0 11 0;
 #X connect 3 0 19 0;
