@@ -180,6 +180,9 @@ if __name__ == '__main__':
 
     push_timer_expiration = datetime.datetime.now()
 
+    # Option names in Pd.
+    option_names = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+
     #initialized = False
 
     while(True):
@@ -223,12 +226,8 @@ if __name__ == '__main__':
             #print "Volume to Pd..."
             #send_sock.sendall('volume %f;' % (value*0.001))
 
-            if selected_idx == 0:
-                print "option_a  %s" % value
-                send_sock.sendall('option_a %s;' % str(value))
-            if selected_idx == 1:
-                print "option_b  %s" % value
-                send_sock.sendall('option_b %s;' % str(value))
+            print "Option %d %s: %s" % (selected_idx, option_name[selected_idx], str(value)
+            send_sock.sendall('%s %s;' % (option_name[selected_idx], str(value))
 
             startup = False
 
