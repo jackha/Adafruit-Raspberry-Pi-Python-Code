@@ -1,1 +1,1 @@
-pd-extended -jack -nogui pd/server.pd
+pd-extended -jack -nogui pd/server.pd&
