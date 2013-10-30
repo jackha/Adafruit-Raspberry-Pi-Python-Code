@@ -37,3 +37,9 @@ echo -n performance | sudo tee /sys/devices/system/cpu/cpu0/cpufreq/scaling_gove
 
 ## And finally start JACK
 jackd -P70 -p8 -t2000 -d alsa -dhw:0,0 -p 128 -n 3 -r 44100 -s &
+
+cd ~pi/raspberry-stomp
+
+pd-extended -jack -nogui pd/server.pd&
+
+python rpstart.py
