@@ -130,19 +130,20 @@ class RotaryEncoder:
             return self.gpio.digitalRead(self.push_pin) == wiringpi2.GPIO.LOW
 
     class Worker(threading.Thread):
-        def __init__(self, a_pin, b_pin, push_pin=None):
+        def __init__(self, a_pin, b_pin, push_pin=None, sleep_time=0.05):
             threading.Thread.__init__(self)
             self.lock = threading.Lock()
             self.encoder = RotaryEncoder(a_pin, b_pin, push_pin=push_pin)
             self.daemon = True
             self.delta = 0
+            self.sleep_time = sleep_time
 
         def run(self):
             while True:
                 delta = self.encoder.get_delta()
                 with self.lock:
                     self.delta += delta
-                time.sleep(0.01)
+                time.sleep(self.sleep_time)
 
         def get_delta(self):
             # revisit - should use locking

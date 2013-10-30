@@ -31,6 +31,8 @@ EIGHT_BY_EIGHT_BRIGHTNESS = 0
 SEVEN_SEGMENT_ADDRESS= 0x74
 SEVEN_SEGMENT_BRIGHTNESS = 0
 
+SLEEP_TIME = 0.02  # In seconds: give audio more time.
+
 
 class EightByEightPlus(EightByEight):
     """Better Eight By Eight by being smarter"""
@@ -152,11 +154,11 @@ if __name__ == '__main__':
 
     #encoder = rotary_encoder.RotaryEncoder(A_PIN, B_PIN)
     encoder1 = rotary_encoder.RotaryEncoder.Worker(
-        ENC1_PIN_A, ENC1_PIN_B, push_pin=ENC1_PIN_C)
+        ENC1_PIN_A, ENC1_PIN_B, push_pin=ENC1_PIN_C, sleep_time=SLEEP_TIME)
     encoder1.start()
 
     encoder2 = rotary_encoder.RotaryEncoder.Worker(
-        ENC2_PIN_A, ENC2_PIN_B, push_pin=ENC2_PIN_C)
+        ENC2_PIN_A, ENC2_PIN_B, push_pin=ENC2_PIN_C, sleep_time=SLEEP_TIME)
     encoder2.start()
 
     # Create a socket (SOCK_STREAM means a TCP socket)
@@ -248,4 +250,4 @@ if __name__ == '__main__':
             # else:
             grid.set_values(values, selected=selected_idx)
 
-        # sleep(0.001)
+        sleep(SLEEP_TIME)
