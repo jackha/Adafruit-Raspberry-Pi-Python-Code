@@ -219,9 +219,13 @@ if __name__ == '__main__':
             #segment.setColon(0)              # Toggle colon at 1Hz
 
             # send test message to Pd server
-            print "Volume to Pd..."
-            send_sock.sendall('volume %f;' % (value*0.001))
+            #print "Volume to Pd..."
+            #send_sock.sendall('volume %f;' % (value*0.001))
 
+            if selected_idx == 0:
+                send_sock.sendall('option_a %f;' % value*128/1000)
+            if selected_idx == 1:
+                send_sock.sendall('option_b %f;' % value*128/1000)
 
             startup = False
 
