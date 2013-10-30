@@ -36,4 +36,4 @@ killall dbus-launch
 echo -n performance | sudo tee /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 
 ## And finally start JACK
-jackd -P70 -p16 -t2000 -d alsa -dhw:UA25 -p 128 -n 3 -r 44100 -s &
+jackd -P70 -p16 -t2000 -d alsa -dhw:0,0 -p 128 -n 3 -r 44100 -s &
