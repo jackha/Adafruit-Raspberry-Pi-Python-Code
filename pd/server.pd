@@ -1,4 +1,4 @@
-#N canvas 665 74 933 541 10;
+#N canvas 168 184 933 541 10;
 #X obj 74 105 print tcp;
 #X obj 725 363 netsend;
 #X msg 628 188 connect localhost 3001;
@@ -20,6 +20,30 @@
 #X obj 284 384 *~ 1;
 #X obj 169 80 route init volume a b c d e f g h;
 #X obj 217 354 step-vibrato~;
+#N canvas 724 73 917 633 spectral~ 1;
+#X obj 124 92 Guitar_specdelay~;
+#X obj 124 479 *~ 10;
+#X obj 124 533 outlet~;
+#X obj 124 42 inlet~;
+#X obj 196 23 inlet;
+#X obj 257 22 inlet;
+#X obj 314 23 inlet;
+#X obj 363 24 inlet;
+#X obj 407 24 inlet;
+#X obj 448 24 inlet;
+#X obj 497 24 inlet;
+#X obj 547 29 inlet;
+#X obj 732 55 loadbang;
+#X msg 732 91 \; del-sin 1 \; fb-sin 1 \; gain-flat 1 \; lp-freq 220
+\; slope -0.04 \; crossfade 0.5 \;;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 3 0 0 0;
+#X connect 12 0 13 0;
+#X restore 423 348 pd spectral~;
+#N canvas 852 126 450 300 step-vibrato~ 0;
+#X restore 423 397 pd step-vibrato~;
+#X obj 430 296 specdelay~;
 #X connect 1 0 11 0;
 #X connect 2 0 1 0;
 #X connect 3 0 1 0;
