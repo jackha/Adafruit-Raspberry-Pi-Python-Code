@@ -334,7 +334,7 @@ if __name__ == '__main__':
     option_names = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 
     #initialized = False
-    grid_needs_updating = False
+    disp_needs_updating = True
     push = {}
     pushed_in = {}  # You want to trigger a push only once.
 
@@ -359,16 +359,16 @@ if __name__ == '__main__':
             print "TODO: Do something with %r" % comm_msg
 
         if push[0]:
-            push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
+            disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             grid.grid_array(janita)
             send_sock.sendall('b_a bla;')
-            grid_needs_updating = True
+            disp_needs_updating = True
 
         if push[1]:
-            push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
+            disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             grid.grid_array(janita2)
             send_sock.sendall('b_b bla;')
-            grid_needs_updating = True
+            disp_needs_updating = True
 
         if push[2] and not pushed_in[2]:
             send_sock.close()
@@ -383,9 +383,9 @@ if __name__ == '__main__':
             #send_sock.sendall('b_e bla;')
 
         if push[2] or push[3] or push[4]:
-            push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
+            disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             grid.grid_array(smiley)
-            grid_needs_updating = True
+            disp_needs_updating = True
             print push
 
         for i in range(len(PUSH_BUTTON_PINS)):
@@ -419,14 +419,14 @@ if __name__ == '__main__':
 
             startup = False
 
-            push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
-            grid_needs_updating = True
+            disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
+            disp_needs_updating = True
 
         # grid display: default view
-        if datetime.datetime.now() > push_timer_expiration and grid_needs_updating:
+        if datetime.datetime.now() > disp_timer_expiration and disp_needs_updating:
             segment.write(effects.display_name)
             grid.set_values(values, selected=selected_idx)
-            grid_needs_updating = False
+            disp_needs_updating = False
             push_timer_expiration = datetime.datetime.now()
 
         sleep(SLEEP_TIME)
