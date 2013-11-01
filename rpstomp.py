@@ -219,21 +219,29 @@ if __name__ == '__main__':
         if push[0]:
             push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             grid.grid_array(janita)
+            send_sock.sendall('b_a bla;')
         grid_needs_updating = True
 
         if push[1]:
             push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             grid.grid_array(janita2)
+            send_sock.sendall('b_b bla;')
         grid_needs_updating = True
+
+        if push[2]:
+            send_sock.sendall('b_c bla;')
+
+        if push[3]:
+            send_sock.sendall('b_c bla;')
+
+        if push[4]:
+            send_sock.sendall('b_c bla;')
 
         if push[2] or push[3] or push[4]:
             push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             grid.grid_array(smiley)
-        grid_needs_updating = True
-        print push
-
-        if push[2]:
-            send_sock.sendall('test algorithm;')
+            grid_needs_updating = True
+            print push
             
         if delta1 != 0 or delta2 != 0 or startup:
             selected = (selected + delta2) % (8*8)  # make it slower
