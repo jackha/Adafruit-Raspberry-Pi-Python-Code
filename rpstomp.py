@@ -165,7 +165,7 @@ class Pd(threading.Thread):
         print self.p
 
     def stop(self):
-        print 'stopping Pd...'
+        print 'stopping Pd %r...' % self.p.pid
         #self.p.terminate()
         os.killpg(self.p.pid, signal.SIGTERM)
 
