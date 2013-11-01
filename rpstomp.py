@@ -159,7 +159,7 @@ class Pd(threading.Thread):
     """ # a thread class that we're gonna use for calling the server.pd patch"""
     def run(self):
         print 'running Pd...'
-        self.p = Popen("pd-extended -jack -nogui pd/server.pd")
+        self.p = Popen("pd-extended -jack -nogui pd/server.pd", shell=True)
         print self.p
 
     def stop(self):
