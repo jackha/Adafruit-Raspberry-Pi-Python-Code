@@ -66,9 +66,7 @@ class Effects(object):
     def up(self):
         self.loader_socket.sendall('unload %s;' % self.patch_name)
         self.current_effect = (self.current_effect + 1) % len(AVAILABLE_EFFECTS)
-        sleep(1)
         self.loader_socket.sendall('load %s;' % self.patch_name)
-        sleep(1)
 
     def down(self):
         self.loader_socket.sendall('unload %s;' % self.patch_name)
@@ -266,12 +264,12 @@ if __name__ == '__main__':
     sleep(2)
     send_sock = init_pd_socket()
 
-    print "listen to Pd..."
-    # Listen to Pd
-    communication = Communication()
-    server_thread = ListenThread(communication=communication)  # listen to messages from Pd
-    server_thread.daemon = True
-    server_thread.start()
+    # print "listen to Pd..."
+    # # Listen to Pd
+    # communication = Communication()
+    # server_thread = ListenThread(communication=communication)  # listen to messages from Pd
+    # server_thread.daemon = True
+    # server_thread.start()
 
 
     #sleep(1)
@@ -300,7 +298,7 @@ if __name__ == '__main__':
             #if push[i]:
             #    some_push = True
 
-        comm_changes, comm_msg = communication.get()
+        #comm_changes, comm_msg = communication.get()
 
         if comm_changes:
             print "TODO: Do something with %r" % comm_msg
