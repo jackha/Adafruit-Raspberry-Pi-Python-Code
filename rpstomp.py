@@ -407,13 +407,13 @@ if __name__ == '__main__':
             #segment.setColon(0)              # Toggle colon at 1Hz
 
             grid.set_values(values, selected=selected_idx)
+
+            send_sock.sendall('%s %d;' % (option_names[selected_idx], values[selected_idx]))
             
             disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             disp_needs_updating = True
 
         if startup:
-            print "Option %d %s: %s" % (selected_idx, option_names[selected_idx], str(value))
-            send_sock.sendall('%s %d;' % (option_names[selected_idx], values[selected_idx]))
             startup = False
 
         # grid display: default view
