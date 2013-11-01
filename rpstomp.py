@@ -233,7 +233,7 @@ if __name__ == '__main__':
 	    print push
 
 	    if push[2]:
-            send_sock.sendall('test algorithm;');
+            send_sock.sendall('test algorithm;')
             # testing shutdown
             #import os
             #os.system("shutdown now -h -k")
