@@ -40,6 +40,13 @@ SEVEN_SEGMENT_BRIGHTNESS = 0
 SLEEP_TIME = 0.02  # In seconds: give audio more time.
 SLEEP_TIME_ROTARY = 0.005
 
+# These should be files in pd directory (without .pd extension). Keys are displayed names
+# The effects must all have 2 audio inlets and 8 normal inlets, 2 audio outlets and 1 normal outlet
+AVAILABLE_EFFECTS = {
+    'dly': 'specdelay~',
+    'vibr': 'step-vibrato~',
+}
+
 class EightByEightPlus(EightByEight):
     """Better Eight By Eight by being smarter"""
     def __init__(self, brightness=15, *args, **kwargs):
@@ -167,16 +174,17 @@ class PushButtons(object):
         return self.gpio.digitalRead(self.button_pins[index]) == wiringpi2.GPIO.LOW
 
 
-class Pd():
-    """ # a thread class that we're gonna use for calling the server.pd patch"""
+class Pd(object):
+    """ Start a given patch.
+    """
     def __init__(self):
         self.status = 'stopped'
 
-    def start(self):
+    def start(self, patch='server'):
         if self.status != 'stopped':
             return
         print 'running Pd...'
-        self.pd_proc = Popen("pd-extended -jack -nogui pd/server.pd", 
+        self.pd_proc = Popen("pd-extended -jack -nogui pd/%s.pd" % patch, 
             shell=True, preexec_fn=os.setsid)
         #print self.pd_proc
         self.status = 'started'
@@ -190,6 +198,28 @@ class Pd():
         os.killpg(self.pd_proc.pid, signal.SIGTERM)
 
 
+def generate_patch(file_display_name, name, overwrite=False):
+    """Generate a patch for effects, given a template patch (server.pd)"""
+    template_filename = 'pd/server.pd'
+    target_filename = 'pd/server-%s.pd' % file_display_name
+
+    if not overwrite and os.path.exists(target_filename):
+        print 'skipped %s' % file_display_name
+        return
+
+    with open(template_filename, 'r') as f:
+        lines = f.readlines():
+        
+    with open(target_filename, 'w') as f:
+        for line in lines:
+            # dirty
+            if 'step-vibrato~' in line:
+                new_line = line.replace('step-vibrato~', name)
+                f.write(new_line + '\n')
+            else:
+                f.write(line + '\n')
+
+
 def init_pd_socket():
     # Create a socket (SOCK_STREAM means a TCP socket)
     # client of puredata: use 'netreceive 3000' in pd
@@ -201,6 +231,10 @@ def init_pd_socket():
 
 if __name__ == '__main__':
     print "Raspberry-Stomp"
+
+    print "Preparing patches..."
+    for k, v in AVAILABLE_EFFECTS.items():
+        generate_patch(k, v)
 
     print "Starting Pd-extended..."
     pd = Pd()
@@ -293,6 +327,7 @@ if __name__ == '__main__':
             #send_sock.sendall('b_d bla;')
             pd.start()
             sleep(5)
+            startup = True
             send_sock = init_pd_socket()  
             #send_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             #send_sock.connect(('localhost', 3000))
