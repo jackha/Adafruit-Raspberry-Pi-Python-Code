@@ -332,7 +332,7 @@ if __name__ == '__main__':
             send_sock.sendall('b_b bla;')
             grid_needs_updating = True
 
-        if push[2]:
+        if push[2] and not pushed_in[2]:
             send_sock.close()
             sleep(1)
             effects.up()
