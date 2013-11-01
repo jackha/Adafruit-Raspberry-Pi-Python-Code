@@ -1,0 +1,136 @@
+#N canvas 602 31 994 858 10;
+#X obj 74 105 print tcp;
+#X obj 725 363 netsend;
+#X msg 628 188 connect localhost 3001;
+#X msg 781 186 disconnect;
+#X obj 144 47 netreceive 3000;
+#X obj 800 106 dsp;
+#X obj 800 80 1;
+#X obj 800 27 loadbang;
+#X obj 800 54 delay 100;
+#X obj 685 160 t b b;
+#X obj 725 409 print sent;
+#X msg 137 259 volume \$1;
+#X obj 124 299 print;
+#X msg 54 259 init;
+#X obj 56 300 print;
+#X obj 398 97 print unknown;
+#X obj 169 80 route init volume a b c d e f g h;
+#X obj 284 288 dac~;
+#X obj 227 214 adc~;
+#X msg 469 411 vis 1 \, editmode 1;
+#X obj 298 639 s pd-algorithm;
+#X msg 296 603 editmode 0 \, vis 0;
+#N canvas 73 29 1020 217 algorithm 1;
+#X obj 0 0 inlet~;
+#X obj 50 0 inlet~;
+#X obj 100 0 inlet;
+#X obj 200 0 inlet;
+#X obj 300 0 inlet;
+#X obj 400 0 inlet;
+#X obj 500 0 inlet;
+#X obj 600 0 inlet;
+#X obj 700 0 inlet;
+#X obj 800 0 inlet;
+#X obj 0 60 outlet~;
+#X obj 50 60 outlet~;
+#X obj 0 30 specdelay~;
+#X connect 0 0 10 0;
+#X connect 0 0 10 0;
+#X connect 0 0 10 0;
+#X connect 0 0 10 0;
+#X connect 0 0 10 0;
+#X connect 0 0 10 0;
+#X connect 0 0 10 0;
+#X connect 0 0 10 0;
+#X connect 0 0 10 0;
+#X connect 0 0 10 0;
+#X connect 0 0 12 0;
+#X connect 1 0 11 0;
+#X connect 1 0 11 0;
+#X connect 1 0 11 0;
+#X connect 1 0 11 0;
+#X connect 1 0 11 0;
+#X connect 1 0 11 0;
+#X connect 1 0 11 0;
+#X connect 1 0 11 0;
+#X connect 1 0 11 0;
+#X connect 1 0 11 0;
+#X connect 1 0 12 1;
+#X connect 2 0 12 2;
+#X connect 3 0 12 3;
+#X connect 4 0 12 4;
+#X connect 5 0 12 5;
+#X connect 6 0 12 6;
+#X connect 7 0 12 7;
+#X connect 8 0 12 8;
+#X connect 9 0 12 9;
+#X connect 12 0 10 0;
+#X connect 12 1 11 0;
+#X restore 263 250 pd algorithm;
+#X obj 386 349 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 431 548 symbol specdelay~;
+#X msg 449 518 mouse 0 30 0 0 0 \, cut \, mouseup 0 30 0;
+#X msg 431 579 \; pd-algorithm obj 0 30 \$1 \;;
+#X msg 775 618 \; pd-algorithm clear \; pd-algorithm obj 0 0 inlet~
+\; pd-algorithm obj 50 0 inlet~ \; pd-algorithm obj 100 0 inlet \;
+pd-algorithm obj 200 0 inlet \; pd-algorithm obj 300 0 inlet \; pd-algorithm
+obj 400 0 inlet \; pd-algorithm obj 500 0 inlet \; pd-algorithm obj
+600 0 inlet \; pd-algorithm obj 700 0 inlet \; pd-algorithm obj 800
+0 inlet \; pd-algorithm obj 0 60 outlet~ \; pd-algorithm obj 50 60
+outlet~ \;;
+#X msg 416 627 \; pd-algorithm connect 0 0 12 0 \; pd-algorithm connect
+1 0 12 1 \; pd-algorithm connect 2 0 12 2 \; pd-algorithm connect 3
+0 12 3 \; pd-algorithm connect 4 0 12 4 \; pd-algorithm connect 5 0
+12 5 \; pd-algorithm connect 6 0 12 6 \; pd-algorithm connect 7 0 12
+7 \; pd-algorithm connect 8 0 12 8 \; pd-algorithm connect 9 0 12 9
+\; pd-algorithm connect 12 0 10 0 \; pd-algorithm connect 12 1 11 0
+\;;
+#X msg 33 467 bla;
+#X msg 91 469 blabla;
+#X obj 55 576 print;
+#X msg 49 525 symbol \$1;
+#X obj 393 380 t b b b b b b;
+#X connect 1 0 10 0;
+#X connect 2 0 1 0;
+#X connect 3 0 1 0;
+#X connect 4 0 0 0;
+#X connect 4 0 16 0;
+#X connect 6 0 5 0;
+#X connect 7 0 8 0;
+#X connect 8 0 6 0;
+#X connect 9 0 2 0;
+#X connect 9 1 3 0;
+#X connect 11 0 12 0;
+#X connect 13 0 14 0;
+#X connect 16 0 9 0;
+#X connect 16 0 13 0;
+#X connect 16 1 11 0;
+#X connect 16 2 22 2;
+#X connect 16 3 22 3;
+#X connect 16 4 22 4;
+#X connect 16 5 22 5;
+#X connect 16 6 22 6;
+#X connect 16 7 22 7;
+#X connect 16 8 22 8;
+#X connect 16 9 22 9;
+#X connect 16 10 15 0;
+#X connect 16 10 23 0;
+#X connect 18 0 22 0;
+#X connect 18 1 22 1;
+#X connect 19 0 20 0;
+#X connect 21 0 20 0;
+#X connect 22 0 17 0;
+#X connect 22 1 17 1;
+#X connect 23 0 33 0;
+#X connect 24 0 26 0;
+#X connect 25 0 20 0;
+#X connect 29 0 32 0;
+#X connect 30 0 32 0;
+#X connect 32 0 31 0;
+#X connect 33 0 21 0;
+#X connect 33 1 28 0;
+#X connect 33 2 24 0;
+#X connect 33 3 25 0;
+#X connect 33 5 19 0;

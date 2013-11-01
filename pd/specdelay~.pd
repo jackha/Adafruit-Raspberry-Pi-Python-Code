@@ -3,17 +3,19 @@
 #X obj 134 489 *~ 10;
 #X obj 134 543 outlet~;
 #X obj 134 52 inlet~;
-#X obj 206 33 inlet;
-#X obj 267 32 inlet;
-#X obj 324 33 inlet;
-#X obj 373 34 inlet;
-#X obj 417 34 inlet;
-#X obj 458 34 inlet;
-#X obj 507 34 inlet;
-#X obj 557 39 inlet;
+#X obj 227 50 inlet;
+#X obj 288 49 inlet;
+#X obj 345 50 inlet;
+#X obj 394 51 inlet;
+#X obj 438 51 inlet;
+#X obj 479 51 inlet;
+#X obj 528 51 inlet;
+#X obj 578 56 inlet;
 #X obj 742 65 loadbang;
 #X msg 742 101 \; del-sin 1 \; fb-sin 1 \; gain-flat 1 \; lp-freq 220
 \; slope -0.04 \; crossfade 0.5 \;;
+#X obj 183 54 inlet~;
+#X obj 202 543 outlet~;
 #X connect 0 0 1 0;
 #X connect 1 0 2 0;
 #X connect 3 0 0 0;
