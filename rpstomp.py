@@ -297,6 +297,7 @@ if __name__ == '__main__':
     #initialized = False
     grid_needs_updating = False
     push = {}
+    pushed_in = {}  # You want to trigger a push only once.
 
     running = True
 
@@ -322,26 +323,21 @@ if __name__ == '__main__':
             push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             grid.grid_array(janita)
             send_sock.sendall('b_a bla;')
-        grid_needs_updating = True
+            grid_needs_updating = True
 
         if push[1]:
             push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             grid.grid_array(janita2)
             send_sock.sendall('b_b bla;')
-        grid_needs_updating = True
+            grid_needs_updating = True
 
         if push[2]:
+            send_sock.close()
             effects.up()
-            #startup = True
+            send_sock = init_pd_socket()
+            pushed_in[2] = True
 
-        if push[3]:
-            effects.load()
-        
         if push[4]:
-            effects.unload()
-
-
-        if push[0]:
             running = False;
             #send_sock.sendall('b_e bla;')
 
@@ -350,7 +346,11 @@ if __name__ == '__main__':
             grid.grid_array(smiley)
             grid_needs_updating = True
             print push
-            
+
+        for i in range(len(PUSH_BUTTON_PINS)):
+            if not push[i]:
+                pushed_in[i] = False
+
         if delta1 != 0 or delta2 != 0 or startup:
             selected = (selected + delta2) % (8*8)  # make it slower
             selected_idx = selected/8
