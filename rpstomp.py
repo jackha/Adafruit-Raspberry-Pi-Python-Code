@@ -64,9 +64,9 @@ class Effects(object):
         return AVAILABLE_EFFECTS[self.current_effect]['display_name']
 
     def up(self):
-        self.loader_socket.sendall('unload %s;' % self.patch_name)
+        #self.loader_socket.sendall('unload %s;' % self.patch_name)
         self.current_effect = (self.current_effect + 1) % len(AVAILABLE_EFFECTS)
-        self.loader_socket.sendall('load %s;' % self.patch_name)
+        #self.loader_socket.sendall('load %s;' % self.patch_name)
 
     def down(self):
         self.loader_socket.sendall('unload %s;' % self.patch_name)
@@ -246,13 +246,13 @@ if __name__ == '__main__':
     startup = True
 
     #encoder = rotary_encoder.RotaryEncoder(A_PIN, B_PIN)
-    #encoder1 = rotary_encoder.RotaryEncoder.Worker(
-    #    ENC1_PIN_A, ENC1_PIN_B, sleep_time=SLEEP_TIME_ROTARY)
-    #encoder1.start()
+    encoder1 = rotary_encoder.RotaryEncoder.Worker(
+       ENC1_PIN_A, ENC1_PIN_B, sleep_time=SLEEP_TIME_ROTARY)
+    encoder1.start()
 
-    #encoder2 = rotary_encoder.RotaryEncoder.Worker(
-    #    ENC2_PIN_A, ENC2_PIN_B, sleep_time=SLEEP_TIME_ROTARY)
-    #encoder2.start()
+    encoder2 = rotary_encoder.RotaryEncoder.Worker(
+       ENC2_PIN_A, ENC2_PIN_B, sleep_time=SLEEP_TIME_ROTARY)
+    encoder2.start()
 
     push_buttons = PushButtons(PUSH_BUTTON_PINS)
 
@@ -289,10 +289,10 @@ if __name__ == '__main__':
 
     while(running):
         # read rotary encoder
-        delta1 = 0
-        delta2 = 0
-        #delta1 = encoder1.get_delta()
-        #delta2 = encoder2.get_delta()
+        # delta1 = 0
+        # delta2 = 0
+        delta1 = encoder1.get_delta()
+        delta2 = encoder2.get_delta()
 
         #some_push = False
         for i in range(len(PUSH_BUTTON_PINS)):
@@ -320,10 +320,17 @@ if __name__ == '__main__':
         if push[2]:
             effects.up()
             startup = True
-            
+
+        if push[3]:
+            effects.loader_socket.sendall('load %s;' % self.patch_name)
+        
         if push[4]:
+            effects.loader_socket.sendall('unload %s;' % self.patch_name)
+
+
+        if push[0]:
             running = False;
-            send_sock.sendall('b_e bla;')
+            #send_sock.sendall('b_e bla;')
 
         if push[2] or push[3] or push[4]:
             push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
