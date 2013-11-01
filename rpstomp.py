@@ -52,7 +52,7 @@ class Effects(object):
     def __init__(self, loader_socket):
         self.current_effect = 0  # by index of AVAILABLE_EFFECTS
         self.loader_socket = loader_socket
-        self.loader_socket.sendall('load %s;' % self.patch_name)
+        #self.load()
 
     @property
     def patch_name(self):
@@ -69,10 +69,15 @@ class Effects(object):
         #self.loader_socket.sendall('load %s;' % self.patch_name)
 
     def down(self):
-        self.loader_socket.sendall('unload %s;' % self.patch_name)
+        #self.unload()
         self.current_effect = (self.current_effect + 1) % len(AVAILABLE_EFFECTS)
+        #self.loader_socket.sendall('load %s;' % self.patch_name)
+
+    def load(self):
         self.loader_socket.sendall('load %s;' % self.patch_name)
 
+    def unload(self):
+        self.loader_socket.sendall('unload %s;' % self.patch_name)
 
 
 class EightByEightPlus(EightByEight):
@@ -322,10 +327,10 @@ if __name__ == '__main__':
             startup = True
 
         if push[3]:
-            effects.loader_socket.sendall('load %s;' % effects.patch_name)
+            effects.load()
         
         if push[4]:
-            effects.loader_socket.sendall('unload %s;' % effects.patch_name)
+            effects.unload()
 
 
         if push[0]:
