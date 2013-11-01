@@ -328,13 +328,12 @@ if __name__ == '__main__':
     #print "init to Pd..."
     #send_sock.sendall('init;')  # makes Pd connect back on port 3001
 
-    push_timer_expiration = datetime.datetime.now()
-
     # Option names in Pd.
     option_names = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 
     #initialized = False
     disp_needs_updating = True
+    disp_timer_expiration = datetime.datetime.now()
     push = {}
     pushed_in = {}  # You want to trigger a push only once.
 
