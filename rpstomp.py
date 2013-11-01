@@ -100,10 +100,10 @@ class Effects(object):
     def switch(self):
         print "Stopping Pd..."
         pd.stop()
-        sleep(2)
+
         print "Starting Pd..."
         pd.start(self._patch_filename)
-        sleep(5)
+
 
 
 class EightByEightPlus(EightByEight):
@@ -246,6 +246,7 @@ class Pd(object):
         self.pd_proc = Popen("pd-extended -jack -nogui %s" % filename, 
             shell=True, preexec_fn=os.setsid)
         #print self.pd_proc
+        sleep(5)
         self.status = 'started'
 
     def stop(self):
@@ -255,6 +256,7 @@ class Pd(object):
         print 'stopping Pd %r...' % self.pd_proc.pid
         #self.p.terminate()
         os.killpg(self.pd_proc.pid, signal.SIGTERM)
+        sleep(2)
 
 
 
