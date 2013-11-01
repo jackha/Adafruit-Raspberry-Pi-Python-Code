@@ -226,8 +226,8 @@ def init_pd_socket():
 if __name__ == '__main__':
     print "Raspberry-Stomp"
 
-    pd = Pd()
-    sleep(2)  # TODO: improve
+    #pd = Pd()
+    #sleep(2)  # TODO: improve
     #print "Starting Pd-extended..."
     #pd = Pd()
     #pd.start();
@@ -366,4 +366,4 @@ if __name__ == '__main__':
         sleep(SLEEP_TIME)
 
     send_sock.sendall('volume 0;')
-    pd.stop()
+    #pd.stop()
