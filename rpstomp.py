@@ -52,6 +52,7 @@ class Effects(object):
     def __init__(self, loader_socket):
         self.current_effect = 0  # by index of AVAILABLE_EFFECTS
         self.loader_socket = loader_socket
+        self.loaded = False
         #self.load()
 
     @property
@@ -74,9 +75,15 @@ class Effects(object):
         #self.loader_socket.sendall('load %s;' % self.patch_name)
 
     def load(self):
+        if self.loaded:
+            return
+        self.loaded = True
         self.loader_socket.sendall('load %s;' % self.patch_name)
 
     def unload(self):
+        if not self.loaded:
+            return
+        self.loaded = False
         self.loader_socket.sendall('unload %s;' % self.patch_name)
 
 
