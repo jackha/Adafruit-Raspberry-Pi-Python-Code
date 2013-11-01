@@ -273,8 +273,8 @@ if __name__ == '__main__':
     loader_socket.connect(('localhost', 5000))
     effects = Effects(loader_socket)
 
-    sleep(2)
-    send_sock = init_pd_socket()
+    #sleep(2)
+    #send_sock = init_pd_socket()
 
     # print "listen to Pd..."
     # # Listen to Pd
