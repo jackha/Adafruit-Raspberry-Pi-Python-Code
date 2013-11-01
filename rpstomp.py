@@ -157,19 +157,14 @@ class PushButtons(object):
 
 class Pd(threading.Thread):
     """ # a thread class that we're gonna use for calling the server.pd patch"""
-    def __init__(self):
-        super(Pd, self).__init__()
-        self._stop = threading.Event()
+    def run(self):
+        print 'running Pd...'
+        self.p = Popen("pd-extended -jack -nogui pd/server.pd")
+        print self.p
 
     def stop(self):
-        self._stop.set()
-
-    def stopped(self):
-        return self._stop.isSet()
-
-    def run(self):
-        self.p = Popen("pd-extended -jack -nogui pd/server.pd", shell=True)
-        print self.p
+        print 'stopping Pd...'
+        self.p.kill()
 
 
 if __name__ == '__main__':
