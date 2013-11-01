@@ -56,7 +56,7 @@ class Effects(object):
         self.current_effect = 0  # by index of AVAILABLE_EFFECTS
 
     @classmethod
-    def generate_patch(cls, file_display_name, name, overwrite=True):
+    def generate_patch(cls, file_display_name, name, overwrite=False):
         """Generate a patch for effects, given a template patch (server.pd)"""
         template_filename = 'pd/server.pd'
         target_filename = 'pd/server-%s.pd' % file_display_name
@@ -81,7 +81,7 @@ class Effects(object):
     @property
     def patch_filename(self):
         file_display_name = AVAILABLE_EFFECTS[self.current_effect]['display_name']
-        return 'pd/server-%s.pd' % file_display_name
+        return 'server-%s.pd' % file_display_name
 
     @property
     def patch_name(self):
