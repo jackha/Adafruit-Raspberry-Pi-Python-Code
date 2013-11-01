@@ -121,6 +121,36 @@ class EightByEightPlus(EightByEight):
 
 
 class SevenSegmentPlus(SevenSegment):
+    letters = {
+        ' ': 0,
+        'a': 1 + 2 + 4 + 16 + 32 + 64,
+        'b': 4 + 8 + 16 + 32 + 64,
+        'c': 8 + 16 + 64,
+        'd': 2 + 4 + 8 + 16 + 64,
+        'e': 1 + 2 + 8 + 16 + 32 + 64,
+        'f': 1 + 16 + 32 + 64,
+        'g': 1 + 2 + 4 + 8 + 32 + 64,
+        'h': 4 + 16 + 32 + 64,
+        'i': 2 + 4,
+        'j': 2 + 4 + 8 + 16,
+        'k': 2 + 4 + 16 + 32 + 64,
+        'l': 8 + 16 + 32,
+        'm': 1 + 2 + 4 + 16 + 32,
+        'n': 4 + 16 + 64,
+        'o': 4 + 8 + 16 + 64,
+        'p': 1 + 2 + 16 + 32 + 64,
+        'q': 1 + 2 + 4 + 32 + 64,
+        'r': 16 + 64,
+        's': 1 + 4 + 8 + 32 + 64,
+        't': 8 + 16 + 32 + 64,
+        'u': 4 + 8 + 16,
+        'v': 2 + 4 + 8 + 16 + 32,
+        'w': 2 + 4 + 8 + 16 + 32,
+        'x': 4 + 16 + 32 + 64,
+        'y': 2 + 4 + 8 + 32 + 64,
+        'z': 1 + 2 + 8 + 16 + 64,
+    }
+
     def __init__(self, brightness=15, *args, **kwargs):
         result = super(SevenSegmentPlus, self).__init__(*args, **kwargs)
         self.disp.setBrightness(brightness)
@@ -128,10 +158,11 @@ class SevenSegmentPlus(SevenSegment):
 
     def write(self, text):
         """Write text on display, must have 4 characters!"""
-        self.writeDigit(0, 0)
-        self.writeDigit(1, 1)
-        self.writeDigit(2, 2)
-        self.writeDigit(3, 3)
+        text = text.lower()
+        self.writeDigitRaw(0, self.letters[text[0]])
+        self.writeDigitRaw(1, self.letters[text[0]])
+        self.writeDigitRaw(3, self.letters[text[0]])
+        self.writeDigitRaw(4, self.letters[text[0]])
 
 
 """For Janita: make smiley on display"""
