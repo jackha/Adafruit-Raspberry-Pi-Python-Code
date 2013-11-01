@@ -332,7 +332,7 @@ if __name__ == '__main__':
 
         if push[2]:
             effects.up()
-            startup = True
+            #startup = True
 
         if push[3]:
             effects.load()
