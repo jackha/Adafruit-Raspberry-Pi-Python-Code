@@ -198,7 +198,7 @@ class Pd(object):
         os.killpg(self.pd_proc.pid, signal.SIGTERM)
 
 
-def generate_patch(file_display_name, name, overwrite=False):
+def generate_patch(file_display_name, name, overwrite=True):
     """Generate a patch for effects, given a template patch (server.pd)"""
     template_filename = 'pd/server.pd'
     target_filename = 'pd/server-%s.pd' % file_display_name
@@ -207,17 +207,18 @@ def generate_patch(file_display_name, name, overwrite=False):
         print 'skipped %s' % file_display_name
         return
 
+    print 'generating %s...' % target_filename
     with open(template_filename, 'r') as f:
-        lines = f.readlines():
+        lines = f.readlines()
         
     with open(target_filename, 'w') as f:
         for line in lines:
             # dirty
             if 'step-vibrato~' in line:
                 new_line = line.replace('step-vibrato~', name)
-                f.write(new_line + '\n')
+                f.write(new_line)
             else:
-                f.write(line + '\n')
+                f.write(line)
 
 
 def init_pd_socket():
