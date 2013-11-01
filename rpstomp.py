@@ -418,6 +418,8 @@ if __name__ == '__main__':
             send_sock.sendall('%s %d;' % (option_names[selected_idx], values[selected_idx]))
 
             startup = False
+            
+            push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             grid_needs_updating = True
 
         # grid display: default view
