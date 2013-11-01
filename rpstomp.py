@@ -391,4 +391,4 @@ if __name__ == '__main__':
         sleep(SLEEP_TIME)
 
     send_sock.sendall('volume 0;')
-    #pd.stop()
+    effects.unload()
