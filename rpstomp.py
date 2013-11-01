@@ -322,10 +322,10 @@ if __name__ == '__main__':
             startup = True
 
         if push[3]:
-            effects.loader_socket.sendall('load %s;' % self.patch_name)
+            effects.loader_socket.sendall('load %s;' % effects.patch_name)
         
         if push[4]:
-            effects.loader_socket.sendall('unload %s;' % self.patch_name)
+            effects.loader_socket.sendall('unload %s;' % effects.patch_name)
 
 
         if push[0]:
