@@ -164,7 +164,7 @@ class Pd(threading.Thread):
 
     def stop(self):
         print 'stopping Pd...'
-        self.p.kill()
+        self.p.terminate()
 
 
 if __name__ == '__main__':
