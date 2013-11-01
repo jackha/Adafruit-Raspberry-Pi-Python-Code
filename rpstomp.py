@@ -237,7 +237,9 @@ if __name__ == '__main__':
     grid_needs_updating = False
     push = {}
 
-    while(True):
+    running = True
+
+    while(running):
         # read rotary encoder
         delta1 = encoder1.get_delta()
         delta2 = encoder2.get_delta()
@@ -273,6 +275,7 @@ if __name__ == '__main__':
             send_sock.connect(('localhost', 3000))
 
         if push[4]:
+            running = False;
             send_sock.sendall('b_e bla;')
 
         if push[2] or push[3] or push[4]:
@@ -328,3 +331,5 @@ if __name__ == '__main__':
             push_timer_expiration = datetime.datetime.now()
 
         sleep(SLEEP_TIME)
+
+    pd.stop()
