@@ -300,8 +300,8 @@ if __name__ == '__main__':
 
         #comm_changes, comm_msg = communication.get()
 
-        if comm_changes:
-            print "TODO: Do something with %r" % comm_msg
+        #if comm_changes:
+        #    print "TODO: Do something with %r" % comm_msg
 
         if push[0]:
             push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
