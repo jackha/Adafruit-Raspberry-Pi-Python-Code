@@ -377,6 +377,7 @@ if __name__ == '__main__':
             sleep(.1)
             send_sock = init_pd_socket()
             pushed_in[2] = True
+            disp_needs_updating = True
 
         if push[4]:
             running = False;
