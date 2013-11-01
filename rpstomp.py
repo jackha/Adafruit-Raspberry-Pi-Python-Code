@@ -307,7 +307,7 @@ if __name__ == '__main__':
     # We use this socket to switch patches
     loader_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     loader_socket.connect(('localhost', 5000))
-    loader_socket.sendall('0 %s' % effects.patch_filename)
+    loader_socket.sendall('0 %s;' % effects.patch_filename)
 
     sleep(2)
     send_sock = init_pd_socket()
@@ -369,10 +369,10 @@ if __name__ == '__main__':
             #send_sock.sendall('disconnect;')
             #sleep(1)
             #send_sock.close()
-            loader_socket.sendall('1 %s' % effects.patch_filename)
+            loader_socket.sendall('1 %s;' % effects.patch_filename)
             effects.up()
             #send_sock = init_pd_socket()  
-            loader_socket.sendall('0 %s' % effects.patch_filename)
+            loader_socket.sendall('0 %s;' % effects.patch_filename)
             startup = True
             
         if push[4]:
