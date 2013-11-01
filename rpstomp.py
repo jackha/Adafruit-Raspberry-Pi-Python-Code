@@ -163,6 +163,8 @@ class Pd():
         self.status = 'stopped'
 
     def start(self):
+        if self.status != 'stopped':
+            return
         print 'running Pd...'
         self.pd_proc = Popen("pd-extended -jack -nogui pd/server.pd", 
             shell=True, preexec_fn=os.setsis)
@@ -170,11 +172,12 @@ class Pd():
         self.status = 'started'
 
     def stop(self):
-        if self.status == 'started':
-            self.status = 'stopped'
-            print 'stopping Pd %r...' % self.pd_proc.pid
-            #self.p.terminate()
-            os.killpg(self.pd_proc.pid, signal.SIGTERM)
+        if self.status != 'started':
+            return
+        self.status = 'stopped'
+        print 'stopping Pd %r...' % self.pd_proc.pid
+        #self.p.terminate()
+        os.killpg(self.pd_proc.pid, signal.SIGTERM)
 
 
 if __name__ == '__main__':
