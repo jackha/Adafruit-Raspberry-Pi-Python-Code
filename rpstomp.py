@@ -262,7 +262,6 @@ if __name__ == '__main__':
 
         if push[2]:
             send_sock.sendall('b_c bla;')
-            os.killpg(pd_proc.pid, signal.SIGTERM)
             pd.stop()
 
         if push[3]:
