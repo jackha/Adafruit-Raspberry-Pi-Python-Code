@@ -232,10 +232,11 @@ if __name__ == '__main__':
 	    grid_needs_updating = True
 	    print push
 
-	if push[2]:
+	   if push[2]:
+            send_sock.sendall('test algorithm;');
             # testing shutdown
-            import os
-            os.system("shutdown now -h -k")
+            #import os
+            #os.system("shutdown now -h -k")
 
         if delta1 != 0 or delta2 != 0 or startup:
             selected = (selected + delta2) % (8*8)  # make it slower
