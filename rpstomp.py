@@ -161,21 +161,22 @@ class Pd(threading.Thread):
     """ # a thread class that we're gonna use for calling the server.pd patch"""
     def run(self):
         print 'running Pd...'
-        self.p = Popen("pd-extended -jack -nogui pd/server.pd", shell=True)
-        print self.p
+        self.pd_proc = Popen("pd-extended -jack -nogui pd/server.pd", shell=True)
+        #print self.pd_proc
 
     def stop(self):
-        print 'stopping Pd %r...' % self.p.pid
+        print 'stopping Pd %r...' % self.pd_proc.pid
         #self.p.terminate()
-        os.killpg(self.p.pid, signal.SIGTERM)
+        os.killpg(self.pd_proc.pid, signal.SIGTERM)
 
 
 if __name__ == '__main__':
     print "Raspberry-Stomp"
 
     print "Starting Pd-extended..."
-    pd = Pd()
-    pd.start();
+    #pd = Pd()
+    #pd.start();
+    pd_proc = Popen("pd-extended -jack -nogui pd/server.pd", shell=True)
     sleep(2)
 
     grid = EightByEightPlus(
@@ -251,11 +252,12 @@ if __name__ == '__main__':
 
         if push[2]:
             send_sock.sendall('b_c bla;')
-            pd.stop()
+            os.killpg(pd_proc.pid, signal.SIGTERM)
+            #pd.stop()
 
         if push[3]:
             send_sock.sendall('b_d bla;')
-            pd.start()
+            #pd.start()
 
         if push[4]:
             send_sock.sendall('b_e bla;')
