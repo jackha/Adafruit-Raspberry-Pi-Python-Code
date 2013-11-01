@@ -293,7 +293,6 @@ if __name__ == '__main__':
 
     values = 8*[0]
     selected = 0
-    startup = False
     selected_idx = 0
 
     #encoder = rotary_encoder.RotaryEncoder(A_PIN, B_PIN)
@@ -334,6 +333,7 @@ if __name__ == '__main__':
     #initialized = False
     disp_needs_updating = True
     disp_timer_expiration = datetime.datetime.now()
+    startup = False
     push = {}
     pushed_in = {}  # You want to trigger a push only once.
 
@@ -391,7 +391,8 @@ if __name__ == '__main__':
             if not push[i]:
                 pushed_in[i] = False
 
-        if delta1 != 0 or delta2 != 0 or startup:
+
+        if delta1 != 0 or delta2 != 0:
             selected = (selected + delta2) % (8*8)  # make it slower
             selected_idx = selected/8
             values[selected_idx] += delta1
@@ -409,17 +410,13 @@ if __name__ == '__main__':
             # Toggle color
             #segment.setColon(0)              # Toggle colon at 1Hz
 
-            # send test message to Pd server
-            #print "Volume to Pd..."
-            #send_sock.sendall('volume %f;' % (value*0.001))
-
-            print "Option %d %s: %s" % (selected_idx, option_names[selected_idx], str(value))
-            send_sock.sendall('%s %d;' % (option_names[selected_idx], values[selected_idx]))
-
-            startup = False
-
             disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             disp_needs_updating = True
+
+        if startup:
+            print "Option %d %s: %s" % (selected_idx, option_names[selected_idx], str(value))
+            send_sock.sendall('%s %d;' % (option_names[selected_idx], values[selected_idx]))
+            startup = False
 
         # grid display: default view
         if datetime.datetime.now() > disp_timer_expiration and disp_needs_updating:
