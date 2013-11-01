@@ -232,7 +232,7 @@ if __name__ == '__main__':
 	    grid_needs_updating = True
 	    print push
 
-	   if push[2]:
+	    if push[2]:
             send_sock.sendall('test algorithm;');
             # testing shutdown
             #import os
