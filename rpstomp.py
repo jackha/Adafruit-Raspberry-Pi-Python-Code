@@ -43,7 +43,7 @@ SLEEP_TIME_ROTARY = 0.005
 # These should be files in pd directory (without .pd extension). Keys are displayed names
 # The effects must all have 2 audio inlets and 8 normal inlets, 2 audio outlets and 1 normal outlet
 AVAILABLE_EFFECTS = [
-    {'display_name': 'dly', 'patch_name': '1'},
+    {'display_name': ' dly', 'patch_name': '1'},
     {'display_name': 'vibr', 'patch_name': '2'},
 ]
 
@@ -125,6 +125,13 @@ class SevenSegmentPlus(SevenSegment):
         result = super(SevenSegmentPlus, self).__init__(*args, **kwargs)
         self.disp.setBrightness(brightness)
         return result
+
+    def write(self, text):
+        """Write text on display, must have 4 characters!"""
+        self.writeDigit(0, 0)
+        self.writeDigit(1, 1)
+        self.writeDigit(2, 2)
+        self.writeDigit(3, 3)
 
 
 """For Janita: make smiley on display"""
@@ -275,15 +282,15 @@ if __name__ == '__main__':
     effects = Effects(loader_socket)
     effects.load()
 
-    sleep(1)
+    sleep(0.1)  # essential! Or Pd will sometimes stop with a segmentation fault.
     send_sock = init_pd_socket()
 
-    # print "listen to Pd..."
-    # # Listen to Pd
-    # communication = Communication()
-    # server_thread = ListenThread(communication=communication)  # listen to messages from Pd
-    # server_thread.daemon = True
-    # server_thread.start()
+    print "listen to Pd..."
+    # Listen to Pd
+    communication = Communication()
+    server_thread = ListenThread(communication=communication)  # listen to messages from Pd
+    server_thread.daemon = True
+    server_thread.start()
 
 
     #sleep(1)
@@ -315,10 +322,10 @@ if __name__ == '__main__':
             #if push[i]:
             #    some_push = True
 
-        #comm_changes, comm_msg = communication.get()
+        comm_changes, comm_msg = communication.get()
 
-        #if comm_changes:
-        #    print "TODO: Do something with %r" % comm_msg
+        if comm_changes:
+            print "TODO: Do something with %r" % comm_msg
 
         if push[0]:
             push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
@@ -384,6 +391,7 @@ if __name__ == '__main__':
 
         # grid display: default view
         if datetime.datetime.now() > push_timer_expiration and grid_needs_updating:
+            segment.write(effects.display_name)
             grid.set_values(values, selected=selected_idx)
             grid_needs_updating = False
             push_timer_expiration = datetime.datetime.now()
