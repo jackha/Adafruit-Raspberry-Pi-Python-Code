@@ -157,26 +157,33 @@ class PushButtons(object):
         return self.gpio.digitalRead(self.button_pins[index]) == wiringpi2.GPIO.LOW
 
 
-class Pd(threading.Thread):
+class Pd():
     """ # a thread class that we're gonna use for calling the server.pd patch"""
-    def run(self):
+    def __init__(self):
+        self.status = 'stopped'
+
+    def start(self):
         print 'running Pd...'
-        self.pd_proc = Popen("pd-extended -jack -nogui pd/server.pd", shell=True)
+        self.pd_proc = Popen("pd-extended -jack -nogui pd/server.pd", 
+            shell=True, preexec_fn=os.setsis)
         #print self.pd_proc
+        self.status = 'started'
 
     def stop(self):
-        print 'stopping Pd %r...' % self.pd_proc.pid
-        #self.p.terminate()
-        os.killpg(self.pd_proc.pid, signal.SIGTERM)
+        if self.status == 'started':
+            self.status = 'stopped'
+            print 'stopping Pd %r...' % self.pd_proc.pid
+            #self.p.terminate()
+            os.killpg(self.pd_proc.pid, signal.SIGTERM)
 
 
 if __name__ == '__main__':
     print "Raspberry-Stomp"
 
     print "Starting Pd-extended..."
-    #pd = Pd()
-    #pd.start();
-    pd_proc = Popen("pd-extended -jack -nogui pd/server.pd", shell=True, preexec_fn=os.setsid)
+    pd = Pd()
+    pd.start();
+    #pd_proc = Popen("pd-extended -jack -nogui pd/server.pd", shell=True, preexec_fn=os.setsid)
     sleep(2)
 
     grid = EightByEightPlus(
@@ -253,11 +260,11 @@ if __name__ == '__main__':
         if push[2]:
             send_sock.sendall('b_c bla;')
             os.killpg(pd_proc.pid, signal.SIGTERM)
-            #pd.stop()
+            pd.stop()
 
         if push[3]:
             send_sock.sendall('b_d bla;')
-            #pd.start()
+            pd.start()
 
         if push[4]:
             send_sock.sendall('b_e bla;')
