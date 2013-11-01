@@ -167,7 +167,7 @@ class Pd():
             return
         print 'running Pd...'
         self.pd_proc = Popen("pd-extended -jack -nogui pd/server.pd", 
-            shell=True, preexec_fn=os.setsis)
+            shell=True, preexec_fn=os.setsid)
         #print self.pd_proc
         self.status = 'started'
 
