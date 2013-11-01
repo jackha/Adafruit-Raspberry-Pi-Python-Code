@@ -66,7 +66,9 @@ class Effects(object):
     def up(self):
         self.loader_socket.sendall('unload %s;' % self.patch_name)
         self.current_effect = (self.current_effect + 1) % len(AVAILABLE_EFFECTS)
+        sleep(1)
         self.loader_socket.sendall('load %s;' % self.patch_name)
+        sleep(1)
 
     def down(self):
         self.loader_socket.sendall('unload %s;' % self.patch_name)
@@ -178,7 +180,7 @@ class Communication():
 
 
 class ListenThread(threading.Thread):
-    """Listen to incoming events from Pd"""
+    """Listen to incoming events from Pd patch"""
     def __init__(self, communication, *args, **kwargs):
         self.communication = communication
         super(ListenThread, self).__init__(*args, **kwargs)
@@ -206,33 +208,12 @@ class Pd(object):
     """ Start a given patch.
     """
     def __init__(self):
-        self.status = 'stopped'
         self.pd_proc = Popen("pd-extended -jack -nogui pd/loader.pd", 
             shell=True, preexec_fn=os.setsid)
 
     def shutdown(self):
         print 'stopping Pd %r...' % self.pd_proc.pid
         os.killpg(self.pd_proc.pid, signal.SIGTERM)
-
-    # def start(self, filename='pd/server.pd'):
-    #     if self.status != 'stopped':
-    #         return
-    #     print 'running Pd...'
-    #     self.pd_proc = Popen("pd-extended -jack -nogui %s" % filename, 
-    #         shell=True, preexec_fn=os.setsid)
-    #     #print self.pd_proc
-    #     sleep(5)
-    #     self.status = 'started'
-
-    # def stop(self):
-    #     if self.status != 'started':
-    #         return
-    #     self.status = 'stopped'
-    #     print 'stopping Pd %r...' % self.pd_proc.pid
-    #     #self.p.terminate()
-    #     os.killpg(self.pd_proc.pid, signal.SIGTERM)
-    #     sleep(2)
-
 
 
 def init_pd_socket():
@@ -358,18 +339,6 @@ if __name__ == '__main__':
             print 'change value: selected %s(%s) value %s delta1 %d delta2 %d' % (
                 selected_idx, selected, value, delta1, delta2) 
             
-            #if push1 or push2:
-            #    push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=4)
-
-            #if push1 and not initialized:
-            #    print "init to Pd..."
-            #    send_sock.sendall('init;')  # makes Pd connect back on port 3001
-            #    initialized = True
-
-            #if push2:
-            #    print 'sending la la...'
-            #    send_sock.sendall('la la;')
-
             # Set 7 segment
             # Set hours
             segment.writeDigit(0, int(value/1000)%10)
