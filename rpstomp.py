@@ -42,10 +42,10 @@ SLEEP_TIME_ROTARY = 0.005
 
 # These should be files in pd directory (without .pd extension). Keys are displayed names
 # The effects must all have 2 audio inlets and 8 normal inlets, 2 audio outlets and 1 normal outlet
-AVAILABLE_EFFECTS = {
-    'dly': 'specdelay~',
-    'vibr': 'step-vibrato~',
-}
+AVAILABLE_EFFECTS = [
+    {'display_name': 'dly', 'patch_name': 'specdelay~'},
+    {'display_name': 'vibr', 'patch_name': 'step-vibrato~'},
+]
 
 class EightByEightPlus(EightByEight):
     """Better Eight By Eight by being smarter"""
@@ -209,7 +209,7 @@ def generate_patch(file_display_name, name, overwrite=False):
 
     with open(template_filename, 'r') as f:
         lines = f.readlines():
-        
+
     with open(target_filename, 'w') as f:
         for line in lines:
             # dirty
