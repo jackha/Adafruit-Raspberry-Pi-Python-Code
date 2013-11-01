@@ -160,9 +160,9 @@ class SevenSegmentPlus(SevenSegment):
         """Write text on display, must have 4 characters!"""
         text = text.lower()
         self.writeDigitRaw(0, self.letters[text[0]])
-        self.writeDigitRaw(1, self.letters[text[0]])
-        self.writeDigitRaw(3, self.letters[text[0]])
-        self.writeDigitRaw(4, self.letters[text[0]])
+        self.writeDigitRaw(1, self.letters[text[1]])
+        self.writeDigitRaw(3, self.letters[text[2]])
+        self.writeDigitRaw(4, self.letters[text[3]])
 
 
 """For Janita: make smiley on display"""
@@ -418,7 +418,7 @@ if __name__ == '__main__':
             send_sock.sendall('%s %d;' % (option_names[selected_idx], values[selected_idx]))
 
             startup = False
-            
+
             push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             grid_needs_updating = True
 
