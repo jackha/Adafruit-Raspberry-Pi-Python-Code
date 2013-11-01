@@ -124,12 +124,22 @@ smiley_neutral = [
 
 # Communication with Pd
 class Communication():
-    def __init__(self, sock, *args, **kwargs):
-        self.sock = sock
+    def __init__(self, *args, **kwargs):
+        self.changes = False
+        self.message = None
 
     def set(self, message):
-        print 'echo %s' % message
+        print 'echo %s from pd server' % message
+        self.message = message
+        self.changes = True
         #self.sock.sendall(message)  # echo all messages
+
+    def get(self):
+        message = self.message
+        changes = self.changes
+        self.changes = False
+        self.message = None
+        return changes, message
 
 
 class ListenThread(threading.Thread):
@@ -180,6 +190,18 @@ class Pd():
         os.killpg(self.pd_proc.pid, signal.SIGTERM)
 
 
+def init_pd_socket():
+    # Create a socket (SOCK_STREAM means a TCP socket)
+    # client of puredata: use 'netreceive 3000' in pd
+    print "init send socket to Pd..."
+    send_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    send_sock.connect(('localhost', 3000))
+    return send_sock
+
+def init_pd_connection():
+
+    
+
 if __name__ == '__main__':
     print "Raspberry-Stomp"
 
@@ -211,18 +233,14 @@ if __name__ == '__main__':
 
     push_buttons = PushButtons(PUSH_BUTTON_PINS)
 
-    # Create a socket (SOCK_STREAM means a TCP socket)
-    # client of puredata: use 'netreceive 3000' in pd
-    print "init send socket to Pd..."
-    send_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    send_sock.connect(('localhost', 3000))
-
+    send_sock = init_pd_socket()
     print "listen to Pd..."
     # Listen to Pd
-    communication = Communication(sock=send_sock)
-    #server_thread = ListenThread(communication=communication)  # listen to messages from Pd
-    #server_thread.daemon = True
-    #server_thread.start()
+    communication = Communication()
+    server_thread = ListenThread(communication=communication)  # listen to messages from Pd
+    server_thread.daemon = True
+    server_thread.start()
+
 
     #sleep(1)
     #print "init to Pd..."
@@ -250,6 +268,11 @@ if __name__ == '__main__':
             #if push[i]:
             #    some_push = True
 
+        comm_changes, comm_msg = communication.get()
+
+        if comm_changes:
+            print "TODO: Do something with %r" % comm_msg
+
         if push[0]:
             push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             grid.grid_array(janita)
@@ -270,9 +293,10 @@ if __name__ == '__main__':
         if push[3]:
             #send_sock.sendall('b_d bla;')
             pd.start()
-            sleep(5)  
-            send_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            send_sock.connect(('localhost', 3000))
+            sleep(5)
+            send_sock = init_pd_socket()  
+            #send_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            #send_sock.connect(('localhost', 3000))
 
         if push[4]:
             running = False;
