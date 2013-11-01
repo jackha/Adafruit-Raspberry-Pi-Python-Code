@@ -304,11 +304,13 @@ if __name__ == '__main__':
 
     push_buttons = PushButtons(PUSH_BUTTON_PINS)
 
-    send_sock = init_pd_socket()
-
     # We use this socket to switch patches
     loader_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     loader_socket.connect(('localhost', 5000))
+    loader_socket.sendall('0 %s' % effects.patch_filename)
+
+    sleep(2)
+    send_sock = init_pd_socket()
 
     print "listen to Pd..."
     # Listen to Pd
