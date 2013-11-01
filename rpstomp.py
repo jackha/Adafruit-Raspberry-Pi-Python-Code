@@ -49,8 +49,10 @@ AVAILABLE_EFFECTS = [
 
 
 class Effects(object):
-    def __init__(self):
+    def __init__(self, loader_socket):
         self.current_effect = 0  # by index of AVAILABLE_EFFECTS
+        self.loader_socket = loader_socket
+        self.loader_socket.sendall('load %s;' % self.patch_filename)
 
     @property
     def patch_filename(self):
@@ -66,10 +68,14 @@ class Effects(object):
         return AVAILABLE_EFFECTS[self.current_effect]['display_name']
 
     def up(self):
+        self.loader_socket.sendall('unload %s;' % self.patch_filename)
         self.current_effect = (self.current_effect + 1) % len(AVAILABLE_EFFECTS)
+        self.loader_socket.sendall('load %s;' % self.patch_filename)
 
     def down(self):
+        self.loader_socket.sendall('unload %s;' % self.patch_filename)
         self.current_effect = (self.current_effect + 1) % len(AVAILABLE_EFFECTS)
+        self.loader_socket.sendall('load %s;' % self.patch_filename)
 
 
 
@@ -246,8 +252,6 @@ def init_pd_socket():
 if __name__ == '__main__':
     print "Raspberry-Stomp"
 
-    print "Preparing patches..."
-    effects = Effects()
     pd = Pd()
 
     #print "Starting Pd-extended..."
@@ -281,7 +285,7 @@ if __name__ == '__main__':
     # We use this socket to switch patches
     loader_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     loader_socket.connect(('localhost', 5000))
-    loader_socket.sendall('0 %s;' % effects.patch_filename)
+    effects = Effects(loader_socket)
 
     sleep(2)
     send_sock = init_pd_socket()
@@ -338,15 +342,7 @@ if __name__ == '__main__':
         grid_needs_updating = True
 
         if push[2]:
-            #send_sock.sendall('b_c bla;')
-            #send_sock.sendall('volume 0;')
-            #send_sock.sendall('disconnect;')
-            #sleep(1)
-            #send_sock.close()
-            loader_socket.sendall('1 %s;' % effects.patch_filename)
             effects.up()
-            #send_sock = init_pd_socket()  
-            loader_socket.sendall('0 %s;' % effects.patch_filename)
             startup = True
             
         if push[4]:
