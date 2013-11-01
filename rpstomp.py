@@ -11,6 +11,8 @@ from server import server
 from time import sleep
 from subprocess import Popen
 
+import os
+
 # react on ctrl-c
 import signal 
 import sys
@@ -164,7 +166,8 @@ class Pd(threading.Thread):
 
     def stop(self):
         print 'stopping Pd...'
-        self.p.terminate()
+        #self.p.terminate()
+        os.killpg(self.p.pid, signal.SIGTERM)
 
 
 if __name__ == '__main__':
