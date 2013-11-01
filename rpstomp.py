@@ -64,14 +64,14 @@ class Effects(object):
         return AVAILABLE_EFFECTS[self.current_effect]['display_name']
 
     def up(self):
-        self.loader_socket.sendall('unload %s;' % self.patch_filename)
+        self.loader_socket.sendall('unload %s;' % self.patch_name)
         self.current_effect = (self.current_effect + 1) % len(AVAILABLE_EFFECTS)
-        self.loader_socket.sendall('load %s;' % self.patch_filename)
+        self.loader_socket.sendall('load %s;' % self.patch_name)
 
     def down(self):
-        self.loader_socket.sendall('unload %s;' % self.patch_filename)
+        self.loader_socket.sendall('unload %s;' % self.patch_name)
         self.current_effect = (self.current_effect + 1) % len(AVAILABLE_EFFECTS)
-        self.loader_socket.sendall('load %s;' % self.patch_filename)
+        self.loader_socket.sendall('load %s;' % self.patch_name)
 
 
 
@@ -209,7 +209,6 @@ class Pd(object):
         self.status = 'stopped'
         self.pd_proc = Popen("pd-extended -jack -nogui pd/loader.pd", 
             shell=True, preexec_fn=os.setsid)
-        sleep(5)  # TODO: improve
 
     def shutdown(self):
         print 'stopping Pd %r...' % self.pd_proc.pid
@@ -249,7 +248,7 @@ if __name__ == '__main__':
     print "Raspberry-Stomp"
 
     pd = Pd()
-
+    sleep(2)  # TODO: improve
     #print "Starting Pd-extended..."
     #pd = Pd()
     #pd.start();
