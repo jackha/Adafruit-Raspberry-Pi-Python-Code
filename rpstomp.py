@@ -47,6 +47,65 @@ AVAILABLE_EFFECTS = [
     {'display_name': 'vibr', 'patch_name': 'step-vibrato~'},
 ]
 
+
+class Effects(object):
+    def __init__(self, pd):
+        print 'Preparing patches...'
+        for effect in AVAILABLE_EFFECTS:
+            Effects.generate_patch(effect['display_name'], effect['patch_name'])
+        self.current_effect = 0  # by index of AVAILABLE_EFFECTS
+        self.pd = pd
+        print 'Starting Pd...'
+        pd.start(self._patch_filename)
+
+    @classmethod
+    def generate_patch(cls, file_display_name, name, overwrite=True):
+        """Generate a patch for effects, given a template patch (server.pd)"""
+        template_filename = 'pd/server.pd'
+        target_filename = 'pd/server-%s.pd' % file_display_name
+
+        if not overwrite and os.path.exists(target_filename):
+            print 'skipped %s' % file_display_name
+            return
+
+        print 'generating %s...' % target_filename
+        with open(template_filename, 'r') as f:
+            lines = f.readlines()
+
+        with open(target_filename, 'w') as f:
+            for line in lines:
+                # dirty
+                if 'step-vibrato~' in line:
+                    new_line = line.replace('step-vibrato~', name)
+                    f.write(new_line)
+                else:
+                    f.write(line)
+
+    @property
+    def _patch_filename(self):
+        file_display_name = AVAILABLE_EFFECTS[self.current_effect]['display_name']
+        return 'pd/server-%s.pd' % file_display_name
+
+    def name(self):
+        return AVAILABLE_EFFECTS[self.current_effect]['display_name']
+
+    def up(self):
+        self.current_effect = (self.current_effect + 1) % len(AVAILABLE_EFFECTS)
+        self.switch()
+
+    def down(self):
+        self.current_effect = (self.current_effect + 1) % len(AVAILABLE_EFFECTS)
+        self.switch()
+
+    def switch(self):
+        print "Stopping Pd..."
+        pd.stop()
+        sleep(2)
+        print "Starting Pd..."
+        pd.start(self._patch_filename)
+        sleep(5)
+
+
 class EightByEightPlus(EightByEight):
     """Better Eight By Eight by being smarter"""
     def __init__(self, brightness=15, *args, **kwargs):
@@ -180,11 +239,11 @@ class Pd(object):
     def __init__(self):
         self.status = 'stopped'
 
-    def start(self, patch='server'):
+    def start(self, filename='pd/server.pd'):
         if self.status != 'stopped':
             return
         print 'running Pd...'
-        self.pd_proc = Popen("pd-extended -jack -nogui pd/%s.pd" % patch, 
+        self.pd_proc = Popen("pd-extended -jack -nogui %s" % filename, 
             shell=True, preexec_fn=os.setsid)
         #print self.pd_proc
         self.status = 'started'
@@ -197,27 +256,6 @@ class Pd(object):
         #self.p.terminate()
         os.killpg(self.pd_proc.pid, signal.SIGTERM)
 
-
-def generate_patch(file_display_name, name, overwrite=False):
-    """Generate a patch for effects, given a template patch (server.pd)"""
-    template_filename = 'pd/server.pd'
-    target_filename = 'pd/server-%s.pd' % file_display_name
-
-    if not overwrite and os.path.exists(target_filename):
-        print 'skipped %s' % file_display_name
-        return
-
-    with open(template_filename, 'r') as f:
-        lines = f.readlines():
-
-    with open(target_filename, 'w') as f:
-        for line in lines:
-            # dirty
-            if 'step-vibrato~' in line:
-                new_line = line.replace('step-vibrato~', name)
-                f.write(new_line + '\n')
-            else:
-                f.write(line + '\n')
 
 
 def init_pd_socket():
@@ -233,14 +271,14 @@ if __name__ == '__main__':
     print "Raspberry-Stomp"
 
     print "Preparing patches..."
-    for k, v in AVAILABLE_EFFECTS.items():
-        generate_patch(k, v)
+    effects = Effects(pd=pd)
 
-    print "Starting Pd-extended..."
-    pd = Pd()
-    pd.start();
+
+    #print "Starting Pd-extended..."
+    #pd = Pd()
+    #pd.start();
     #pd_proc = Popen("pd-extended -jack -nogui pd/server.pd", shell=True, preexec_fn=os.setsid)
-    sleep(2)
+    #sleep(2)
 
     grid = EightByEightPlus(
         address=EIGHT_BY_EIGHT_ADDRESS, 
@@ -265,6 +303,7 @@ if __name__ == '__main__':
     push_buttons = PushButtons(PUSH_BUTTON_PINS)
 
     send_sock = init_pd_socket()
+
     print "listen to Pd..."
     # Listen to Pd
     communication = Communication()
@@ -319,19 +358,13 @@ if __name__ == '__main__':
         if push[2]:
             #send_sock.sendall('b_c bla;')
             send_sock.sendall('volume 0;')
+            send_sock.sendall('disconnect;')
             sleep(1)
             send_sock.close()
-            pd.stop()
-
-        if push[3]:
-            #send_sock.sendall('b_d bla;')
-            pd.start()
-            sleep(5)
-            startup = True
+            effects.up()
             send_sock = init_pd_socket()  
-            #send_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            #send_sock.connect(('localhost', 3000))
-
+            startup = True
+            
         if push[4]:
             running = False;
             send_sock.sendall('b_e bla;')
