@@ -167,7 +167,7 @@ class Pd(threading.Thread):
     def stopped(self):
         return self._stop.isSet()
 
-    def run ( self ):
+    def run(self):
         self.p = Popen("pd-extended -jack -nogui pd/server.pd", shell=True)
 
 
@@ -175,7 +175,8 @@ if __name__ == '__main__':
     print "Raspberry-Stomp"
 
     print "Starting Pd-extended..."
-    Pd().start();
+    pd = Pd()
+    pd.start();
     sleep(2)
 
     grid = EightByEightPlus(
@@ -251,9 +252,11 @@ if __name__ == '__main__':
 
         if push[2]:
             send_sock.sendall('b_c bla;')
+            pd.stop()
 
         if push[3]:
             send_sock.sendall('b_d bla;')
+            pd.start()
 
         if push[4]:
             send_sock.sendall('b_e bla;')
