@@ -219,20 +219,20 @@ if __name__ == '__main__':
         if push[0]:
             push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             grid.grid_array(janita)
-	    grid_needs_updating = True
+        grid_needs_updating = True
 
         if push[1]:
             push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             grid.grid_array(janita2)
-	    grid_needs_updating = True
+        grid_needs_updating = True
 
         if push[2] or push[3] or push[4]:
             push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             grid.grid_array(smiley)
-	    grid_needs_updating = True
-	    print push
+        grid_needs_updating = True
+        print push
 
-	    if push[2]:
+        if push[2]:
             send_sock.sendall('test algorithm;')
             
         if delta1 != 0 or delta2 != 0 or startup:
