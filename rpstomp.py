@@ -262,12 +262,13 @@ if __name__ == '__main__':
 
         if push[2]:
             #send_sock.sendall('b_c bla;')
+            send_sock.close()
             pd.stop()
 
         if push[3]:
             #send_sock.sendall('b_d bla;')
             pd.start()
-            sleep(2)  
+            sleep(5)  
             send_sock.connect(('localhost', 3000))
 
         if push[4]:
