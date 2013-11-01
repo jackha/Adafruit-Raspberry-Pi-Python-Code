@@ -256,6 +256,7 @@ if __name__ == '__main__':
     values = 8*[0]
     selected = 0
     startup = False
+    selected_idx = 0
 
     #encoder = rotary_encoder.RotaryEncoder(A_PIN, B_PIN)
     encoder1 = rotary_encoder.RotaryEncoder.Worker(
