@@ -49,14 +49,11 @@ AVAILABLE_EFFECTS = [
 
 
 class Effects(object):
-    def __init__(self, pd):
+    def __init__(self):
         print 'Preparing patches...'
         for effect in AVAILABLE_EFFECTS:
             Effects.generate_patch(effect['display_name'], effect['patch_name'])
         self.current_effect = 0  # by index of AVAILABLE_EFFECTS
-        self.pd = pd
-        print 'Starting Pd...'
-        self.pd.start(self._patch_filename)
 
     @classmethod
     def generate_patch(cls, file_display_name, name, overwrite=True):
@@ -275,7 +272,8 @@ if __name__ == '__main__':
     print "Raspberry-Stomp"
 
     print "Preparing patches..."
-    effects = Effects(pd=Pd())
+    effects = Effects()
+    pd = Pd()
 
     #print "Starting Pd-extended..."
     #pd = Pd()
@@ -433,4 +431,4 @@ if __name__ == '__main__':
         sleep(SLEEP_TIME)
 
     send_sock.sendall('volume 0;')
-    effects.pd.stop()
+    pd.stop()
