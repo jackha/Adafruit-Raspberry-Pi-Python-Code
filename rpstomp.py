@@ -43,40 +43,14 @@ SLEEP_TIME_ROTARY = 0.005
 # These should be files in pd directory (without .pd extension). Keys are displayed names
 # The effects must all have 2 audio inlets and 8 normal inlets, 2 audio outlets and 1 normal outlet
 AVAILABLE_EFFECTS = [
-    {'display_name': 'dly', 'patch_name': 'specdelay~'},
-    {'display_name': 'vibr', 'patch_name': 'step-vibrato~'},
+    {'display_name': 'dly', 'patch_name': '1'},
+    {'display_name': 'vibr', 'patch_name': '2'},
 ]
 
 
 class Effects(object):
     def __init__(self):
-        print 'Preparing patches...'
-        for effect in AVAILABLE_EFFECTS:
-            Effects.generate_patch(effect['display_name'], effect['patch_name'])
         self.current_effect = 0  # by index of AVAILABLE_EFFECTS
-
-    @classmethod
-    def generate_patch(cls, file_display_name, name, overwrite=False):
-        """Generate a patch for effects, given a template patch (server.pd)"""
-        template_filename = 'pd/server.pd'
-        target_filename = 'pd/server-%s.pd' % file_display_name
-
-        if not overwrite and os.path.exists(target_filename):
-            print 'skipped %s' % file_display_name
-            return
-
-        print 'generating %s...' % target_filename
-        with open(template_filename, 'r') as f:
-            lines = f.readlines()
-
-        with open(target_filename, 'w') as f:
-            for line in lines:
-                # dirty
-                if 'step-vibrato~' in line:
-                    new_line = line.replace('step-vibrato~', name)
-                    f.write(new_line)
-                else:
-                    f.write(line)
 
     @property
     def patch_filename(self):
