@@ -383,12 +383,6 @@ if __name__ == '__main__':
             running = False;
             #send_sock.sendall('b_e bla;')
 
-        if push[2] or push[3] or push[4]:
-            disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
-            grid.grid_array(smiley)
-            disp_needs_updating = True
-            print push
-
         for i in range(len(PUSH_BUTTON_PINS)):
             if not push[i]:
                 pushed_in[i] = False
