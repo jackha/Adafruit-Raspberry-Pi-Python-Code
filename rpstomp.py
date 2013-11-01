@@ -197,9 +197,6 @@ def init_pd_socket():
     send_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     send_sock.connect(('localhost', 3000))
     return send_sock
-
-def init_pd_connection():
-
     
 
 if __name__ == '__main__':
