@@ -377,10 +377,6 @@ if __name__ == '__main__':
             send_sock = init_pd_socket()
             pushed_in[2] = True
 
-            grid.grid_array(smiley_neutral)
-            disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=1)
-            disp_needs_updating = True
-
         if push[4]:
             running = False;
             #send_sock.sendall('b_e bla;')
