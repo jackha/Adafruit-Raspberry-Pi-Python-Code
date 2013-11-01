@@ -176,7 +176,7 @@ if __name__ == '__main__':
     print "Starting Pd-extended..."
     #pd = Pd()
     #pd.start();
-    pd_proc = Popen("pd-extended -jack -nogui pd/server.pd", shell=True)
+    pd_proc = Popen("pd-extended -jack -nogui pd/server.pd", shell=True, preexec_fn=os.setsid)
     sleep(2)
 
     grid = EightByEightPlus(
