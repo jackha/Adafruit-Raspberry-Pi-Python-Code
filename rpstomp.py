@@ -233,6 +233,7 @@ class Pd(object):
         self.status = 'stopped'
         self.pd_proc = Popen("pd-extended -jack -nogui pd/loader.pd", 
             shell=True, preexec_fn=os.setsid)
+        sleep(5)  # TODO: improve
 
     def shutdown(self):
         print 'stopping Pd %r...' % self.pd_proc.pid
