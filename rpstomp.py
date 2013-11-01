@@ -334,6 +334,7 @@ if __name__ == '__main__':
 
         if push[2]:
             send_sock.close()
+            sleep(1)
             effects.up()
             sleep(1)
             send_sock = init_pd_socket()
