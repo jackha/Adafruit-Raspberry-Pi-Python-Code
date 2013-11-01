@@ -246,13 +246,13 @@ if __name__ == '__main__':
     startup = True
 
     #encoder = rotary_encoder.RotaryEncoder(A_PIN, B_PIN)
-    encoder1 = rotary_encoder.RotaryEncoder.Worker(
+    #encoder1 = rotary_encoder.RotaryEncoder.Worker(
         ENC1_PIN_A, ENC1_PIN_B, sleep_time=SLEEP_TIME_ROTARY)
-    encoder1.start()
+    #encoder1.start()
 
-    encoder2 = rotary_encoder.RotaryEncoder.Worker(
+    #encoder2 = rotary_encoder.RotaryEncoder.Worker(
         ENC2_PIN_A, ENC2_PIN_B, sleep_time=SLEEP_TIME_ROTARY)
-    encoder2.start()
+    #encoder2.start()
 
     push_buttons = PushButtons(PUSH_BUTTON_PINS)
 
@@ -289,8 +289,10 @@ if __name__ == '__main__':
 
     while(running):
         # read rotary encoder
-        delta1 = encoder1.get_delta()
-        delta2 = encoder2.get_delta()
+        delta1 = 0
+        delta2 = 0
+        #delta1 = encoder1.get_delta()
+        #delta2 = encoder2.get_delta()
 
         #some_push = False
         for i in range(len(PUSH_BUTTON_PINS)):
