@@ -119,7 +119,6 @@ class EightByEightPlus(EightByEight):
             grid.writeRowRaw(y, byte_value, update=False)
         grid.disp.writeDisplay()
 
-
 class SevenSegmentPlus(SevenSegment):
     letters = {
         ' ': 0,
@@ -167,14 +166,15 @@ class SevenSegmentPlus(SevenSegment):
 
 """For Janita: make smiley on display"""
 smiley = [
+    [0,0,0,0,0,0,0,0],
+    [0,0,1,0,0,1,0,0],
+    [0,0,1,0,0,1,0,0],
+    [0,0,1,0,0,1,0,0],
+    [1,0,0,0,0,0,0,1],
+    [0,1,0,0,0,0,1,0],
     [0,0,1,1,1,1,0,0],
-    [0,1,0,0,0,0,1,0],
-    [1,0,1,0,0,1,0,1],
-    [1,0,1,0,0,1,0,1],
-    [1,1,0,0,0,0,1,1],
-    [1,0,1,1,1,1,0,1],
-    [0,1,0,0,0,0,1,0],
-    [0,0,1,1,1,1,0,0]]
+    [0,0,0,0,0,0,0,0],
+]
 
 janita = [
     [1,0,1,0,1,0,0,0],
@@ -196,15 +196,16 @@ janita2 = [
     [0,0,1,0,0,1,1,1],
     [0,0,1,0,0,1,0,1]]
 
-smiley_neutral = [
+smiley_cry = [
+    [0,0,0,0,0,0,0,0],
+    [0,0,1,0,0,1,0,0],
+    [0,0,1,0,0,1,0,0],
+    [0,0,1,0,0,1,0,0],
+    [0,0,0,0,0,0,0,0],
     [0,0,1,1,1,1,0,0],
     [0,1,0,0,0,0,1,0],
-    [1,0,1,0,0,1,0,1],
-    [1,0,1,0,0,1,0,1],
-    [1,0,0,0,0,0,0,1],
-    [1,0,1,1,1,1,0,1],
     [0,1,0,0,0,0,1,0],
-    [0,0,1,1,1,1,0,0]]
+]
 
 
 # Communication with Pd
@@ -431,3 +432,6 @@ if __name__ == '__main__':
 
     send_sock.sendall('volume 0;')
     effects.unload()
+    grid.grid_array(smiley_cry)
+    segment.write(' bye')
+
