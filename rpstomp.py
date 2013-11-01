@@ -55,16 +55,12 @@ class Effects(object):
         self.loader_socket.sendall('load %s;' % self.patch_filename)
 
     @property
-    def patch_filename(self):
-        file_display_name = AVAILABLE_EFFECTS[self.current_effect]['display_name']
-        return 'server-%s.pd' % file_display_name
-
-    @property
     def patch_name(self):
-        display_name = AVAILABLE_EFFECTS[self.current_effect]['display_name']
+        display_name = AVAILABLE_EFFECTS[self.current_effect]['patch_name']
         return display_name
 
-    def name(self):
+    @property
+    def display_name(self):
         return AVAILABLE_EFFECTS[self.current_effect]['display_name']
 
     def up(self):
