@@ -275,7 +275,7 @@ if __name__ == '__main__':
     effects = Effects(loader_socket)
     effects.load()
 
-    sleep(2)
+    sleep(1)
     send_sock = init_pd_socket()
 
     # print "listen to Pd..."
@@ -335,6 +335,7 @@ if __name__ == '__main__':
         if push[2]:
             send_sock.close()
             effects.up()
+            sleep(1)
             send_sock = init_pd_socket()
             pushed_in[2] = True
 
