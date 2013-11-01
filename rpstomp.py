@@ -232,10 +232,10 @@ if __name__ == '__main__':
             send_sock.sendall('b_c bla;')
 
         if push[3]:
-            send_sock.sendall('b_c bla;')
+            send_sock.sendall('b_d bla;')
 
         if push[4]:
-            send_sock.sendall('b_c bla;')
+            send_sock.sendall('b_e bla;')
 
         if push[2] or push[3] or push[4]:
             push_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
