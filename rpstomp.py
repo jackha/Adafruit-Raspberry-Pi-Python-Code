@@ -82,27 +82,23 @@ class Effects(object):
                     f.write(line)
 
     @property
-    def _patch_filename(self):
+    def patch_filename(self):
         file_display_name = AVAILABLE_EFFECTS[self.current_effect]['display_name']
         return 'pd/server-%s.pd' % file_display_name
+
+    @property
+    def patch_name(self):
+        display_name = AVAILABLE_EFFECTS[self.current_effect]['display_name']
+        return display_name
 
     def name(self):
         return AVAILABLE_EFFECTS[self.current_effect]['display_name']
 
     def up(self):
         self.current_effect = (self.current_effect + 1) % len(AVAILABLE_EFFECTS)
-        self.switch()
 
     def down(self):
         self.current_effect = (self.current_effect + 1) % len(AVAILABLE_EFFECTS)
-        self.switch()
-
-    def switch(self):
-        print "Stopping Pd..."
-        self.pd.stop()
-
-        print "Starting Pd..."
-        self.pd.start(self._patch_filename)
 
 
 
@@ -238,25 +234,31 @@ class Pd(object):
     """
     def __init__(self):
         self.status = 'stopped'
-
-    def start(self, filename='pd/server.pd'):
-        if self.status != 'stopped':
-            return
-        print 'running Pd...'
-        self.pd_proc = Popen("pd-extended -jack -nogui %s" % filename, 
+        self.pd_proc = Popen("pd-extended -jack -nogui pd/loader.pd", 
             shell=True, preexec_fn=os.setsid)
-        #print self.pd_proc
-        sleep(5)
-        self.status = 'started'
 
-    def stop(self):
-        if self.status != 'started':
-            return
-        self.status = 'stopped'
+    def shutdown(self):
         print 'stopping Pd %r...' % self.pd_proc.pid
-        #self.p.terminate()
         os.killpg(self.pd_proc.pid, signal.SIGTERM)
-        sleep(2)
+
+    # def start(self, filename='pd/server.pd'):
+    #     if self.status != 'stopped':
+    #         return
+    #     print 'running Pd...'
+    #     self.pd_proc = Popen("pd-extended -jack -nogui %s" % filename, 
+    #         shell=True, preexec_fn=os.setsid)
+    #     #print self.pd_proc
+    #     sleep(5)
+    #     self.status = 'started'
+
+    # def stop(self):
+    #     if self.status != 'started':
+    #         return
+    #     self.status = 'stopped'
+    #     print 'stopping Pd %r...' % self.pd_proc.pid
+    #     #self.p.terminate()
+    #     os.killpg(self.pd_proc.pid, signal.SIGTERM)
+    #     sleep(2)
 
 
 
@@ -274,7 +276,6 @@ if __name__ == '__main__':
 
     print "Preparing patches..."
     effects = Effects(pd=Pd())
-
 
     #print "Starting Pd-extended..."
     #pd = Pd()
@@ -305,6 +306,10 @@ if __name__ == '__main__':
     push_buttons = PushButtons(PUSH_BUTTON_PINS)
 
     send_sock = init_pd_socket()
+
+    # We use this socket to switch patches
+    loader_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    loader_socket.connect(('localhost', 5000))
 
     print "listen to Pd..."
     # Listen to Pd
@@ -359,12 +364,14 @@ if __name__ == '__main__':
 
         if push[2]:
             #send_sock.sendall('b_c bla;')
-            send_sock.sendall('volume 0;')
-            send_sock.sendall('disconnect;')
-            sleep(1)
-            send_sock.close()
+            #send_sock.sendall('volume 0;')
+            #send_sock.sendall('disconnect;')
+            #sleep(1)
+            #send_sock.close()
+            loader_socket.sendall('1 %s' % effects.patch_filename)
             effects.up()
-            send_sock = init_pd_socket()  
+            #send_sock = init_pd_socket()  
+            loader_socket.sendall('0 %s' % effects.patch_filename)
             startup = True
             
         if push[4]:
@@ -426,4 +433,4 @@ if __name__ == '__main__':
         sleep(SLEEP_TIME)
 
     send_sock.sendall('volume 0;')
-    pd.stop()
+    effects.pd.stop()
