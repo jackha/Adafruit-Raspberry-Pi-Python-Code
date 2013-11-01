@@ -247,11 +247,11 @@ if __name__ == '__main__':
 
     #encoder = rotary_encoder.RotaryEncoder(A_PIN, B_PIN)
     #encoder1 = rotary_encoder.RotaryEncoder.Worker(
-        ENC1_PIN_A, ENC1_PIN_B, sleep_time=SLEEP_TIME_ROTARY)
+    #    ENC1_PIN_A, ENC1_PIN_B, sleep_time=SLEEP_TIME_ROTARY)
     #encoder1.start()
 
     #encoder2 = rotary_encoder.RotaryEncoder.Worker(
-        ENC2_PIN_A, ENC2_PIN_B, sleep_time=SLEEP_TIME_ROTARY)
+    #    ENC2_PIN_A, ENC2_PIN_B, sleep_time=SLEEP_TIME_ROTARY)
     #encoder2.start()
 
     push_buttons = PushButtons(PUSH_BUTTON_PINS)
