@@ -269,6 +269,7 @@ if __name__ == '__main__':
             #send_sock.sendall('b_d bla;')
             pd.start()
             sleep(5)  
+            send_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             send_sock.connect(('localhost', 3000))
 
         if push[4]:
