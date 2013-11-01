@@ -169,6 +169,7 @@ class Pd(threading.Thread):
 
     def run(self):
         self.p = Popen("pd-extended -jack -nogui pd/server.pd", shell=True)
+        print self.p
 
 
 if __name__ == '__main__':
