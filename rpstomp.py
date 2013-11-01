@@ -261,11 +261,11 @@ if __name__ == '__main__':
         grid_needs_updating = True
 
         if push[2]:
-            send_sock.sendall('b_c bla;')
+            #send_sock.sendall('b_c bla;')
             pd.stop()
 
         if push[3]:
-            send_sock.sendall('b_d bla;')
+            #send_sock.sendall('b_d bla;')
             pd.start()
 
         if push[4]:
