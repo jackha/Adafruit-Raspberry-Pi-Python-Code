@@ -377,6 +377,10 @@ if __name__ == '__main__':
             send_sock = init_pd_socket()
             pushed_in[2] = True
 
+            grid.grid_array(smiley_neutral)
+            disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=1)
+            disp_needs_updating = True
+
         if push[4]:
             running = False;
             #send_sock.sendall('b_e bla;')
@@ -410,6 +414,8 @@ if __name__ == '__main__':
             # Toggle color
             #segment.setColon(0)              # Toggle colon at 1Hz
 
+            grid.set_values(values, selected=selected_idx)
+            
             disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             disp_needs_updating = True
 
@@ -421,7 +427,7 @@ if __name__ == '__main__':
         # grid display: default view
         if datetime.datetime.now() > disp_timer_expiration and disp_needs_updating:
             segment.write(effects.display_name)
-            grid.set_values(values, selected=selected_idx)
+            grid.grid_array(smiley)
             disp_needs_updating = False
             push_timer_expiration = datetime.datetime.now()
 
