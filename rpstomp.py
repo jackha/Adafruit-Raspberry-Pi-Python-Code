@@ -56,7 +56,7 @@ class Effects(object):
         self.current_effect = 0  # by index of AVAILABLE_EFFECTS
         self.pd = pd
         print 'Starting Pd...'
-        pd.start(self._patch_filename)
+        self.pd.start(self._patch_filename)
 
     @classmethod
     def generate_patch(cls, file_display_name, name, overwrite=True):
@@ -99,10 +99,10 @@ class Effects(object):
 
     def switch(self):
         print "Stopping Pd..."
-        pd.stop()
+        self.pd.stop()
 
         print "Starting Pd..."
-        pd.start(self._patch_filename)
+        self.pd.start(self._patch_filename)
 
 
 
