@@ -9,6 +9,7 @@ from Adafruit_LEDBackpack.Adafruit_8x8 import EightByEight
 
 from server import server
 from time import sleep
+from subprocess import Popen
 
 # react on ctrl-c
 import signal 
@@ -154,8 +155,28 @@ class PushButtons(object):
         return self.gpio.digitalRead(self.button_pins[index]) == wiringpi2.GPIO.LOW
 
 
+class Pd(threading.Thread):
+    """ # a thread class that we're gonna use for calling the server.pd patch"""
+    def __init__(self):
+        super(Pd, self).__init__()
+        self._stop = threading.Event()
+
+    def stop(self):
+        self._stop.set()
+
+    def stopped(self):
+        return self._stop.isSet()
+
+    def run ( self ):
+        self.p = Popen("pd-extended -jack -nogui pd/server.pd", shell=True)
+
+
 if __name__ == '__main__':
-    print "Starting Raspberry-Stomp..."
+    print "Raspberry-Stomp"
+
+    print "Starting Pd-extended..."
+    Pd().start();
+    sleep(2)
 
     grid = EightByEightPlus(
         address=EIGHT_BY_EIGHT_ADDRESS, 
@@ -192,9 +213,9 @@ if __name__ == '__main__':
     #server_thread.daemon = True
     #server_thread.start()
 
-    sleep(1)
-    print "init to Pd..."
-    send_sock.sendall('init;')  # makes Pd connect back on port 3001
+    #sleep(1)
+    #print "init to Pd..."
+    #send_sock.sendall('init;')  # makes Pd connect back on port 3001
 
     push_timer_expiration = datetime.datetime.now()
 

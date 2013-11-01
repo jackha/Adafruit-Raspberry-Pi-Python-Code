@@ -1,4 +1,4 @@
-#N canvas 602 31 994 858 10;
+#N canvas 574 31 994 858 10;
 #X obj 74 105 print tcp;
 #X obj 725 363 netsend;
 #X msg 628 188 connect localhost 3001;
@@ -20,7 +20,7 @@
 #X msg 469 411 vis 1 \, editmode 1;
 #X obj 298 639 s pd-algorithm;
 #X msg 296 603 editmode 0 \, vis 0;
-#N canvas 73 29 1020 217 algorithm 1;
+#N canvas 36 122 1020 217 algorithm 1;
 #X obj 0 0 inlet~;
 #X obj 50 0 inlet~;
 #X obj 100 0 inlet;
