@@ -234,10 +234,7 @@ if __name__ == '__main__':
 
 	    if push[2]:
             send_sock.sendall('test algorithm;')
-            # testing shutdown
-            #import os
-            #os.system("shutdown now -h -k")
-
+            
         if delta1 != 0 or delta2 != 0 or startup:
             selected = (selected + delta2) % (8*8)  # make it slower
             selected_idx = selected/8
