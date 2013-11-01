@@ -65,14 +65,14 @@ class Effects(object):
         return AVAILABLE_EFFECTS[self.current_effect]['display_name']
 
     def up(self):
-        #self.loader_socket.sendall('unload %s;' % self.patch_name)
+        self.unload()
         self.current_effect = (self.current_effect + 1) % len(AVAILABLE_EFFECTS)
-        #self.loader_socket.sendall('load %s;' % self.patch_name)
+        self.load()
 
     def down(self):
-        #self.unload()
-        self.current_effect = (self.current_effect + 1) % len(AVAILABLE_EFFECTS)
-        #self.loader_socket.sendall('load %s;' % self.patch_name)
+        self.unload()
+        self.current_effect = (self.current_effect - 1) % len(AVAILABLE_EFFECTS)
+        self.load()
 
     def load(self):
         if self.loaded:
