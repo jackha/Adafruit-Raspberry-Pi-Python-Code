@@ -1,0 +1,12 @@
+#N canvas 139 102 949 702 10;
+#X obj 134 102 Guitar_specdelay~;
+#X obj 134 489 *~ 10;
+#X obj 742 65 loadbang;
+#X msg 742 101 \; del-sin 1 \; fb-sin 1 \; gain-flat 1 \; lp-freq 220
+\; slope -0.04 \; crossfade 0.5 \;;
+#X obj 134 58 adc~;
+#X obj 134 531 dac~;
+#X connect 0 0 1 0;
+#X connect 1 0 5 0;
+#X connect 2 0 3 0;
+#X connect 4 0 0 0;
