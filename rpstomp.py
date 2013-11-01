@@ -285,6 +285,7 @@ if __name__ == '__main__':
         if push[2]:
             #send_sock.sendall('b_c bla;')
             send_sock.sendall('volume 0;')
+            sleep(1)
             send_sock.close()
             pd.stop()
 
