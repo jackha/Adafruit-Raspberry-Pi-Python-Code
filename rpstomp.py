@@ -52,7 +52,7 @@ class Effects(object):
     def __init__(self, loader_socket):
         self.current_effect = 0  # by index of AVAILABLE_EFFECTS
         self.loader_socket = loader_socket
-        self.loader_socket.sendall('load %s;' % self.patch_filename)
+        self.loader_socket.sendall('load %s;' % self.patch_name)
 
     @property
     def patch_name(self):
