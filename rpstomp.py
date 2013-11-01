@@ -271,7 +271,7 @@ if __name__ == '__main__':
     print "Raspberry-Stomp"
 
     print "Preparing patches..."
-    effects = Effects(pd=pd)
+    effects = Effects(pd=Pd())
 
 
     #print "Starting Pd-extended..."
