@@ -21,3 +21,7 @@ hexxiter = [
 	{'name': 'rev2', 'min': 0, 'max': 80, 'default': 60, 'type': 'float'},
 	{'name': 'volume', 'min': 0.001, 'max': 1, 'default': 0.9, 'type': 'float'},
 ]
+
+ringmodulator = [
+	
+]

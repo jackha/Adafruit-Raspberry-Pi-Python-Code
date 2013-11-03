@@ -1,4 +1,4 @@
-#N canvas 49 68 615 568 10;
+#N canvas 49 68 928 580 10;
 #X obj 48 43 adc~;
 #X floatatom 373 244 5 0 0 0 - - -;
 #X obj 153 305 >;
@@ -39,6 +39,7 @@
 #X text 173 140 to detect the attack.;
 #X text 318 536 GuitarExtended \, Pierre Massat \, 2012;
 #X msg 495 38 \; pd dsp 1 \;;
+#X obj 734 358 netreceive 3000;
 #X connect 0 0 10 0;
 #X connect 0 0 11 0;
 #X connect 1 0 2 1;

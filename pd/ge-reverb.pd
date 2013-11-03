@@ -1,4 +1,4 @@
-#N canvas 0 0 653 502 10;
+#N canvas 42 29 884 500 10;
 #X obj 178 349 freeverb~;
 #X msg 262 54 roomsize \$1;
 #X msg 261 115 damping \$1;
@@ -30,6 +30,7 @@
 #X text 437 110 Damping level;
 #X text 436 56 Roomize;
 #X text 271 460 Pierre Massat \, GuitarExtended \, 2012;
+#X obj 574 366 netreceive 3000;
 #X connect 0 0 8 0;
 #X connect 0 0 8 1;
 #X connect 1 0 0 0;

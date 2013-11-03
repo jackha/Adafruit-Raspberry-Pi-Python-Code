@@ -15,7 +15,7 @@
 #X obj 91 20 inlet~;
 #X obj 105 401 outlet~;
 #X obj 108 225 hsl 128 10 30 70 0 0 empty str_sens Sensitivity -2 -8
-0 10 -262144 -1 -1 11250 1;
+0 10 -262144 -1 -1 6350 1;
 #X obj 88 359 *~;
 #X obj 206 360 *~;
 #X obj 221 339 line~;
@@ -45,6 +45,7 @@
 #X msg 345 64 \; vibrato 1 \; portamento 0 \; speed_ctrl 5 \; audioon
 1 \; str_sens 50 \; pd dsp 1 \;;
 #X text 222 325 GuitarExtended \, Pierre Massat \, 2012;
+#X obj 323 232 netreceive 3000;
 #X connect 0 0 3 0;
 #X connect 2 0 4 0;
 #X connect 3 0 1 0;

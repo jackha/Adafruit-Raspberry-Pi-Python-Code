@@ -180,23 +180,15 @@ Expression pedal
 Finishing up the software
 =========================
 
+Automatically startup and shut down::
 
-http://www.debian-administration.org/articles/28
+$ sudo chmod 755 jackstart.sh
 
-Temporary hack::
+Add /home/pi/raspberry-stomp/jackstart.sh to /etc/rc.local
 
-    $ sudo ln -s ~/raspberry-stomp/jackstart.sh /etc/init.d
-    $ sudo ln -s ~/raspberry-stomp/supervisord/supervisord.sh /etc/init.d
-    $ sudo ln -s ~/raspberry-stomp/supervisord/supervisord.conf /etc/default/supervisord
-    $ sudo update-rc.d jackstart.sh defaults
-    $ sudo update-rc.d supervisord.sh defaults
+at the end, add 
 
-http://stackoverflow.com/questions/13953268/daemonizing-a-python-script-in-debian
-
-Supervisord::
-
-https://gist.github.com/howthebodyworks/176149
-
+$ halt
 
 
 Background info
