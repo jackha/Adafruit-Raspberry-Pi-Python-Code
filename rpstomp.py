@@ -71,6 +71,7 @@ class Effects(object):
         self.current_effect = 0  # by index of AVAILABLE_EFFECTS
         self.loader_socket = loader_socket
         self.loaded = False
+        self.loaded_patch = None  
         self.available_effects = available_effects
         self.current_settings = 8*[0]
         self.step_sizes = 8*[1]  # for settings
@@ -117,14 +118,24 @@ class Effects(object):
             self.set_default_settings()
 
     def load(self, patch_name=None):
-        if patch_name == None:
+        if patch_name is None:
             patch_name = self.patch_name
         if self.loaded:
             return
         self.loaded = True
+        self.loaded_patch = patch_name
         self.loader_socket.sendall('load %s;' % patch_name)
         sleep(0.1)  # essential! Or Pd will sometimes stop with a segmentation fault.
         self.send_sock = init_pd_socket()
+
+    def unload(self):
+        if not self.loaded:
+            return
+        self.send_sock.close()
+        sleep(.1)  # essential!
+        self.loader_socket.sendall('unload %s;' % self.loaded_patch)
+        self.loaded = False
+        self.loaded_patch = None
 
     def set_default_settings(self):
         """ Set all default settings and determine step sizes"""
@@ -152,14 +163,6 @@ class Effects(object):
         else:
             self.send_sock.sendall('%s %d;' % (self.option_names[idx], self.current_settings[idx]))
         return self.current_settings[idx]
-
-    def unload(self):
-        if not self.loaded:
-            return
-        self.send_sock.close()
-        sleep(.1)  # essential!
-        self.loaded = False
-        self.loader_socket.sendall('unload %s;' % self.patch_name)
 
     def settings_as_eight(self, selected=None):
         """Return byte array of 8 settings. Optionally give index for selected setting"""
