@@ -50,3 +50,5 @@ python sleep.py
 # let supervisor handle this
 echo Starting RP stomp...
 sudo python rpstomp.py
+
+#halt
