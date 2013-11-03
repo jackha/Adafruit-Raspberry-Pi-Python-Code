@@ -125,14 +125,14 @@ class Effects(object):
         self.loaded = True
         self.loaded_patch = patch_name
         self.loader_socket.sendall('load %s;' % patch_name)
-        sleep(0.1)  # essential! Or Pd will sometimes stop with a segmentation fault.
+        sleep(0.2)  # essential! Or Pd will sometimes stop with a segmentation fault.
         self.send_sock = init_pd_socket()
 
     def unload(self):
         if not self.loaded:
             return
         self.send_sock.close()
-        sleep(.1)  # essential!
+        sleep(.2)  # essential!
         self.loader_socket.sendall('unload %s;' % self.loaded_patch)
         self.loaded = False
         self.loaded_patch = None
