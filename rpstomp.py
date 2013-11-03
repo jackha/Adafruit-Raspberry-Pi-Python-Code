@@ -143,6 +143,7 @@ class Effects(object):
         result = []
         for row in range(0, len(self.settings)):
             row_value = lookup_add[0] if selected==row else 0
+            print self.current_settings[row]
             normalized_value = (7*(float(self.current_settings[row]) - self.settings[row]['min']) / 
                     (self.settings[row]['max'] - self.settings[row]['min']))
             print normalized_value
