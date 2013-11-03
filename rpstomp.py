@@ -114,6 +114,8 @@ class Effects(object):
         """ Add delta to setting and update to Pd. 
 
         Return curr value"""
+        if idx > len(self.settings):
+            return
         self.current_settings[idx] += delta
         if self.current_settings[idx] < self.settings[idx]['min']:
             self.current_settings[idx] = self.settings[idx]['min']
