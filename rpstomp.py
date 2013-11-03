@@ -138,25 +138,21 @@ class Effects(object):
         self.loader_socket.sendall('unload %s;' % self.patch_name)
 
     def settings_as_eight(self, selected=None):
-        """Optionally give index for selected setting"""
+        """Return byte array of 8 settings. Optionally give index for selected setting"""
+        lookup_add = [128, 1, 2, 4, 8, 16, 32, 64]
         result = []
         for row in range(0, len(self.settings)):
-            row_values = []
-            if row == selected:
-                row_values.append(1)
-            else:
-                row_values.append(0)
+            row_value = lookup_add[0] if selected==row else 0
             for col in range(0, 7):
                 if (7*(float(self.current_settings[row]) - self.settings[row]['min']) / 
                     (self.settings[row]['max'] - self.settings[row]['min']) >= col):
 
-                    row_value = 1
-                else:
-                    row_value = 0
+                    row_value += lookup_add[col+1]
+
                 row_values.append(row_value)
-            result.append(row_values)
+            result.append(row_value)
         for row in range(8-len(self.settings), 8):
-            result.append(8*[0])
+            result.append(0)
         return result
 
 
@@ -192,6 +188,11 @@ class EightByEightPlus(EightByEight):
             grid.writeRowRaw(y, byte_value, update=False)
         grid.disp.writeDisplay()
 
+    def bytes_array(self, arr):
+        """Grid array"""
+        for y in range(8):
+            grid.writeRowRaw(y, arr[y], update=False)
+        grid.disp.writeDisplay()
 
 class SevenSegmentPlus(SevenSegment):
     letters = {
@@ -500,7 +501,7 @@ if __name__ == '__main__':
             # Toggle color
             #segment.setColon(0)              # Toggle colon at 1Hz
 
-            grid.grid_array(effects.settings_as_eight(selected=selected_idx))
+            grid.bytes_array(effects.settings_as_eight(selected=selected_idx))
 
             disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             disp_needs_updating = True
