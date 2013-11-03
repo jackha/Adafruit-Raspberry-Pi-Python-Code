@@ -1,7 +1,7 @@
 spectraldelay = [
-	{'name': 'del-sin', 'min': 0, 'max': 1, 'default': 1, 'type': 'float'},
-	{'name': 'fb-sin', 'min': 0, 'max': 1, 'default': 1, 'type': 'float'},
-	{'name': 'gain-flat', 'min': 0, 'max': 1, 'default': 1, 'type': 'float'},
+	{'name': 'del-sin', 'min': 0., 'max': 1., 'default': 1., 'type': 'float'},
+	{'name': 'fb-sin', 'min': 0., 'max': 1., 'default': 1., 'type': 'float'},
+	{'name': 'gain-flat', 'min': 0., 'max': 1., 'default': 1., 'type': 'float'},
 	]
 
 stepvibrato = [

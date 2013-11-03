@@ -45,7 +45,7 @@ SLEEP_TIME_ROTARY = 0.005
 # These should be files in pd directory (without .pd extension). Keys are displayed names
 # The effects must all have 2 audio inlets and 8 normal inlets, 2 audio outlets and 1 normal outlet
 AVAILABLE_EFFECTS = [
-    {'display_name': '....', 'patch_name': '0', 'settings': [], 'eight_by_eight': 'settings_as_eight'},
+    {'display_name': '....', 'patch_name': '0', 'settings': []},
     {'display_name': ' dly', 'patch_name': '1', 'settings': settings.spectraldelay},
     {'display_name': 'vibr', 'patch_name': '2', 'settings': settings.stepvibrato},
     {'display_name': 'syth', 'patch_name': '3', 'settings': settings.synth},
@@ -118,6 +118,7 @@ class Effects(object):
         Return curr value"""
         if idx >= len(self.settings):
             return
+        print self.current_settings[idx], delta, self.settings[idx]
         self.current_settings[idx] += delta
         if self.current_settings[idx] < self.settings[idx]['min']:
             self.current_settings[idx] = self.settings[idx]['min']
