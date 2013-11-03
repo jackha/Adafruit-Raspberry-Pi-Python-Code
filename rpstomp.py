@@ -73,7 +73,7 @@ class Effects(object):
 
     @property
     def settings(self):
-        return self.available_effects[current_effect]['settings']
+        return self.available_effects[self.current_effect]['settings']
 
     @property
     def patch_name(self):
