@@ -140,7 +140,7 @@ class Effects(object):
     def settings_as_eight(self, selected=None):
         """Optionally give index for selected setting"""
         result = []
-        for row in range(0, 8):
+        for row in range(0, len(self.settings)):
             row_values = []
             if row == selected:
                 row_values.append([1])
@@ -155,6 +155,8 @@ class Effects(object):
                     row_value = 0
                 row_values.append(row_value)
             result.append(row_values)
+        for row in range(8-len(self.settings), 8):
+            result.append(8*[0])
         return result
 
 
