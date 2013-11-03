@@ -1,4 +1,4 @@
-#N canvas 619 108 670 261 10;
+#N canvas 635 107 670 261 10;
 #X obj -180 -16 *~ 0.5;
 #X obj -179 14 pitchshifter~;
 #X msg -104 -9 transpose \$1;
