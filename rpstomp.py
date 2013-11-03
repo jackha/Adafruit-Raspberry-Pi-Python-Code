@@ -115,7 +115,7 @@ class Effects(object):
             self.set_default_settings()
 
     def load(self, patch_name=None):
-        if patch_name = None:
+        if patch_name == None:
             patch_name = self.patch_name
         if self.loaded:
             return
