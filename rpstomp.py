@@ -106,7 +106,7 @@ class Effects(object):
 
     def set_default_settings(self):
         """ Set all default settings"""
-        for setting, idx in enumerate(self.settings):
+        for idx, setting in enumerate(self.settings):
             self.current_settings[idx] = setting['default']
             self.setting(idx, 0)
 
