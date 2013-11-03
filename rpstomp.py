@@ -491,8 +491,8 @@ if __name__ == '__main__':
 
         if delta1 != 0 or delta2 != 0:
             selected = selected + delta2
-            if selected > len(effects.settings)*8: # *8 make it slower
-                selected = len(effects.settings)*8  
+            if selected > len(effects.settings)*8-1: # *8 make it slower
+                selected = len(effects.settings)*8-1  
             if selected < 0:
                 selected = 0
             selected_idx = selected/8
