@@ -122,7 +122,7 @@ class Effects(object):
         self.current_settings[idx] += delta
         if self.current_settings[idx] < self.settings[idx]['min']:
             self.current_settings[idx] = self.settings[idx]['min']
-        if self.current_settings[idx] < self.settings[idx]['max']:
+        if self.current_settings[idx] > self.settings[idx]['max']:
             self.current_settings[idx] = self.settings[idx]['max']
         if self.settings[idx]['type'] == 'float':
             self.send_sock.sendall('%s %f;' % (self.option_names[idx], self.settings[idx]['default']))
