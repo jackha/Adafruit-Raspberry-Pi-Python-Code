@@ -23,10 +23,31 @@ hexxiter = [
 ]
 
 ringmodulator = [
-	
+	{'name': 'mix', 'min': 0, 'max': 1, 'default': 1, 'type': 'float'},
+	{'name': 'lfo_freq', 'min': 0, 'max': 40, 'default': 4, 'type': 'float'},
+
 ]
 
 whammy = [
 	{'name': 'pitch', 'min': -24, 'max': 24, 'default': 0, 'type': 'integer'},
 
+]
+
+boldaslove = [
+	{'name': 'attack', 'min': 0, 'max': 600, 'default': 300, 'type': 'float'},
+	{'name': 'sensitivity', 'min': 0, 'max': 100, 'default': 60, 'type': 'float'},
+
+]
+
+reverb = [
+	{'name': 'mix', 'min': 0, 'max': 1, 'default': 1, 'type': 'float'},
+	{'name': 'roomsize', 'min': 0, 'max': 1, 'default': 0, 'type': 'float'},
+	{'name': 'damping', 'min': 0, 'max': 1, 'default': 0, 'type': 'float'},
+	{'name': 'freeze', 'min': 0, 'max': 1, 'default': 0, 'type': 'integer'},
+]
+
+weird = [
+	{'name': 'dunno', 'min': 0, 'max': 5, 'default': 1, 'type': 'float'},
+	{'name': 'dunno', 'min': 0, 'max': 5, 'default': 1, 'type': 'float'},
+	{'name': 'dunno', 'min': -0.9, 'max': 0.9, 'default': 0, 'type': 'float'},
 ]

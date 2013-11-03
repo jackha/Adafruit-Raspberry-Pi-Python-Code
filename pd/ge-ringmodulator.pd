@@ -1,4 +1,4 @@
-#N canvas 226 120 1024 692 10;
+#N canvas 538 58 1024 692 10;
 #X obj 30 26 adc~;
 #X obj 12 654 dac~;
 #X obj 58 561 *~;
@@ -33,9 +33,9 @@
 #X obj 343 16 cnv 15 200 200 empty empty LFO 20 12 0 14 -260097 -66577
 0;
 #X obj 354 52 hsl 128 15 0 127 0 0 empty lfo_upper Upper_limit -2 -8
-0 10 -262144 -1 -1 5000 1;
+0 10 -262144 -1 -1 12700 1;
 #X obj 354 101 hsl 128 15 0 127 0 0 empty lfo_lower Lower_limit -2
--8 0 10 -262144 -1 -1 3000 1;
+-8 0 10 -262144 -1 -1 2700 1;
 #X floatatom 351 119 6 0 0 0 - - -;
 #X floatatom 351 70 6 0 0 0 - - -;
 #X obj 260 156 -;
@@ -49,7 +49,7 @@
 #X obj 146 334 line~;
 #X obj 147 314 pack 0 5;
 #X obj 353 154 hsl 128 15 0 30 0 0 empty lfo_freq LFO_frequency -2
--8 0 10 -262144 -1 -1 1693 1;
+-8 0 10 -262144 -1 -1 0 1;
 #X msg 350 177 set waveform_square;
 #X msg 350 197 set waveform_sine;
 #N canvas 0 22 450 300 random_manual 0;
@@ -208,7 +208,7 @@
 #X connect 11 0 8 2;
 #X restore 13 610 pd equal_power_crossfade;
 #X obj 350 508 hsl 128 25 0 1 0 0 empty crossfade Dry_---_Wet_(crossfade)
--2 -8 0 10 -257985 -1 -1 6350 1;
+-2 -8 0 10 -257985 -1 -1 6800 1;
 #X msg 632 201 \; manual_freq 50 \; lfo_freq 4 \; lfo_upper 50 \; lfo_lower
 30 \; toggle_man_lfo 1 \; crossfade 0.5 \;;
 #X obj 96 152 *~ 2048;
@@ -224,6 +224,9 @@ wet.;
 #X text 761 17 <-- Create the LFO waveforms and;
 #X text 785 32 initialize a bunch of parameters.;
 #X obj 714 338 netreceive 3000;
+#X obj 714 366 route a b c d e f g h;
+#X msg 673 404 \; crossfade \$1 \;;
+#X msg 782 406;
 #X connect 0 0 2 0;
 #X connect 0 0 49 0;
 #X connect 2 0 49 1;
@@ -276,3 +279,6 @@ wet.;
 #X connect 50 0 49 2;
 #X connect 52 0 53 0;
 #X connect 53 0 9 0;
+#X connect 60 0 61 0;
+#X connect 61 0 62 0;
+#X connect 61 1 63 0;
