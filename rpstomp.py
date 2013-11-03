@@ -147,8 +147,8 @@ class Effects(object):
             else:
                 row_values.append([0])
             for col in range(0, 7):
-                if 7*(float(self.current_settings[row]) - self.settings[row]['min']) / 
-                    (self.settings[row]['max'] - self.settings[row]['min']) >= col:
+                if (7*(float(self.current_settings[row]) - self.settings[row]['min']) / 
+                    (self.settings[row]['max'] - self.settings[row]['min']) >= col):
 
                     row_value += lookup_add[col]
             result.append(row_values)
