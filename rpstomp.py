@@ -490,7 +490,7 @@ if __name__ == '__main__':
 
 
         if delta1 != 0 or delta2 != 0:
-            selected = (selected + delta2) % (8*8)  # make it slower
+            selected = (selected + delta2) % (len(effects.settings)*8)  # make it slower
             selected_idx = selected/8
 
             value = effects.setting(selected_idx, delta1)
