@@ -25,3 +25,8 @@ hexxiter = [
 ringmodulator = [
 	
 ]
+
+whammy = [
+	{'name': 'pitch', 'min': -24, 'max': 24, 'default': 0, 'type': 'integer'},
+
+]
