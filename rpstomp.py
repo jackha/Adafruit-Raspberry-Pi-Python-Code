@@ -44,7 +44,7 @@ SLEEP_TIME_ROTARY = 0.005
 # These should be files in pd directory (without .pd extension). Keys are displayed names
 # The effects must all have 2 audio inlets and 8 normal inlets, 2 audio outlets and 1 normal outlet
 AVAILABLE_EFFECTS = [
-    {'display_name': ' off', 'patch_name': '0', 'settings': []},
+    {'display_name': '....', 'patch_name': '0', 'settings': []},
     {'display_name': ' dly', 'patch_name': '1', 'settings': settings.spectraldelay},
     {'display_name': 'vibr', 'patch_name': '2', 'settings': settings.stepvibrato},
     {'display_name': 'syth', 'patch_name': '3', 'settings': settings.synth},
@@ -210,6 +210,7 @@ class SevenSegmentPlus(SevenSegment):
         '8': 1 + 2 + 4 + 8 + 16 + 32 + 64,
         '9': 1 + 2 + 4 + 8 + 32 + 64,
         '-': 64,
+        '.': 128,
     }
 
     def __init__(self, brightness=15, *args, **kwargs):
