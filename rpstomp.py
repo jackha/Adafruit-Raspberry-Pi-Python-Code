@@ -93,7 +93,7 @@ class Effects(object):
     def effect_on_off(self):
         self.effect_on = not self.effect_on
         if self.effect_on:
-            self.load(self.patch_name)
+            self.load()
         else:
             self.load(OFF_EFFECT['patch_name'])
         self.set_default_settings()
@@ -103,16 +103,20 @@ class Effects(object):
             self.unload()
         self.current_effect = (self.current_effect + 1) % len(self.available_effects)
         if self.effect_on:
-            self.load(self.patch_name)
+            self.load()
             self.set_default_settings()
 
     def down(self):
-        self.unload()
+        if self.effect_on:
+            self.unload()
         self.current_effect = (self.current_effect - 1) % len(self.available_effects)
-        self.load(self.patch_name)
-        self.set_default_settings()
+        if self.effect_on:
+            self.load()
+            self.set_default_settings()
 
-    def load(self, patch_name):
+    def load(self, patch_name=None):
+        if patch_name = None:
+            patch_name = self.patch_name
         if self.loaded:
             return
         self.loaded = True
@@ -439,6 +443,12 @@ if __name__ == '__main__':
             effects.up()
             selected_idx = 0
             pushed_in[3] = True
+            disp_needs_updating = True
+
+        if push[4] and not pushed_in[4]:
+            effects.down()
+            selected_idx = 0
+            pushed_in[4] = True
             disp_needs_updating = True
 
         if push[5] and not pushed_in[5]:
