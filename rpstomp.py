@@ -21,15 +21,15 @@ def signal_handler(signal, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 
-ENC1_PIN_A = 5  # use wiring pin numbers here
-ENC1_PIN_B = 4
+ENC1_PIN_A = 7  # use wiring pin numbers here
+ENC1_PIN_B = 0
 #ENC1_PIN_C = 6  # Push button
 
-ENC2_PIN_A = 0  # use wiring pin numbers here
-ENC2_PIN_B = 2
+ENC2_PIN_A = 3  # use wiring pin numbers here
+ENC2_PIN_B = 12
 #ENC2_PIN_C = 3  # Push button
 
-PUSH_BUTTON_PINS = [6, 3, 12, 7, 14]
+PUSH_BUTTON_PINS = [2, 13, 15, 16, 1]
 
 EIGHT_BY_EIGHT_ADDRESS = 0x70
 EIGHT_BY_EIGHT_BRIGHTNESS = 0
