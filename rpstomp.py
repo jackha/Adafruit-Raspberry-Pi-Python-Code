@@ -112,7 +112,7 @@ class Effects(object):
         for idx, setting in enumerate(self.settings):
             self.current_settings[idx] = setting['default']
             if setting['type'] == 'float':
-                self.step_sizes[idx] = (setting['max'] - setting['min']) / 1000
+                self.step_sizes[idx] = (setting['max'] - setting['min']) / 100
             else:
                 self.step_sizes[idx] = 1
             self.setting(idx, 0)
@@ -148,10 +148,8 @@ class Effects(object):
         result = []
         for row in range(0, len(self.settings)):
             row_value = lookup_add[0] if selected==row else 0
-            print self.current_settings[row]
             normalized_value = (7*(float(self.current_settings[row]) - self.settings[row]['min']) / 
                     (self.settings[row]['max'] - self.settings[row]['min']))
-            print normalized_value
             for col in range(0, 7):
                 if normalized_value >= col:
                     row_value += lookup_add[col+1]
