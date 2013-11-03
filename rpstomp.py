@@ -44,6 +44,7 @@ SLEEP_TIME_ROTARY = 0.005
 # These should be files in pd directory (without .pd extension). Keys are displayed names
 # The effects must all have 2 audio inlets and 8 normal inlets, 2 audio outlets and 1 normal outlet
 AVAILABLE_EFFECTS = [
+    {'display_name': ' off', 'patch_name': '0', 'settings': []},
     {'display_name': ' dly', 'patch_name': '1', 'settings': settings.spectraldelay},
     {'display_name': 'vibr', 'patch_name': '2', 'settings': settings.stepvibrato},
     {'display_name': 'syth', 'patch_name': '3', 'settings': settings.synth},
@@ -385,12 +386,6 @@ if __name__ == '__main__':
     server_thread.start()
 
 
-    #sleep(1)
-    #print "init to Pd..."
-    #send_sock.sendall('init;')  # makes Pd connect back on port 3001
-
-    # Option names in Pd.
-    option_names = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 
     #initialized = False
     disp_needs_updating = True
@@ -428,21 +423,17 @@ if __name__ == '__main__':
         if push[0]:
             disp_timer_expiration = now + datetime.timedelta(seconds=2)
             grid.grid_array(janita)
-            #send_sock.sendall('b_a bla;')
+
             disp_needs_updating = True
 
         if push[1]:
             disp_timer_expiration = now + datetime.timedelta(seconds=2)
             grid.grid_array(janita2)
-            #send_sock.sendall('b_b bla;')
+
             disp_needs_updating = True
 
-        if push[4] and not pushed_in[4]:
-            #send_sock.close()
-            #sleep(.1)
+        if push[3] and not pushed_in[3]:
             effects.up()
-            #sleep(.1)
-            #send_sock = init_pd_socket()
             pushed_in[2] = True
             disp_needs_updating = True
 
