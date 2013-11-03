@@ -350,7 +350,10 @@ if __name__ == '__main__':
     startup = False
     push = {}
     pushed_in = {}  # You want to trigger a push only once.
-
+    for i in range(len(PUSH_BUTTON_PINS)):
+        if not push[i]:
+            pushed_in[i] = False
+            
     running = True
 
 
