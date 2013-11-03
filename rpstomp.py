@@ -76,6 +76,7 @@ class Effects(object):
         self.step_sizes = 8*[1]  # for settings
         #self.load()
         self.effect_on = False
+        self.load(OFF_EFFECT['patch_name'])
 
     @property
     def settings(self):
@@ -92,6 +93,7 @@ class Effects(object):
 
     def effect_on_off(self):
         self.effect_on = not self.effect_on
+        self.unload()
         if self.effect_on:
             self.load()
         else:
@@ -375,8 +377,7 @@ if __name__ == '__main__':
     loader_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     loader_socket.connect(('localhost', 5000))
     effects = Effects(loader_socket, AVAILABLE_EFFECTS)
-    effects.load()
-
+    
     #sleep(0.1)  # essential! Or Pd will sometimes stop with a segmentation fault.
     #send_sock = init_pd_socket()
 
