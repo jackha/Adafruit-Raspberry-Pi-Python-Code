@@ -120,9 +120,9 @@ class Effects(object):
         if self.current_settings[idx] < self.settings[idx]['max']:
             self.current_settings[idx] = self.settings[idx]['max']
         if self.settings[idx]['type'] == 'float':
-            self.send_sock.sendall('%s %f;' % (self.option_names[idx], setting['default']))
+            self.send_sock.sendall('%s %f;' % (self.option_names[idx], self.settings[idx]['default']))
         else:
-            self.send_sock.sendall('%s %d;' % (self.option_names[idx], setting['default']))
+            self.send_sock.sendall('%s %d;' % (self.option_names[idx], self.settings[idx]['default']))
         return self.current_settings[idx]
 
     def unload(self):
