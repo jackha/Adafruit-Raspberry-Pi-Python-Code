@@ -6,7 +6,7 @@ spectraldelay = [
 
 stepvibrato = [
 	{'name': 'depth', 'min': 0., 'max': 40., 'default': 15., 'type': 'float'},
-	{'name': 'speed', 'min': 0.5, 'max': 30., 'default': 1., 'type': 'float'},
+	{'name': 'speed', 'min': 0.5, 'max': 30., 'default': 4., 'type': 'float'},
 ]
 
 synth = [{'name': 'octave', 'min': 0, 'max': 1, 'default': 0, 'type': 'integer'},
