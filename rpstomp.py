@@ -157,6 +157,7 @@ class Effects(object):
             result.append(row_values)
         for row in range(8-len(self.settings), 8):
             result.append(8*[0])
+            print result
         return result
 
 
