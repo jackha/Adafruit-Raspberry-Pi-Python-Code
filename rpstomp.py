@@ -10,6 +10,7 @@ from Adafruit_LEDBackpack.Adafruit_8x8 import EightByEight
 from server import server
 from time import sleep
 from subprocess import Popen
+import settings
 
 import os
 
