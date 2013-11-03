@@ -29,7 +29,7 @@ ENC2_PIN_A = 12  # use wiring pin numbers here
 ENC2_PIN_B = 3
 #ENC2_PIN_C = 3  # Push button
 
-PUSH_BUTTON_PINS = [2, 13, 15, 16, 1]
+PUSH_BUTTON_PINS = [2, 13, 15, 16, 1, 4]
 
 EIGHT_BY_EIGHT_ADDRESS = 0x70
 EIGHT_BY_EIGHT_BRIGHTNESS = 0
@@ -148,6 +148,17 @@ class SevenSegmentPlus(SevenSegment):
         'x': 4 + 16 + 32 + 64,
         'y': 2 + 4 + 8 + 32 + 64,
         'z': 1 + 2 + 8 + 16 + 64,
+        '0': 1 + 2 + 4 + 8 + 16 + 32,
+        '1': 2 + 4,
+        '2': 1 + 2 + 8 + 16 + 64,
+        '3': 1 + 2 +4 + 8 + 64,
+        '4': 2 + 4 + 32 + 64,
+        '5': 1 + 4 + 8 + 32 + 64,
+        '6': 4 + 8 + 16 + 32 + 64,
+        '7': 1 + 2 + 4,
+        '8': 1 + 2 + 4 + 8 + 16 + 32 + 64,
+        '9': 1 + 2 + 4 + 8 + 32 + 64,
+        '-': 64,
     }
 
     def __init__(self, brightness=15, *args, **kwargs):
@@ -346,6 +357,7 @@ if __name__ == '__main__':
         # delta2 = 0
         delta1 = encoder1.get_delta()
         delta2 = encoder2.get_delta()
+        now = datetime.datetime.now()
 
         #some_push = False
         for i in range(len(PUSH_BUTTON_PINS)):
@@ -359,13 +371,13 @@ if __name__ == '__main__':
             print "TODO: Do something with %r" % comm_msg
 
         if push[0]:
-            disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
+            disp_timer_expiration = now + datetime.timedelta(seconds=2)
             grid.grid_array(janita)
             send_sock.sendall('b_a bla;')
             disp_needs_updating = True
 
         if push[1]:
-            disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
+            disp_timer_expiration = now + datetime.timedelta(seconds=2)
             grid.grid_array(janita2)
             send_sock.sendall('b_b bla;')
             disp_needs_updating = True
@@ -379,9 +391,18 @@ if __name__ == '__main__':
             pushed_in[2] = True
             disp_needs_updating = True
 
-        if push[4]:
-            running = False;
+        if push[5] and not pushed_in[5]:
+            #running = False;
+            pushed_in[5] = True
+            quit_timer_expiration = now + datetime.timedelta(seconds=2)
             #send_sock.sendall('b_e bla;')
+
+        if push[5] and pushed_in[5] and now <= quit_timer_expiration:
+            seconds_left = (now - quit_timer_expiration).seconds  # It's always < 60 sec
+            segment.write('t % 2d' % (seconds_left))
+
+        if push[5] and pushed_in[5] and now > quit_timer_expiration:
+            running = False
 
         for i in range(len(PUSH_BUTTON_PINS)):
             if not push[i]:
