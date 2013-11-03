@@ -40,7 +40,13 @@ jackd -P70 -p8 -t2000 -d alsa -dhw:0,0 -p 128 -n 3 -r 44100 -s &
 
 cd ~pi/raspberry-stomp
 
-pd-extended -jack -nogui pd/server.pd&
+echo Sleeping...
+python sleep.py
+echo pd-extended
+pd-extended -jack -nogui pd/loader.pd &
 
+echo Sleeping...
+python sleep.py
 # let supervisor handle this
-#/usr/bin/python rpstart.py
+echo Starting RP stomp...
+sudo python rpstomp.py
