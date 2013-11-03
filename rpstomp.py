@@ -43,26 +43,36 @@ SLEEP_TIME_ROTARY = 0.005
 # These should be files in pd directory (without .pd extension). Keys are displayed names
 # The effects must all have 2 audio inlets and 8 normal inlets, 2 audio outlets and 1 normal outlet
 AVAILABLE_EFFECTS = [
-    {'display_name': ' dly', 'patch_name': '1'},
-    {'display_name': 'vibr', 'patch_name': '2'},
-    {'display_name': 'syth', 'patch_name': '3'},
-    {'display_name': 'hexi', 'patch_name': '4'},
-    {'display_name': 'ring', 'patch_name': '5'},
-    {'display_name': 'revb', 'patch_name': '6'},
-    {'display_name': 'bold', 'patch_name': '7'},
-    {'display_name': 'psyn', 'patch_name': '8'},
-    {'display_name': 'wird', 'patch_name': '9'},
-    {'display_name': 'robo', 'patch_name': '10'},
-    {'display_name': 'bsyn', 'patch_name': '11'},
+    {'display_name': ' dly', 'patch_name': '1', 'settings': settings.spectraldelay},
+    {'display_name': 'vibr', 'patch_name': '2', 'settings': settings.stepvibrato},
+    {'display_name': 'syth', 'patch_name': '3', 'settings': settings.synth},
+    {'display_name': 'hexi', 'patch_name': '4', 'settings': settings.hexxiter},
+    # {'display_name': 'ring', 'patch_name': '5'},
+    # {'display_name': 'revb', 'patch_name': '6'},
+    # {'display_name': 'bold', 'patch_name': '7'},
+    # {'display_name': 'psyn', 'patch_name': '8'},
+    # {'display_name': 'wird', 'patch_name': '9'},
+    # {'display_name': 'robo', 'patch_name': '10'},
+    # {'display_name': 'bsyn', 'patch_name': '11'},
 ]
 
 
 class Effects(object):
-    def __init__(self, loader_socket):
+
+    # Option names in Pd.
+    option_names = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+
+    def __init__(self, loader_socket, available_effects):
         self.current_effect = 0  # by index of AVAILABLE_EFFECTS
         self.loader_socket = loader_socket
         self.loaded = False
+        self.available_effects = available_effects
+        self.current_settings = 8*[0]
         #self.load()
+
+    @property
+    def settings(self):
+        return self.available_effects[current_effect]['settings']
 
     @property
     def patch_name(self):
@@ -75,25 +85,53 @@ class Effects(object):
 
     def up(self):
         self.unload()
-        self.current_effect = (self.current_effect + 1) % len(AVAILABLE_EFFECTS)
+        self.current_effect = (self.current_effect + 1) % len(self.available_effects)
         self.load()
+        self.set_default_settings()
 
     def down(self):
         self.unload()
-        self.current_effect = (self.current_effect - 1) % len(AVAILABLE_EFFECTS)
+        self.current_effect = (self.current_effect - 1) % len(self.available_effects)
         self.load()
+        self.set_default_settings()
 
     def load(self):
         if self.loaded:
             return
         self.loaded = True
         self.loader_socket.sendall('load %s;' % self.patch_name)
+        sleep(0.1)  # essential! Or Pd will sometimes stop with a segmentation fault.
+        self.send_sock = init_pd_socket()
+
+    def set_default_settings(self):
+        """ Set all default settings"""
+        for setting, idx in enumerate(self.settings):
+            self.current_settings[idx] = setting['default']
+            self.setting(idx, 0)
+
+    def setting(self, idx, delta):
+        """ Add delta to setting and update to Pd. 
+
+        Return curr value"""
+        self.current_settings[idx] += delta
+        if self.current_settings[idx] < self.settings[idx]['min']:
+            self.current_settings[idx] = self.settings[idx]['min']
+        if self.current_settings[idx] < self.settings[idx]['max']:
+            self.current_settings[idx] = self.settings[idx]['max']
+        if self.settings[idx]['type'] == 'float':
+            self.send_sock.sendall('%s %f;' % (self.option_names[idx], setting['default']))
+        else:
+            self.send_sock.sendall('%s %d;' % (self.option_names[idx], setting['default']))
+        return self.current_settings[idx]
 
     def unload(self):
         if not self.loaded:
             return
+        self.send_sock.close()
+        sleep(.1)  # essential!
         self.loaded = False
         self.loader_socket.sendall('unload %s;' % self.patch_name)
+
 
 
 class EightByEightPlus(EightByEight):
@@ -330,11 +368,11 @@ if __name__ == '__main__':
     # We use this socket to switch patches
     loader_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     loader_socket.connect(('localhost', 5000))
-    effects = Effects(loader_socket)
+    effects = Effects(loader_socket, AVAILABLE_EFFECTS)
     effects.load()
 
-    sleep(0.1)  # essential! Or Pd will sometimes stop with a segmentation fault.
-    send_sock = init_pd_socket()
+    #sleep(0.1)  # essential! Or Pd will sometimes stop with a segmentation fault.
+    #send_sock = init_pd_socket()
 
     print "listen to Pd..."
     # Listen to Pd
@@ -387,21 +425,21 @@ if __name__ == '__main__':
         if push[0]:
             disp_timer_expiration = now + datetime.timedelta(seconds=2)
             grid.grid_array(janita)
-            send_sock.sendall('b_a bla;')
+            #send_sock.sendall('b_a bla;')
             disp_needs_updating = True
 
         if push[1]:
             disp_timer_expiration = now + datetime.timedelta(seconds=2)
             grid.grid_array(janita2)
-            send_sock.sendall('b_b bla;')
+            #send_sock.sendall('b_b bla;')
             disp_needs_updating = True
 
         if push[2] and not pushed_in[2]:
-            send_sock.close()
-            sleep(.1)
+            #send_sock.close()
+            #sleep(.1)
             effects.up()
-            sleep(.1)
-            send_sock = init_pd_socket()
+            #sleep(.1)
+            #send_sock = init_pd_socket()
             pushed_in[2] = True
             disp_needs_updating = True
 
@@ -430,10 +468,13 @@ if __name__ == '__main__':
         if delta1 != 0 or delta2 != 0:
             selected = (selected + delta2) % (8*8)  # make it slower
             selected_idx = selected/8
-            values[selected_idx] += delta1
-            value = values[selected_idx]
-            print 'change value: selected %s(%s) value %s delta1 %d delta2 %d' % (
-                selected_idx, selected, value, delta1, delta2) 
+
+            #values[selected_idx] += delta1
+            #value = values[selected_idx]
+            value = effects.setting(selected_idx, delta1)
+
+            #print 'change value: selected %s(%s) value %s delta1 %d delta2 %d' % (
+            #    selected_idx, selected, value, delta1, delta2) 
             
             # Set 7 segment
             # Set hours
@@ -447,7 +488,7 @@ if __name__ == '__main__':
 
             grid.set_values(values, selected=selected_idx)
 
-            send_sock.sendall('%s %d;' % (option_names[selected_idx], values[selected_idx]))
+            #send_sock.sendall('%s %d;' % (option_names[selected_idx], values[selected_idx]))
             
             disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             disp_needs_updating = True
@@ -464,7 +505,7 @@ if __name__ == '__main__':
 
         sleep(SLEEP_TIME)
 
-    send_sock.sendall('volume 0;')
+    #send_sock.sendall('volume 0;')
     effects.unload()
     grid.grid_array(smiley_cry)
     segment.write(' bye')

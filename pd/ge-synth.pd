@@ -1,4 +1,4 @@
-#N canvas 166 72 644 596 10;
+#N canvas 264 174 1027 612 10;
 #X obj 26 76 cnv 15 200 200 empty empty empty 20 12 0 14 -4034 -66577
 0;
 #X obj 268 76 cnv 15 160 300 empty empty empty 20 12 0 14 -260097 -66577
@@ -6,7 +6,7 @@
 #X obj 178 420 cnv 15 200 100 empty empty empty 20 12 0 14 -4032 -66577
 0;
 #X obj 257 469 *~;
-#X obj 253 500 dac~;
+#X obj 225 501 dac~;
 #X obj 200 443 line~;
 #X obj 280 254 osc~;
 #X obj 289 326 +~ 440;
@@ -56,8 +56,10 @@
 #X obj 200 421 pack 0 5;
 #X text 505 245 <-- Change octave;
 #X text 394 531 Pierre Massat \, GuitarExtended \, 2012;
-#X connect 3 0 4 0;
-#X connect 3 0 4 1;
+#X obj 270 495 *~ 0.1;
+#X obj 680 16 netreceive 3000;
+#X obj 680 47 route a b c d e f g h;
+#X connect 3 0 53 0;
 #X connect 5 0 3 1;
 #X connect 6 0 26 0;
 #X connect 7 0 27 0;
@@ -95,3 +97,7 @@
 #X connect 48 0 45 1;
 #X connect 49 0 45 1;
 #X connect 50 0 5 0;
+#X connect 53 0 4 0;
+#X connect 53 0 4 1;
+#X connect 54 0 55 0;
+#X connect 55 0 46 0;

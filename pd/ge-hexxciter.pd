@@ -1,4 +1,4 @@
-#N canvas 574 140 1007 692 10;
+#N canvas 204 117 1267 686 10;
 #X obj -272 318 delwrite~ G09-del 5000;
 #X obj -151 -19 adc~;
 #X obj -59 629 dac~;
@@ -9,7 +9,7 @@
 #X floatatom -52 125 5 0 0 0 - - -;
 #X obj 103 182 sel 1;
 #X obj 358 544 rev1~;
-#X obj 588 38 loadbang;
+#X obj 706 283 loadbang;
 #X floatatom 69 104 5 0 0 0 - - -;
 #X obj 400 543 rev1~;
 #X msg 170 242 0;
@@ -136,8 +136,8 @@
 #X obj -25 354 hsl 128 15 5 50 0 0 empty attack Attack-Decay -2 -8
 0 10 -262144 -1 -1 12700 1;
 #X floatatom -29 387 5 0 0 0 - - -;
-#X obj 67 58 hsl 300 15 0 15 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 2300 1;
+#X obj 72 58 hsl 300 15 0 15 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 9400 1;
 #X obj 429 380 hsl 128 15 0 80 0 0 empty rev1tail Reverb_1_-_Tail -2
 -8 0 10 -262144 -1 -1 7937 1;
 #X obj 429 456 hsl 128 15 0 80 0 0 empty rev2tail Reverb_2_-_Tail -2
@@ -150,7 +150,7 @@
 #X msg 200 207 set -18 \$1;
 #X obj 203 184 hsl 300 15 1000 9000 0 0 empty speed Speed_of_the_pitchshifter
 -2 -8 0 10 -262144 -1 -1 29900 1;
-#X msg 584 68 \; pd dsp 1 \; length_delay 60 \; attack 50 \; rev1tail
+#X msg 702 313 \; pd dsp 1 \; length_delay 60 \; attack 50 \; rev1tail
 50 \; rev2tail 60 \; volume 0.7 \; speed 9000 \;;
 #X obj -100 75 > 78;
 #X text 71 -4 Adjust the threshold of the trigger;
@@ -165,6 +165,14 @@
 ;
 #X text 332 635 Original idea by Lorenzo Sutton.);
 #X obj 69 83 + 10;
+#X obj 796 -8 netreceive 3000;
+#X obj 796 23 route a b c d e f g h;
+#X msg 741 72 \; speed \$1 \;;
+#X msg 758 127 \; attack \$1 \;;
+#X msg 893 316 \; volume \$1 \;;
+#X msg 849 258 \; rev2tail \$1 \;;
+#X msg 794 166 \; length_delay \$1 \;;
+#X msg 820 210 \; rev1tail \$1 \;;
 #X connect 1 0 3 0;
 #X connect 1 0 2 0;
 #X connect 1 0 2 1;
@@ -219,3 +227,11 @@
 #X connect 43 0 42 0;
 #X connect 45 0 5 0;
 #X connect 56 0 11 0;
+#X connect 57 0 58 0;
+#X connect 58 0 56 0;
+#X connect 58 1 59 0;
+#X connect 58 2 60 0;
+#X connect 58 3 63 0;
+#X connect 58 4 64 0;
+#X connect 58 5 62 0;
+#X connect 58 6 61 0;
