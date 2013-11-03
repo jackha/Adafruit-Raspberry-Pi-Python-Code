@@ -71,6 +71,7 @@ class Effects(object):
         self.loaded = False
         self.available_effects = available_effects
         self.current_settings = 8*[0]
+        self.step_sizes = 8*[1]  # for settings
         #self.load()
 
     @property
@@ -107,9 +108,13 @@ class Effects(object):
         self.send_sock = init_pd_socket()
 
     def set_default_settings(self):
-        """ Set all default settings"""
+        """ Set all default settings and determine step sizes"""
         for idx, setting in enumerate(self.settings):
             self.current_settings[idx] = setting['default']
+            if setting['type'] == 'float':
+                step_sizes[idx] = (setting['max'] - setting['min']) / 1000
+            else:
+                step_sizes[idx] = 1
             self.setting(idx, 0)
 
     def setting(self, idx, delta):
@@ -118,7 +123,6 @@ class Effects(object):
         Return curr value"""
         if idx >= len(self.settings):
             return
-        print self.current_settings[idx], delta, self.settings[idx]
         self.current_settings[idx] += delta
         if self.current_settings[idx] < self.settings[idx]['min']:
             self.current_settings[idx] = self.settings[idx]['min']
@@ -155,7 +159,6 @@ class Effects(object):
             result.append(row_value)
         for row in range(len(self.settings), 8):
             result.append(0)
-        print result
         return result
 
 
