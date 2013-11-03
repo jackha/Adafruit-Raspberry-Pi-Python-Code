@@ -29,8 +29,11 @@ ringmodulator = [
 ]
 
 whammy = [
-	{'name': 'mix', 'min': 0, 'max': 1, 'default': 1, 'type': 'float'},
-	{'name': 'pitch', 'min': -24, 'max': 24, 'default': 0, 'type': 'integer'},
+	{'name': 'orig', 'min': 0, 'max': 1, 'default': 1, 'type': 'float'},
+	{'name': 'pitch1', 'min': -24, 'max': 24, 'default': 5, 'type': 'integer'},
+	{'name': 'mix1', 'min': 0, 'max': 2, 'default': 1.5, 'type': 'float'},
+	{'name': 'pitch2', 'min': -24, 'max': 24, 'default': 9, 'type': 'integer'},
+	{'name': 'mix2', 'min': 0, 'max': 2, 'default': 0, 'type': 'float'},
 ]
 
 boldaslove = [
