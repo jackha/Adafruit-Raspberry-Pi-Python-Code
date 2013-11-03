@@ -143,9 +143,9 @@ class Effects(object):
         for row in range(0, len(self.settings)):
             row_values = []
             if row == selected:
-                row_values.append([1])
+                row_values.append(1)
             else:
-                row_values.append([0])
+                row_values.append(0)
             for col in range(0, 7):
                 if (7*(float(self.current_settings[row]) - self.settings[row]['min']) / 
                     (self.settings[row]['max'] - self.settings[row]['min']) >= col):
@@ -157,7 +157,6 @@ class Effects(object):
             result.append(row_values)
         for row in range(8-len(self.settings), 8):
             result.append(8*[0])
-            print result
         return result
 
 
