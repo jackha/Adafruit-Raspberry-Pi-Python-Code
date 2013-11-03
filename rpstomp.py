@@ -11,6 +11,7 @@ from server import server
 from time import sleep
 from subprocess import Popen
 import settings
+import smiley
 
 import os
 
@@ -44,8 +45,9 @@ SLEEP_TIME_ROTARY = 0.005
 
 # These should be files in pd directory (without .pd extension). Keys are displayed names
 # The effects must all have 2 audio inlets and 8 normal inlets, 2 audio outlets and 1 normal outlet
+OFF_EFFECT = {'display_name': '....', 'patch_name': '0', 'settings': []}
+
 AVAILABLE_EFFECTS = [
-    {'display_name': '....', 'patch_name': '0', 'settings': []},
     {'display_name': ' dly', 'patch_name': '1', 'settings': settings.spectraldelay},
     {'display_name': 'vibr', 'patch_name': '2', 'settings': settings.stepvibrato},
     {'display_name': 'syth', 'patch_name': '3', 'settings': settings.synth},
@@ -73,6 +75,7 @@ class Effects(object):
         self.current_settings = 8*[0]
         self.step_sizes = 8*[1]  # for settings
         #self.load()
+        self.effect_on = False
 
     @property
     def settings(self):
@@ -87,23 +90,33 @@ class Effects(object):
     def display_name(self):
         return AVAILABLE_EFFECTS[self.current_effect]['display_name']
 
-    def up(self):
-        self.unload()
-        self.current_effect = (self.current_effect + 1) % len(self.available_effects)
-        self.load()
+    def effect_on_off(self):
+        self.effect_on = not self.effect_on
+        if self.effect_on:
+            self.load(self.patch_name)
+        else:
+            self.load(OFF_EFFECT['patch_name'])
         self.set_default_settings()
+
+    def up(self):
+        if self.effect_on:
+            self.unload()
+        self.current_effect = (self.current_effect + 1) % len(self.available_effects)
+        if self.effect_on:
+            self.load(self.patch_name)
+            self.set_default_settings()
 
     def down(self):
         self.unload()
         self.current_effect = (self.current_effect - 1) % len(self.available_effects)
-        self.load()
+        self.load(self.patch_name)
         self.set_default_settings()
 
-    def load(self):
+    def load(self, patch_name):
         if self.loaded:
             return
         self.loaded = True
-        self.loader_socket.sendall('load %s;' % self.patch_name)
+        self.loader_socket.sendall('load %s;' % patch_name)
         sleep(0.1)  # essential! Or Pd will sometimes stop with a segmentation fault.
         self.send_sock = init_pd_socket()
 
@@ -253,50 +266,6 @@ class SevenSegmentPlus(SevenSegment):
         self.writeDigitRaw(1, self.letters[text[1]])
         self.writeDigitRaw(3, self.letters[text[2]])
         self.writeDigitRaw(4, self.letters[text[3]])
-
-
-"""For Janita: make smiley on display"""
-smiley = [
-    [0,0,0,0,0,0,0,0],
-    [0,0,1,0,0,1,0,0],
-    [0,0,1,0,0,1,0,0],
-    [0,0,1,0,0,1,0,0],
-    [1,0,0,0,0,0,0,1],
-    [0,1,0,0,0,0,1,0],
-    [0,0,1,1,1,1,0,0],
-    [0,0,0,0,0,0,0,0],
-]
-
-janita = [
-    [1,0,1,0,1,0,0,0],
-    [1,1,1,0,1,0,0,0],
-    [1,0,1,0,1,0,0,0],
-    [0,0,0,0,0,0,0,0],
-    [0,0,1,0,0,1,0,0],
-    [0,0,1,0,1,0,1,0],
-    [1,0,1,0,1,1,1,0],
-    [0,1,0,0,1,0,1,0]]
-
-janita2 = [
-    [1,0,0,1,0,1,0,0],
-    [1,1,0,1,0,1,0,0],
-    [1,0,1,1,0,1,0,0],
-    [1,0,0,1,0,1,0,0],
-    [0,0,0,0,0,0,1,0],
-    [0,1,1,1,0,1,0,1],
-    [0,0,1,0,0,1,1,1],
-    [0,0,1,0,0,1,0,1]]
-
-smiley_cry = [
-    [0,0,0,0,0,0,0,0],
-    [0,0,1,0,0,1,0,0],
-    [0,0,1,0,0,1,0,0],
-    [0,0,1,0,0,1,0,0],
-    [0,0,0,0,0,0,0,0],
-    [0,0,1,1,1,1,0,0],
-    [0,1,0,0,0,0,1,0],
-    [0,1,0,0,0,0,1,0],
-]
 
 
 # Communication with Pd
@@ -451,20 +420,25 @@ if __name__ == '__main__':
 
         if push[0]:
             disp_timer_expiration = now + datetime.timedelta(seconds=2)
-            grid.grid_array(janita)
+            grid.grid_array(smiley.janita)
 
             disp_needs_updating = True
 
         if push[1]:
             disp_timer_expiration = now + datetime.timedelta(seconds=2)
-            grid.grid_array(janita2)
+            grid.grid_array(smiley.janita2)
 
+            disp_needs_updating = True
+
+        if push[2] and not pushed_in[2]:
+            effects.effect_on_off()
+            pushed_in[2] = True
             disp_needs_updating = True
 
         if push[3] and not pushed_in[3]:
             effects.up()
             selected_idx = 0
-            pushed_in[2] = True
+            pushed_in[3] = True
             disp_needs_updating = True
 
         if push[5] and not pushed_in[5]:
@@ -490,6 +464,8 @@ if __name__ == '__main__':
 
 
         if delta1 != 0 or delta2 != 0:
+            if len(effects.settings) == 0:
+                continue
             selected = selected + delta2
             if selected > len(effects.settings)*8-1: # *8 make it slower
                 selected = len(effects.settings)*8-1  
@@ -520,7 +496,10 @@ if __name__ == '__main__':
         # grid display: default view
         if datetime.datetime.now() > disp_timer_expiration and disp_needs_updating:
             segment.write(effects.display_name)
-            grid.grid_array(smiley)
+            if effects.effect_on:
+                grid.grid_array(smiley.smiley)
+            else:
+                grid.grid_array(smiley.smiley_sleep)
             disp_needs_updating = False
             push_timer_expiration = datetime.datetime.now()
 
@@ -528,6 +507,6 @@ if __name__ == '__main__':
 
     #send_sock.sendall('volume 0;')
     effects.unload()
-    grid.grid_array(smiley_cry)
+    grid.grid_array(smiley.smiley_cry)
     segment.write(' bye')
 
