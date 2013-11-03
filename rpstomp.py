@@ -401,7 +401,7 @@ if __name__ == '__main__':
             #send_sock.sendall('b_e bla;')
 
         if push[5] and pushed_in[5] and now <= quit_timer_expiration:
-            seconds_left = (quit_timer_expiration - now).seconds  # It's always < 60 sec
+            seconds_left = (quit_timer_expiration - now).seconds + 1 # It's always < 60 sec
             segment.write('t % 2d' % (-seconds_left))
 
         if push[5] and pushed_in[5] and now > quit_timer_expiration:
