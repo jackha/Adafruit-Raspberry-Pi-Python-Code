@@ -150,7 +150,7 @@ class Effects(object):
                     row_value += lookup_add[col+1]
 
             result.append(row_value)
-        for row in range(8-len(self.settings), 8):
+        for row in range(len(self.settings), 8):
             result.append(0)
         print result
         return result
