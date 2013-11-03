@@ -500,7 +500,7 @@ if __name__ == '__main__':
             segment.writeDigit(1, int(value/100)%10) 
             # Set minutes
             segment.writeDigit(3, int(value / 10) % 10)   # Tens
-            segment.writeDigit(4, value % 10)        # Ones
+            segment.writeDigit(4, int(value) % 10)        # Ones
             # Toggle color
             #segment.setColon(0)              # Toggle colon at 1Hz
 
