@@ -50,14 +50,14 @@ OFF_EFFECT = {'display_name': '....', 'patch_name': '0', 'settings': []}
 AVAILABLE_EFFECTS = [
     {'display_name': ' dly', 'patch_name': '1', 'settings': settings.spectraldelay},
     {'display_name': 'vibr', 'patch_name': '2', 'settings': settings.stepvibrato},
-    {'display_name': 'syth', 'patch_name': '3', 'settings': settings.synth},
+#    {'display_name': 'syth', 'patch_name': '3', 'settings': settings.synth},
     {'display_name': 'hexi', 'patch_name': '4', 'settings': settings.hexxiter},
     {'display_name': 'ring', 'patch_name': '5', 'settings': []},
     {'display_name': 'revb', 'patch_name': '6', 'settings': []},
     {'display_name': 'bold', 'patch_name': '7', 'settings': []},
-    {'display_name': 'psyn', 'patch_name': '8', 'settings': []},
+#    {'display_name': 'psyn', 'patch_name': '8', 'settings': []},
     {'display_name': 'wird', 'patch_name': '9', 'settings': []},
-    {'display_name': 'robo', 'patch_name': '10', 'settings': []},
+#    {'display_name': 'robo', 'patch_name': '10', 'settings': []},
     {'display_name': 'bsyn', 'patch_name': '11', 'settings': []},
 ]
 
