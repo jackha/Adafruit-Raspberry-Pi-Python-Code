@@ -123,7 +123,7 @@ class Effects(object):
         Return curr value"""
         if idx >= len(self.settings):
             return
-        self.current_settings[idx] += delta
+        self.current_settings[idx] += delta * self.step_sizes[idx]
         if self.current_settings[idx] < self.settings[idx]['min']:
             self.current_settings[idx] = self.settings[idx]['min']
         if self.current_settings[idx] > self.settings[idx]['max']:
