@@ -344,12 +344,15 @@ if __name__ == '__main__':
 
     #initialized = False
     disp_needs_updating = True
-    disp_timer_expiration = datetime.datetime.now()
+    now = datetime.datetime.now()
+    disp_timer_expiration = now
+    quit_timer_expiration = now
     startup = False
     push = {}
     pushed_in = {}  # You want to trigger a push only once.
 
     running = True
+
 
     while(running):
         # read rotary encoder
@@ -398,8 +401,8 @@ if __name__ == '__main__':
             #send_sock.sendall('b_e bla;')
 
         if push[5] and pushed_in[5] and now <= quit_timer_expiration:
-            seconds_left = (now - quit_timer_expiration).seconds  # It's always < 60 sec
-            segment.write('t % 2d' % (seconds_left))
+            seconds_left = (quit_timer_expiration - now).seconds  # It's always < 60 sec
+            segment.write('t % 2d' % (-seconds_left))
 
         if push[5] and pushed_in[5] and now > quit_timer_expiration:
             running = False
