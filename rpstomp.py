@@ -444,13 +444,13 @@ if __name__ == '__main__':
             disp_needs_updating = True
 
         if push[3] and not pushed_in[3]:
-            effects.up()
+            effects.down()
             selected_idx = 0
             pushed_in[3] = True
             disp_needs_updating = True
 
         if push[4] and not pushed_in[4]:
-            effects.down()
+            effects.up()
             selected_idx = 0
             pushed_in[4] = True
             disp_needs_updating = True
