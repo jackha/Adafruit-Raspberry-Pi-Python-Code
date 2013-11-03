@@ -112,7 +112,7 @@ class Effects(object):
         for idx, setting in enumerate(self.settings):
             self.current_settings[idx] = setting['default']
             if setting['type'] == 'float':
-                self.step_sizes[idx] = (setting['max'] - setting['min']) / 100
+                self.step_sizes[idx] = (setting['max'] - setting['min']) / 100.
             else:
                 self.step_sizes[idx] = 1
             self.setting(idx, 0)
