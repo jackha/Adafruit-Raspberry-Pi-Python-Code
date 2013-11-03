@@ -196,7 +196,7 @@ class SevenSegmentPlus(SevenSegment):
         'u': 4 + 8 + 16,
         'v': 2 + 4 + 8 + 16 + 32,
         'w': 2 + 4 + 8 + 16 + 32,
-        'x': 4 + 16 + 32 + 64,
+        'x': 2 + 4 + 16 + 32 + 64,
         'y': 2 + 4 + 8 + 32 + 64,
         'z': 1 + 2 + 8 + 16 + 64,
         '0': 1 + 2 + 4 + 8 + 16 + 32,
@@ -435,6 +435,7 @@ if __name__ == '__main__':
 
         if push[3] and not pushed_in[3]:
             effects.up()
+            selected_idx = 0
             pushed_in[2] = True
             disp_needs_updating = True
 
@@ -481,10 +482,9 @@ if __name__ == '__main__':
             # Toggle color
             #segment.setColon(0)              # Toggle colon at 1Hz
 
-            grid.set_values(values, selected=selected_idx)
+            grid.set_values(effects.current_settings, selected=selected_idx)
 
-            #send_sock.sendall('%s %d;' % (option_names[selected_idx], values[selected_idx]))
-            
+
             disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             disp_needs_updating = True
 
