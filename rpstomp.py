@@ -407,6 +407,10 @@ if __name__ == '__main__':
         if push[5] and pushed_in[5] and now > quit_timer_expiration:
             running = False
 
+        if not push[5] and pushed_in[5]:
+            # Just released button
+            disp_needs_updating = True
+
         for i in range(len(PUSH_BUTTON_PINS)):
             if not push[i]:
                 pushed_in[i] = False
