@@ -392,8 +392,6 @@ if __name__ == '__main__':
     server_thread.daemon = True
     server_thread.start()
 
-
-
     #initialized = False
     disp_needs_updating = True
     now = datetime.datetime.now()
@@ -446,12 +444,14 @@ if __name__ == '__main__':
 
         if push[3] and not pushed_in[3]:
             effects.down()
+            selected = 0
             selected_idx = 0
             pushed_in[3] = True
             disp_needs_updating = True
 
         if push[4] and not pushed_in[4]:
             effects.up()
+            selected = 0
             selected_idx = 0
             pushed_in[4] = True
             disp_needs_updating = True
