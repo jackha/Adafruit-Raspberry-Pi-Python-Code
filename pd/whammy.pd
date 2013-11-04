@@ -7,8 +7,8 @@
 #X obj -164 152 dac~;
 #X obj -163 64 *~ 1.5;
 #X text -97 -25 Transpose;
-#X obj 253 20 netreceive 3000;
-#X obj 253 64 route a b c d e f g h;
+#X obj 255 -83 netreceive 3000;
+#X obj 255 -39 route a b c d e f g h;
 #X obj -197 109 *~ 1;
 #X obj -13 45 pitchshifter~;
 #X msg 62 22 transpose \$1;
