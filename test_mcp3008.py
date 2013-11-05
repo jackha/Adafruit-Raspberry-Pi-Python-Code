@@ -86,7 +86,7 @@ while True:
                 set_volume = round(set_volume)          # round out decimal value
                 set_volume = int(set_volume)            # cast volume as integer
 
-                print 'Volume = {volume}%' .format(volume = set_volume)
+                #print 'Volume = {volume}%' .format(volume = set_volume)
                 #set_vol_cmd = 'sudo amixer cset numid=1 -- {volume}% > /dev/null' .format(volume = set_volume)
                 #os.system(set_vol_cmd)  # set volume
 
