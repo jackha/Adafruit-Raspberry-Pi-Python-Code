@@ -43,10 +43,10 @@ def readadc(adcnum, clockpin, mosipin, misopin, cspin):
 
 # change these as desired - they're the pins connected from the
 # SPI port on the ADC to the Cobbler
-SPICLK = 18
-SPIMISO = 23
-SPIMOSI = 24
-SPICS = 25
+SPICLK = 24
+SPIMISO = 25
+SPIMOSI = 8
+SPICS = 7
 
 # set up the SPI interface pins
 GPIO.setup(SPIMOSI, GPIO.OUT)
@@ -87,8 +87,8 @@ while True:
                 set_volume = int(set_volume)            # cast volume as integer
 
                 print 'Volume = {volume}%' .format(volume = set_volume)
-                set_vol_cmd = 'sudo amixer cset numid=1 -- {volume}% > /dev/null' .format(volume = set_volume)
-                os.system(set_vol_cmd)  # set volume
+                #set_vol_cmd = 'sudo amixer cset numid=1 -- {volume}% > /dev/null' .format(volume = set_volume)
+                #os.system(set_vol_cmd)  # set volume
 
                 if DEBUG:
                         print "set_volume", set_volume
