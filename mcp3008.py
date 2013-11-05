@@ -19,9 +19,9 @@ class Mcp3008(object):
         # read SPI data from MCP3008 chip, 8 possible adc's (0 thru 7)
         if ((adcnum > 7) or (adcnum < 0)):
             return -1
-        self.gpio.output(self.cspin, True)
-        self.gpio.output(self.clockpin, False)
-        self.gpio.output(self.cspin, False)
+        self.gpio.digitalWrite(self.cspin, True)
+        self.gpio.digitalWrite(self.clockpin, False)
+        self.gpio.digitalWrite(self.cspin, False)
 
         commandout = adcnum
         commandout |= 0x18  # start bit + single-ended bit
@@ -29,23 +29,23 @@ class Mcp3008(object):
 
         for i in range(5):
             if (commandout & 0x80):
-                self.gpio.output(self.mosipin, True)
+                self.gpio.digitalWrite(self.mosipin, True)
             else:
-                self.gpio.output(self.mosipin, False)
+                self.gpio.digitalWrite(self.mosipin, False)
             commandout <<= 1
-            self.gpio.output(self.clockpin, True)
-            self.gpio.output(self.clockpin, False)
+            self.gpio.digitalWrite(self.clockpin, True)
+            self.gpio.digitalWrite(self.clockpin, False)
 
         adcout = 0
         # read in one empty bit, one null bit and 10 ADC bits
         for i in range(12):
-            self.gpio.output(self.clockpin, True)
-            self.gpio.output(self.clockpin, False)
+            self.gpio.digitalWrite(self.clockpin, True)
+            self.gpio.digitalWrite(self.clockpin, False)
             adcout <<= 1
-            if (self.gpio.input(self.misopin)):
+            if (self.gpio.digitalRead(self.misopin)):
                 adcout |= 0x1
 
-        self.gpio.output(self.cspin, True)
+        self.gpio.digitalWrite(self.cspin, True)
         
         adcout >>= 1       # first bit is 'null' so drop it
         return adcout
