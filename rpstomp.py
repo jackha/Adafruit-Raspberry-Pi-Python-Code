@@ -12,6 +12,7 @@ from time import sleep
 from subprocess import Popen
 import settings
 import smiley
+from mcp3008 import Mcp3008
 
 import os
 
@@ -41,6 +42,13 @@ SEVEN_SEGMENT_BRIGHTNESS = 0
 
 SLEEP_TIME = 0.02  # In seconds: give audio more time.
 SLEEP_TIME_ROTARY = 0.005
+
+
+# For the Mcp3008
+SPICLK = 5
+SPIMISO = 6
+SPIMOSI = 10
+SPICS = 11
 
 
 # These should be files in pd directory (without .pd extension). Keys are displayed names
@@ -277,6 +285,17 @@ class SevenSegmentPlus(SevenSegment):
         self.writeDigitRaw(3, self.letters[text[2]])
         self.writeDigitRaw(4, self.letters[text[3]])
 
+    def writeValue(self, value):
+        """Write integer to display"""
+
+        self.writeDigit(0, int(value/1000)%10)
+        self.writeDigit(1, int(value/100)%10) 
+        # Set minutes
+        self.writeDigit(3, int(value / 10) % 10)   # Tens
+        self.writeDigit(4, int(value) % 10)        # Ones
+        # Toggle color
+        #segment.setColon(0)              # Toggle colon at 1Hz
+
 
 # Communication with Pd
 class Communication():
@@ -404,7 +423,8 @@ if __name__ == '__main__':
         pushed_in[i] = False
 
     running = True
-
+    mcp = Mcp3008(SPICLK, SPIMISO, SPIMOSI, SPICS)
+    mcp_values = 8*[0]
 
     while(running):
         # read rotary encoder
@@ -413,6 +433,10 @@ if __name__ == '__main__':
         delta1 = encoder1.get_delta()
         delta2 = encoder2.get_delta()
         now = datetime.datetime.now()
+
+        for i in range(8):
+            mcp_values[i] = mcp.read(i)
+        segment.writeValue(mcp_values[0])
 
         #some_push = False
         for i in range(len(PUSH_BUTTON_PINS)):
@@ -491,14 +515,7 @@ if __name__ == '__main__':
             value = effects.setting(selected_idx, delta1)
 
             # Set 7 segment
-            # Set hours
-            segment.writeDigit(0, int(value/1000)%10)
-            segment.writeDigit(1, int(value/100)%10) 
-            # Set minutes
-            segment.writeDigit(3, int(value / 10) % 10)   # Tens
-            segment.writeDigit(4, int(value) % 10)        # Ones
-            # Toggle color
-            #segment.setColon(0)              # Toggle colon at 1Hz
+            segment.writeValue(value)
 
             grid.bytes_array(effects.settings_as_eight(selected=selected_idx))
 

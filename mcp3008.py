@@ -3,6 +3,7 @@ import time
 import os
 import wiringpi2
 
+
 class Mcp3008(object):
     def __init__(self, clockpin, misopin, mosipin, cspin):
         self.gpio = wiringpi2.GPIO(wiringpi2.GPIO.WPI_MODE_PINS)
