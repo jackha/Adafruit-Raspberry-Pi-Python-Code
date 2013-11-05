@@ -434,9 +434,10 @@ if __name__ == '__main__':
         delta2 = encoder2.get_delta()
         now = datetime.datetime.now()
 
+        # Get 8 analog inputs, yeah!
         for i in range(8):
             mcp_values[i] = mcp.read(i)
-        segment.writeValue(mcp_values[0])
+        segment.writeValue(mcp_values[1])
 
         #some_push = False
         for i in range(len(PUSH_BUTTON_PINS)):
