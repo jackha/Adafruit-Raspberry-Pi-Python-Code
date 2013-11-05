@@ -71,15 +71,15 @@ while True:
         pot_adjust = abs(trim_pot - last_read)
 
         if DEBUG:
-                print "trim_pot:", trim_pot
+                print trim_pot
                 #print "pot_adjust:", pot_adjust
                 #print "last_read", last_read
 
         if ( pot_adjust > tolerance ):
                trim_pot_changed = True
 
-        if DEBUG:
-                print "trim_pot_changed", trim_pot_changed
+        #if DEBUG:
+        #        print "trim_pot_changed", trim_pot_changed
 
         if ( trim_pot_changed ):
                 set_volume = trim_pot / 10.24           # convert 10bit adc0 (0-1024) trim pot read into 0-100 volume level
@@ -98,4 +98,4 @@ while True:
                 last_read = trim_pot
 
         # hang out and do nothing for a half second
-        time.sleep(0.1)
+        time.sleep(0.01)
