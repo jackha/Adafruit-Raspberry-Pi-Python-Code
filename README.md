@@ -175,6 +175,9 @@ $ speaker-test -c2 -D hw:0,0 -F S32_LE
 Expression pedal
 ================
 
+Mcp3008
+
+    $ sudo easy_install rpi.gpio
 
 
 Finishing up the software

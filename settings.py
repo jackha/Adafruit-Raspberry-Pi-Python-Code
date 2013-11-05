@@ -57,3 +57,9 @@ weird = [
 	{'name': 'dunno', 'min': 0, 'max': 5, 'default': 1, 'type': 'float'},
 	{'name': 'dunno', 'min': -0.9, 'max': 0.9, 'default': 0, 'type': 'float'},
 ]
+
+fourtap = [
+	{'name': 'dunno', 'min': 0, 'max': 25, 'default': 15, 'type': 'float'},
+	{'name': 'mod-add', 'min': 0, 'max': 15, 'default': 5, 'type': 'integer'},
+	{'name': 'mod-multiply', 'min': 0, 'max': 15, 'default': 5, 'type': 'integer'},
+	]
