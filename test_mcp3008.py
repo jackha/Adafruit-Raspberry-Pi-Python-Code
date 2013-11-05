@@ -72,8 +72,8 @@ while True:
 
         if DEBUG:
                 print "trim_pot:", trim_pot
-                print "pot_adjust:", pot_adjust
-                print "last_read", last_read
+                #print "pot_adjust:", pot_adjust
+                #print "last_read", last_read
 
         if ( pot_adjust > tolerance ):
                trim_pot_changed = True
@@ -90,12 +90,12 @@ while True:
                 #set_vol_cmd = 'sudo amixer cset numid=1 -- {volume}% > /dev/null' .format(volume = set_volume)
                 #os.system(set_vol_cmd)  # set volume
 
-                if DEBUG:
-                        print "set_volume", set_volume
-                        print "tri_pot_changed", set_volume
+                #if DEBUG:
+                #        print "set_volume", set_volume
+                #        print "tri_pot_changed", set_volume
 
                 # save the potentiometer reading for the next loop
                 last_read = trim_pot
 
         # hang out and do nothing for a half second
-        time.sleep(0.5)
+        time.sleep(0.1)
