@@ -213,7 +213,7 @@ if __name__ == '__main__':
             mcp_values[i] = mcp.read(i)
         #segment.writeValue(mcp_values[7])
         # test
-        effects.setting(0, value=mcp_values[1]/1024.)
+        #effects.setting(0, value=mcp_values[1]/1024.)
 
         #some_push = False
         for i in range(len(PUSH_BUTTON_PINS)):
@@ -295,7 +295,6 @@ if __name__ == '__main__':
         for i in range(len(PUSH_BUTTON_PINS)):
             if not push[i]:
                 pushed_in[i] = False
-
 
         if delta1 != 0 or delta2 != 0:
             scroller = None
