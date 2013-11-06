@@ -36,7 +36,7 @@ class Scroller(object):
     def reset(self):
         self.pos = 0
         self.byte_array = self.char_height * [0]  # for sending to display
-        for i in range(6):
+        for i in range(7):
             self.up()
 
     def timedelta(self, delta):
