@@ -65,5 +65,8 @@ fourtap = [
 	]
 
 diy2pitch = [
-	{'name': 'transpose', 'min': 0, 'max': 2, 'default': 1, 'type': 'float'},
+	{'name': 'transpose', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
+	{'name': 'window', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
+	{'name': 'delay', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
+	{'name': 'gain', 'min': 0, 'max': 1, 'default': 0.8, 'type': 'float'},
 ]

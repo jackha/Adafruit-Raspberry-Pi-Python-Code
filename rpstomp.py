@@ -158,12 +158,14 @@ class Effects(object):
                 self.step_sizes[idx] = 1
             self.setting(idx, 0)
 
-    def setting(self, idx, delta):
+    def setting(self, idx, value=None, delta=0):
         """ Add delta to setting and update to Pd. 
 
         Return curr value"""
         if idx >= len(self.settings):
             return
+        if value is not None:
+            self.current_settings[idx] = value
         self.current_settings[idx] += delta * self.step_sizes[idx]
         if self.current_settings[idx] < self.settings[idx]['min']:
             self.current_settings[idx] = self.settings[idx]['min']
@@ -440,6 +442,8 @@ if __name__ == '__main__':
         for i in range(8):
             mcp_values[i] = mcp.read(i)
         #segment.writeValue(mcp_values[7])
+        # test
+        effects.setting(0, value=mcp_values[1])
 
         #some_push = False
         for i in range(len(PUSH_BUTTON_PINS)):
@@ -515,7 +519,7 @@ if __name__ == '__main__':
                 selected = 0
             selected_idx = selected/8
 
-            value = effects.setting(selected_idx, delta1)
+            value = effects.setting(selected_idx, delta=delta1)
 
             # Set 7 segment
             segment.writeValue(value)
