@@ -69,4 +69,6 @@ diy2pitch = [
 	{'name': 'window', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
 	{'name': 'delay', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
 	{'name': 'gain', 'min': 0, 'max': 1, 'default': 0.8, 'type': 'float'},
+	{'name': 'metro-speed', 'min': 100, 'max': 2000, 'default': 1000, 'type': 'float'},
+	{'name': 'metro-vol', 'min': 0, 'max': 1, 'default': 0, 'type': 'float'},	
 ]
