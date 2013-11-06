@@ -63,3 +63,7 @@ fourtap = [
 	{'name': 'mod-add', 'min': 0, 'max': 15, 'default': 5, 'type': 'integer'},
 	{'name': 'mod-multiply', 'min': 0, 'max': 15, 'default': 5, 'type': 'integer'},
 	]
+
+diy2pitch = [
+	{'name': 'transpose', 'min': 0, 'max': 2, 'default': 1, 'type': 'float'},
+]
