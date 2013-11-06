@@ -13,7 +13,7 @@ class Scroller(object):
         self.char_height = len(self.scroll_array)
         # build scroll array using font
         for character in text:
-            for idx, row in enumerate(self.font[character.lower()]):
+            for idx, row in enumerate(font[character.lower()]):
                 self.scroll_array[idx].extend(row + [0])
 
         self.max_pos = len(self.scroll_array[0])
