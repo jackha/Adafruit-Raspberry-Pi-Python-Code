@@ -20,7 +20,7 @@ class Scroller(object):
     ]
 
     def __init__(self):
-        self.max_pos = len(self.scroll_test) - 8
+        self.max_pos = len(self.scroll_test[0]) - 8
 
     def arr(self, pos):
         result = []
