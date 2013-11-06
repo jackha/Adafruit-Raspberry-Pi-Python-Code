@@ -25,7 +25,7 @@ class Scroller(object):
     def arr(self, pos):
         result = []
         pos = pos % (self.max_pos)
-        for row in range(self.scroll_test):
+        for row in self.scroll_test:
             result.append(row[pos:pos+8])
         return result
 
