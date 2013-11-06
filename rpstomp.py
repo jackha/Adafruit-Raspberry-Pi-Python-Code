@@ -60,7 +60,7 @@ SPICS = 11
 OFF_EFFECT = {'display_name': '....', 'patch_name': '0', 'settings': []}
 
 AVAILABLE_EFFECTS = [
-    {'display_name': 'test', 'full_name': 'test', 'patch_name': '14', 'settings': settings.diy2pitch},
+#    {'display_name': 'test', 'full_name': 'test', 'patch_name': '14', 'settings': settings.diy2pitch},
     {'display_name': ' dly', 'full_name': 'delay', 'patch_name': '1', 'settings': settings.spectraldelay},
     {'display_name': 'vibr', 'full_name': 'step vibrato', 'patch_name': '2', 'settings': settings.stepvibrato},
 #    {'display_name': 'syth', 'patch_name': '3', 'settings': settings.synth},
@@ -308,14 +308,15 @@ if __name__ == '__main__':
                 selected = 0
             selected_idx = selected/8
 
-            value = effects.setting(selected_idx, delta=delta1)
-
-            # Set 7 segment
-            segment.writeValue(value)
+            effects.setting(selected_idx, delta=delta1)
 
             if delta1 != 0:
+                # Set 7 segment
+                value = 1000*effects.setting_norm(selected_idx)
+                segment.writeValue(value)
                 grid.special(64*effects.setting_norm(selected_idx))
             if delta2 != 0:
+                segment.write('set ')
                 grid.bytes_array(effects.settings_as_eight(selected=selected_idx))
 
             disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
