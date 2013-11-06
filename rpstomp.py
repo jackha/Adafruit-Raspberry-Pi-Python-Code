@@ -493,6 +493,10 @@ if __name__ == '__main__':
             disp_timer_expiration = now + datetime.timedelta(
                 seconds=scroller.timedelta(SCROLLER_DELAY))
             scroller.reset()
+            
+            grid.bytes_array(scroller.up())
+            scroller_timer_expiration = now + datetime.timedelta(seconds=SCROLLER_PRE_DELAY)
+
             selected = 0
             selected_idx = 0
             pushed_in[3] = True
@@ -503,6 +507,8 @@ if __name__ == '__main__':
             scroller = effects.scroller
             disp_timer_expiration = now + datetime.timedelta(
                 seconds=scroller.timedelta(SCROLLER_DELAY))
+            grid.bytes_array(scroller.up())
+            scroller_timer_expiration = now + datetime.timedelta(seconds=SCROLLER_PRE_DELAY)
             scroller.reset()
             selected = 0
             selected_idx = 0
