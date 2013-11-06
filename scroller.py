@@ -2,7 +2,6 @@
 
 import time
 import datetime
-from rpstomp import EightByEightPlus
 from font import font
 
 class Scroller(object):
@@ -45,6 +44,7 @@ class Scroller(object):
 
 
 if __name__=='__main__':
+    from rpstomp import EightByEightPlus
     pos = 0
     grid = EightByEightPlus(address=0x70, brightness=0)
 
