@@ -277,6 +277,7 @@ if __name__ == '__main__':
             #running = False;
             pushed_in[5] = True
             quit_timer_expiration = now + datetime.timedelta(seconds=2)
+            grid.grid_array(smiley.smiley_uhoh)
             #send_sock.sendall('b_e bla;')
 
         if push[5] and pushed_in[5] and now <= quit_timer_expiration:
