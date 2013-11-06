@@ -30,7 +30,7 @@ class Scroller(object):
         return result
 
 pos = 0
-scroller = Scrolle()
+scroller = Scroller()
 
 while(True):
     pos += 1
