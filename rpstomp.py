@@ -443,7 +443,7 @@ if __name__ == '__main__':
             mcp_values[i] = mcp.read(i)
         #segment.writeValue(mcp_values[7])
         # test
-        effects.setting(0, value=mcp_values[1])
+        effects.setting(0, value=mcp_values[1]/1024.)
 
         #some_push = False
         for i in range(len(PUSH_BUTTON_PINS)):
