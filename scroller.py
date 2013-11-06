@@ -46,12 +46,11 @@ class Scroller(object):
 
     def __init__(self, text):
         self.text = text
-        self.char_height = 5
-        self.scroll_array = [[0],[0],[0],[0],[0]]
+        self.scroll_array = [[],[],[],[],[]]
+        self.char_height = len(self.scroll_array)
         # build scroll array using font
         for character in text:
             for idx, row in enumerate(self.font[character.lower()]):
-                print idx, row
                 self.scroll_array[idx].extend(row + [0])
 
         self.max_pos = len(self.scroll_array[0])
@@ -85,7 +84,7 @@ if __name__=='__main__':
     pos = 0
     grid = EightByEightPlus(address=0x70, brightness=0)
 
-    scroller = Scroller('a')
+    scroller = Scroller('abcde')
 
     while(True):
         pos += 1
