@@ -105,6 +105,7 @@ class Effects(object):
                 print self.step_sizes[idx]
             else:
                 self.step_sizes[idx] = 1
+                print 'integer setting'
             self.setting(idx, 0)
 
     def setting(self, idx, value=None, delta=0):
