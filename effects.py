@@ -1,3 +1,5 @@
+from time import sleep
+
 class Effects(object):
 
     # Option names in Pd.
