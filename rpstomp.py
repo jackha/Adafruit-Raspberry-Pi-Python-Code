@@ -212,8 +212,8 @@ class EightByEightPlus(EightByEight):
                 if values[row] > col * 10:
                     row_value += lookup_add[col]
             #print 'row, rowvalue %d %d' % (row, row_value)
-            grid.writeRowRaw(row, row_value, update=False)
-        grid.disp.writeDisplay()
+            self.writeRowRaw(row, row_value, update=False)
+        self.disp.writeDisplay()
 
     def grid_array(self, arr):
         """Grid array"""
@@ -224,14 +224,14 @@ class EightByEightPlus(EightByEight):
             for x in range(8):
                 byte_value += lookup_add[x] * arr[y][x]
                 #grid.setPixel(x, y, arr[y][x])
-            grid.writeRowRaw(y, byte_value, update=False)
-        grid.disp.writeDisplay()
+            self.writeRowRaw(y, byte_value, update=False)
+        self.disp.writeDisplay()
 
     def bytes_array(self, arr):
         """Grid array"""
         for y in range(8):
-            grid.writeRowRaw(y, arr[y], update=False)
-        grid.disp.writeDisplay()
+            self.writeRowRaw(y, arr[y], update=False)
+        self.disp.writeDisplay()
 
 class SevenSegmentPlus(SevenSegment):
     letters = {
