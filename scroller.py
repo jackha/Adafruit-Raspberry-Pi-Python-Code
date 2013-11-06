@@ -47,7 +47,7 @@ class Scroller(object):
     def __init__(self, text):
         self.text = text
         self.char_height = 5
-        self.scroll_array = self.char_height * [0]
+        self.scroll_array = self.char_height * [[0]]
         # build scroll array using font
         for character in text:
             for idx, row in enumerate(self.font[character.lower()]):
