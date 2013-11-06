@@ -65,7 +65,7 @@ class Scroller(object):
             self.byte_array[idx] >>= 1  # shift 1 pixel
             self.byte_array[idx] += 128*self.scroll_array[idx][self.pos]
             # Byte array for display has weird bit ordering: [128, 1, 2, 4, 8, 16, 32, 64]
-            byte_array_for_display.append(self.byte_array[idx] >> 1 + 128*self.byte_array[idx] & 1)
+            byte_array_for_display.append((self.byte_array[idx] >> 1) + (128*self.byte_array[idx] & 1))
             #byte_array_for_display.append(self.byte_array[idx])
             print self.byte_array[idx]
         self.pos = (self.pos + 1) % self.max_pos
