@@ -13,7 +13,7 @@ import settings
 import smiley
 from mcp3008 import Mcp3008
 from display import EightByEightPlus, SevenSegmentPlus
-from effects import EffectsEff
+from effects import Effects
 
 import os
 from scroller import Scroller
