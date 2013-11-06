@@ -485,6 +485,8 @@ if __name__ == '__main__':
 
         if push[3] and not pushed_in[3]:
             effects.down()
+            scroller = effects.scroller
+            scroller.reset()
             selected = 0
             selected_idx = 0
             pushed_in[3] = True
@@ -492,11 +494,14 @@ if __name__ == '__main__':
 
         if push[4] and not pushed_in[4]:
             effects.up()
+            scroller = effects.scroller
+            scroller.reset()
             selected = 0
             selected_idx = 0
             pushed_in[4] = True
             disp_needs_updating = True
 
+        # Quit button
         if push[5] and not pushed_in[5]:
             #running = False;
             pushed_in[5] = True
