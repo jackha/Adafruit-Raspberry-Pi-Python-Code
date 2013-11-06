@@ -133,15 +133,6 @@ class Pd(object):
         os.killpg(self.pd_proc.pid, signal.SIGTERM)
 
 
-def init_pd_socket():
-    # Create a socket (SOCK_STREAM means a TCP socket)
-    # client of puredata: use 'netreceive 3000' in pd
-    print "init send socket to Pd..."
-    send_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    send_sock.connect(('localhost', 3000))
-    return send_sock
-    
-
 if __name__ == '__main__':
     print "Raspberry-Stomp"
 
