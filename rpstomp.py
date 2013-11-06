@@ -427,8 +427,11 @@ if __name__ == '__main__':
 
     #initialized = False
     disp_needs_updating = True
+    segment_needs_updating = True
+
     now = datetime.datetime.now()
     disp_timer_expiration = now
+    segment_timer_expiration = now
     quit_timer_expiration = now
     push = {}
     pushed_in = {}  # You want to trigger a push only once.
@@ -548,22 +551,29 @@ if __name__ == '__main__':
             grid.bytes_array(effects.settings_as_eight(selected=selected_idx))
 
             disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
+            segment_timer_expiration = disp_timer_expiration
+
             disp_needs_updating = True
+            segment_needs_updating = True
 
         if scroller is not None and now > scroller_timer_expiration:
             grid.bytes_array(scroller.up())
             scroller_timer_expiration = now + datetime.timedelta(seconds=SCROLLER_DELAY)
 
         # grid display: default view
+        if now > segment_timer_expiration and segment_needs_updating:
+            # default view for segment
+            segment.write(effects.display_name)
+
         if now > disp_timer_expiration and disp_needs_updating:
             scroller = None
-            segment.write(effects.display_name)
+            #segment.write(effects.display_name)
             if effects.effect_on:
                 grid.grid_array(smiley.smiley)
             else:
                 grid.grid_array(smiley.smiley_sleep)
             disp_needs_updating = False
-            push_timer_expiration = datetime.datetime.now()
+            push_timer_expiration = now
 
         sleep(SLEEP_TIME)
 
