@@ -30,8 +30,8 @@ class Scroller(object):
         return result
 
 pos = 0
-# Continually update the time on a 4 char, 7-segment display
-# Continually update the 8x8 display one pixel at a time
+scroller = Scrolle()
+
 while(True):
     pos += 1
 
