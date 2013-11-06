@@ -24,18 +24,32 @@ class Effects(object):
         self.loaded_patch = None  
         self.available_effects = available_effects
         self.current_settings = 8*[0]
-        self.step_sizes = 8*[1]  # for settings
+        #self.step_sizes = 8*[1]  # for settings
         #self.load()
         self.effect_on = False
         self.load(off_effect['patch_name'])
         self.off_effect = off_effect
         self.scrollers = []
+        # Determine step sizes
+        self.step_sizes = []
+        for effect in self.available_effects:
+            curr_step_sizes = []
+            for idx, setting in enumerate(self.settings):
+                if setting['type'] == 'float':
+                    curr_step_sizes.append((setting['max'] - setting['min']) / 100.)
+                else:
+                    curr_step_sizes.append(1)
+            self.step_sizes.append(curr_step_sizes)
         for effect in self.available_effects:
             self.scrollers.append(Scroller(effect['full_name']))
 
     @property
     def settings(self):
         return self.available_effects[self.current_effect]['settings']
+
+    @property
+    def step_size(self, idx):
+        return self.step_sizes[self.current_effect][idx]
 
     @property
     def patch_name(self):
@@ -64,6 +78,7 @@ class Effects(object):
         if self.effect_on:
             self.unload()
         self.current_effect = (self.current_effect + 1) % len(self.available_effects)
+        self.set_setting_step_sizes()
         if self.effect_on:
             self.load()
             self.set_default_settings()
@@ -96,17 +111,12 @@ class Effects(object):
         self.loaded = False
         self.loaded_patch = None
 
+
     def set_default_settings(self):
-        """ Set all default settings and determine step sizes"""
+        """ Set all default settings"""
         for idx, setting in enumerate(self.settings):
             self.current_settings[idx] = setting['default']
-            if setting['type'] == 'float':
-                self.step_sizes[idx] = (setting['max'] - setting['min']) / 100.
-                print self.step_sizes[idx]
-            else:
-                self.step_sizes[idx] = 1
-                print 'integer setting'
-            self.setting(idx, 0)
+            self.setting(idx, self.current_settings[idx])
 
     def setting(self, idx, value=None, delta=0):
         """ Add delta to setting and update to Pd. 
@@ -116,7 +126,7 @@ class Effects(object):
             return
         if value is not None:
             self.current_settings[idx] = value
-        self.current_settings[idx] += delta * self.step_sizes[idx]
+        self.current_settings[idx] += delta * self.step_size(idx)
         if self.current_settings[idx] < self.settings[idx]['min']:
             self.current_settings[idx] = self.settings[idx]['min']
         if self.current_settings[idx] > self.settings[idx]['max']:
