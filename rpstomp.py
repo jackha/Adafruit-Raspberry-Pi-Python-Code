@@ -44,6 +44,7 @@ SEVEN_SEGMENT_BRIGHTNESS = 0
 
 SLEEP_TIME = 0.02  # In seconds: give audio more time.
 SLEEP_TIME_ROTARY = 0.005
+SCROLLER_DELAY = 0.1  # Time before scrolling 1 pixel
 
 
 # For the Mcp3008
@@ -90,9 +91,9 @@ class Effects(object):
         #self.load()
         self.effect_on = False
         self.load(OFF_EFFECT['patch_name'])
-        self.scroller = []
+        self.scrollers = []
         for effect in self.available_effects:
-            self.scroller.append(Scroller(effect['full_name']))
+            self.scrollers.append(Scroller(effect['full_name']))
 
     @property
     def settings(self):
@@ -102,6 +103,11 @@ class Effects(object):
     def patch_name(self):
         display_name = AVAILABLE_EFFECTS[self.current_effect]['patch_name']
         return display_name
+
+    @property
+    def scroller(self):
+        """return current scroller"""
+        return self.scrollers[self.current_effect]
 
     @property
     def display_name(self):
@@ -424,7 +430,6 @@ if __name__ == '__main__':
     now = datetime.datetime.now()
     disp_timer_expiration = now
     quit_timer_expiration = now
-    startup = False
     push = {}
     pushed_in = {}  # You want to trigger a push only once.
     for i in range(len(PUSH_BUTTON_PINS)):
@@ -433,6 +438,8 @@ if __name__ == '__main__':
     running = True
     mcp = Mcp3008(SPICLK, SPIMISO, SPIMOSI, SPICS)
     mcp_values = 8*[0]
+    scroller = None
+    scroller_timer_expiration = new
 
     while(running):
         # read rotary encoder
@@ -462,13 +469,12 @@ if __name__ == '__main__':
 
         if push[0]:
             disp_timer_expiration = now + datetime.timedelta(seconds=2)
-            grid.grid_array(smiley.janita)
-
+            scroller = effects.scroller
+            scroller.reset()
             disp_needs_updating = True
 
         if push[1]:
             disp_timer_expiration = now + datetime.timedelta(seconds=2)
-            grid.grid_array(smiley.janita2)
 
             disp_needs_updating = True
 
@@ -514,6 +520,7 @@ if __name__ == '__main__':
 
 
         if delta1 != 0 or delta2 != 0:
+            scroller = None
             if len(effects.settings) == 0:
                 continue
             selected = selected + delta2
@@ -533,11 +540,13 @@ if __name__ == '__main__':
             disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             disp_needs_updating = True
 
-        if startup:
-            startup = False
+        if scroller is not None and now > scroller_timer_expiration:
+            grid.bytes_array(scroller.up())
+            scroller_timer_expiration = now + datetime.timedelta(seconds=SCROLLER_DELAY)
 
         # grid display: default view
-        if datetime.datetime.now() > disp_timer_expiration and disp_needs_updating:
+        if now > disp_timer_expiration and disp_needs_updating:
+            scroller = None
             segment.write(effects.display_name)
             if effects.effect_on:
                 grid.grid_array(smiley.smiley)
