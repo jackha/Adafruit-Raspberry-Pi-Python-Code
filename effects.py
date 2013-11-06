@@ -47,7 +47,6 @@ class Effects(object):
     def settings(self):
         return self.available_effects[self.current_effect]['settings']
 
-    @property
     def step_size(self, idx):
         return self.step_sizes[self.current_effect][idx]
 
