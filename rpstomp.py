@@ -494,7 +494,6 @@ if __name__ == '__main__':
             disp_timer_expiration = now + datetime.timedelta(
                 seconds=scroller.timedelta(SCROLLER_DELAY))
             scroller.reset()
-
             grid.bytes_array(scroller.up())
             scroller_timer_expiration = now + datetime.timedelta(seconds=SCROLLER_PRE_DELAY)
 
