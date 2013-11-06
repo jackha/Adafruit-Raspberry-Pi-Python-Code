@@ -24,7 +24,7 @@ def arr_to_bytes(arr):
             byte_value += lookup_add[x] * arr[y][x]
             #grid.setPixel(x, y, arr[y][x])
         result.append(byte_value)
-    return byte_value
+    return result
 
 
 class EightByEightPlus(EightByEight):
