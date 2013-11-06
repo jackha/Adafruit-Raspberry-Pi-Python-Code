@@ -127,7 +127,7 @@ class Effects(object):
 
     def setting_norm(self, idx):
         """Return normalized value 0..1"""
-        return (float(self.current_settings[idx]) - self.settings[idx]['min']) / 
+        return ((float(self.current_settings[idx]) - self.settings[idx]['min']) / 
                     (self.settings[idx]['max'] - self.settings[idx]['min']))
 
     def settings_as_eight(self, selected=None):
