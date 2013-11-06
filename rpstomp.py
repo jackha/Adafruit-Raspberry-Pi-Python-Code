@@ -296,7 +296,23 @@ if __name__ == '__main__':
             if not push[i]:
                 pushed_in[i] = False
 
-        if delta1 != 0 or delta2 != 0:
+        if delta1 != 0:
+            scroller = None
+            if len(effects.settings) == 0:
+                continue
+            effects.setting(selected_idx, delta=delta1)
+
+            # Set 7 segment
+            value = 1000*effects.setting_norm(selected_idx)
+            segment.writeValue(value)
+            grid.special(64*effects.setting_norm(selected_idx))
+
+            disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
+            segment_timer_expiration = disp_timer_expiration
+            disp_needs_updating = True
+            segment_needs_updating = True
+
+        if delta2 != 0:
             scroller = None
             if len(effects.settings) == 0:
                 continue
@@ -307,20 +323,11 @@ if __name__ == '__main__':
                 selected = 0
             selected_idx = selected/8
 
-            effects.setting(selected_idx, delta=delta1)
-
-            if delta1 != 0:
-                # Set 7 segment
-                value = 1000*effects.setting_norm(selected_idx)
-                segment.writeValue(value)
-                grid.special(64*effects.setting_norm(selected_idx))
-            if delta2 != 0:
-                segment.write('set ')
-                grid.bytes_array(effects.settings_as_eight(selected=selected_idx))
+            segment.write('set ')
+            grid.bytes_array(effects.settings_as_eight(selected=selected_idx))
 
             disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             segment_timer_expiration = disp_timer_expiration
-
             disp_needs_updating = True
             segment_needs_updating = True
 
