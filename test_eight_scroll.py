@@ -4,7 +4,6 @@ import time
 import datetime
 from rpstomp import EightByEightPlus
 
-grid = EightByEightPlus(address=0x70)
 
 
 class Scroller(object):
@@ -30,6 +29,8 @@ class Scroller(object):
         return result
 
 pos = 0
+grid = EightByEightPlus(address=0x70, brightness=0)
+
 scroller = Scroller()
 
 while(True):
