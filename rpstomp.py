@@ -57,6 +57,7 @@ SPICS = 11
 OFF_EFFECT = {'display_name': '....', 'patch_name': '0', 'settings': []}
 
 AVAILABLE_EFFECTS = [
+    {'display_name': 'test', 'patch_name': '14', 'settings': []},
     {'display_name': ' dly', 'patch_name': '1', 'settings': settings.spectraldelay},
     {'display_name': 'vibr', 'patch_name': '2', 'settings': settings.stepvibrato},
 #    {'display_name': 'syth', 'patch_name': '3', 'settings': settings.synth},
@@ -438,7 +439,7 @@ if __name__ == '__main__':
         # Get 8 analog inputs, yeah!
         for i in range(8):
             mcp_values[i] = mcp.read(i)
-        segment.writeValue(mcp_values[7])
+        #segment.writeValue(mcp_values[7])
 
         #some_push = False
         for i in range(len(PUSH_BUTTON_PINS)):
