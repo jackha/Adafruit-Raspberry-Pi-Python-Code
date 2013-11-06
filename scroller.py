@@ -56,6 +56,7 @@ class Scroller(object):
         self.max_pos = len(self.scroll_array[0])
         self.pos = 0
         self.byte_array = self.char_height * [0]  # for sending to display
+        print self.scroll_array
 
     def up(self):
         """move 1 pixel"""
