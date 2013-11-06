@@ -61,7 +61,7 @@ class Scroller(object):
         """move 1 pixel"""
         byte_array_for_display = []
         for idx in range(self.char_height):
-            self.byte_array[idx] >>= 1  # shift 1 pixel
+            self.byte_array[idx] <<= 1  # shift 1 pixel
             self.byte_array[idx] += self.scroll_array[idx][self.pos]
             # Byte array for display has weird bit ordering: [128, 1, 2, 4, 8, 16, 32, 64]
             byte_array_for_display.append(self.byte_array[idx] >> 1 + 128*self.byte_array[idx] & 1)
