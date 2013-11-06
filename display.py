@@ -15,7 +15,7 @@ SPIRAL_DISPLAY = [
 
 
 def arr_to_bytes(arr):
-	result = []
+    result = []
     lookup_add = [128, 1, 2, 4, 8, 16, 32, 64]
         
     for y in range(len(arr)):
@@ -77,7 +77,7 @@ class EightByEightPlus(EightByEight):
     				disp_row.append(1)
     		arr.append(disp_row)
     	self.bytes_array(arr_to_bytes(arr))
-    	
+
 
 class SevenSegmentPlus(SevenSegment):
     letters = {
