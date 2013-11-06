@@ -500,6 +500,7 @@ if __name__ == '__main__':
             selected = 0
             selected_idx = 0
             pushed_in[3] = True
+            segment_needs_updating = True
             disp_needs_updating = True
 
         if push[4] and not pushed_in[4]:
@@ -513,6 +514,7 @@ if __name__ == '__main__':
             selected = 0
             selected_idx = 0
             pushed_in[4] = True
+            segment_needs_updating = True
             disp_needs_updating = True
 
         # Quit button
