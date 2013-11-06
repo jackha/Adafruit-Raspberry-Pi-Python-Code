@@ -46,7 +46,7 @@ if __name__=='__main__':
     pos = 0
     grid = EightByEightPlus(address=0x70, brightness=0)
 
-    scroller = Scroller('hello, janita!')
+    scroller = Scroller('hallo janita!!!  ')
 
     while(True):
         pos += 1
