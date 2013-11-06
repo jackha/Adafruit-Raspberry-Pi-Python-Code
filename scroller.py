@@ -32,6 +32,9 @@ class Scroller(object):
         self.pos = (self.pos + 1) % self.max_pos
         return byte_array_for_display
 
+    def reset(self):
+        self.pos = 0
+        self.byte_array = self.char_height * [0]  # for sending to display
 
     # def arr(self, pos):
     #     result = []
@@ -52,4 +55,4 @@ if __name__=='__main__':
 
         grid.bytes_array(scroller.up())
 
-        time.sleep(0.1)
+        time.sleep(0.02)

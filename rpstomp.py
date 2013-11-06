@@ -16,6 +16,7 @@ import smiley
 from mcp3008 import Mcp3008
 
 import os
+from scroller import Scroller
 
 # react on ctrl-c
 import signal 
@@ -57,19 +58,19 @@ SPICS = 11
 OFF_EFFECT = {'display_name': '....', 'patch_name': '0', 'settings': []}
 
 AVAILABLE_EFFECTS = [
-    {'display_name': 'test', 'patch_name': '14', 'settings': settings.diy2pitch},
-    {'display_name': ' dly', 'patch_name': '1', 'settings': settings.spectraldelay},
-    {'display_name': 'vibr', 'patch_name': '2', 'settings': settings.stepvibrato},
+    {'display_name': 'test', 'full_name': 'test', 'patch_name': '14', 'settings': settings.diy2pitch},
+    {'display_name': ' dly', 'full_name': 'delay', 'patch_name': '1', 'settings': settings.spectraldelay},
+    {'display_name': 'vibr', 'full_name': 'step vibrato', 'patch_name': '2', 'settings': settings.stepvibrato},
 #    {'display_name': 'syth', 'patch_name': '3', 'settings': settings.synth},
-    {'display_name': 'pith', 'patch_name': '12', 'settings': settings.whammy},
-    {'display_name': 'hexi', 'patch_name': '4', 'settings': settings.hexxiter},
-    {'display_name': 'ring', 'patch_name': '5', 'settings': settings.ringmodulator},
-    {'display_name': 'revb', 'patch_name': '6', 'settings': settings.reverb},
-    {'display_name': 'bold', 'patch_name': '7', 'settings': settings.boldaslove},
+    {'display_name': 'pith', 'full_name': 'pitch', 'patch_name': '12', 'settings': settings.whammy},
+    {'display_name': 'hexi', 'full_name': 'hexxiter', 'patch_name': '4', 'settings': settings.hexxiter},
+    {'display_name': 'ring', 'full_name': 'ringmodulator', 'patch_name': '5', 'settings': settings.ringmodulator},
+    {'display_name': 'revb', 'full_name': 'reverb', 'patch_name': '6', 'settings': settings.reverb},
+    {'display_name': 'bold', 'full_name': 'bold as love', 'patch_name': '7', 'settings': settings.boldaslove},
 #    {'display_name': 'psyn', 'patch_name': '8', 'settings': []},
-    {'display_name': 'wird', 'patch_name': '9', 'settings': settings.weird},
+    {'display_name': 'wird', 'full_name': 'weird', 'patch_name': '9', 'settings': settings.weird},
 #    {'display_name': 'robo', 'patch_name': '10', 'settings': []},
-    {'display_name': 'bsyn', 'patch_name': '11', 'settings': []},
+    {'display_name': 'bsyn', 'full_name': 'binary synth', 'patch_name': '11', 'settings': []},
 ]
 
 
@@ -89,6 +90,9 @@ class Effects(object):
         #self.load()
         self.effect_on = False
         self.load(OFF_EFFECT['patch_name'])
+        self.scroller = []
+        for effect in self.available_effects:
+            self.scroller.append(Scroller(effect['full_name']))
 
     @property
     def settings(self):
