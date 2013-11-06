@@ -439,7 +439,7 @@ if __name__ == '__main__':
     mcp = Mcp3008(SPICLK, SPIMISO, SPIMOSI, SPICS)
     mcp_values = 8*[0]
     scroller = None
-    scroller_timer_expiration = new
+    scroller_timer_expiration = now
 
     while(running):
         # read rotary encoder
