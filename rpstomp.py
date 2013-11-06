@@ -228,8 +228,8 @@ class EightByEightPlus(EightByEight):
         self.disp.writeDisplay()
 
     def bytes_array(self, arr):
-        """Grid array"""
-        for y in range(8):
+        """Grid array, you may provide less than 8 rows"""
+        for y in range(len(arr)):
             self.writeRowRaw(y, arr[y], update=False)
         self.disp.writeDisplay()
 
