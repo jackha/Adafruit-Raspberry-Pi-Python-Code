@@ -525,6 +525,7 @@ if __name__ == '__main__':
 
         if not push[5] and pushed_in[5]:
             # Just released button
+            segment_needs_updating = True
             disp_needs_updating = True
 
         for i in range(len(PUSH_BUTTON_PINS)):
@@ -556,6 +557,7 @@ if __name__ == '__main__':
             disp_needs_updating = True
             segment_needs_updating = True
 
+        # grid scroller
         if scroller is not None and now > scroller_timer_expiration:
             grid.bytes_array(scroller.up())
             scroller_timer_expiration = now + datetime.timedelta(seconds=SCROLLER_DELAY)
@@ -564,6 +566,7 @@ if __name__ == '__main__':
         if now > segment_timer_expiration and segment_needs_updating:
             # default view for segment
             segment.write(effects.display_name)
+            segment_needs_updating = False
 
         if now > disp_timer_expiration and disp_needs_updating:
             scroller = None

@@ -36,6 +36,8 @@ class Scroller(object):
     def reset(self):
         self.pos = 0
         self.byte_array = self.char_height * [0]  # for sending to display
+        for i in range(8):
+            self.up()
 
     def timedelta(self, delta):
         """time that it takes for the whole text. delta in seconds, it's just a guess """
