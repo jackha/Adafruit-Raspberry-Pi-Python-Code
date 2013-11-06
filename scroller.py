@@ -51,7 +51,7 @@ class Scroller(object):
         # build scroll array using font
         for character in text:
             for idx, row in enumerate(self.font[character.lower()]):
-                print row
+                print idx, row
                 self.scroll_array[idx].extend(row + [0])
 
         self.max_pos = len(self.scroll_array[0])
