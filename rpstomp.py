@@ -313,7 +313,10 @@ if __name__ == '__main__':
             # Set 7 segment
             segment.writeValue(value)
 
-            grid.bytes_array(effects.settings_as_eight(selected=selected_idx))
+            if delta1 != 0:
+                grid.special(64*effects.setting_norm(selected_idx))
+            if delta2 != 0:
+                grid.bytes_array(effects.settings_as_eight(selected=selected_idx))
 
             disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             segment_timer_expiration = disp_timer_expiration

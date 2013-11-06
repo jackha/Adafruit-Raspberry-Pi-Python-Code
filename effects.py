@@ -125,6 +125,11 @@ class Effects(object):
             self.send_sock.sendall('%s %d;' % (self.option_names[idx], self.current_settings[idx]))
         return self.current_settings[idx]
 
+    def setting_norm(self, idx):
+        """Return normalized value 0..1"""
+        return float(self.current_settings[idx]) - self.settings[idx]['min']) / 
+                    (self.settings[idx]['max'] - self.settings[idx]['min']
+
     def settings_as_eight(self, selected=None):
         """Return byte array of 8 settings. Optionally give index for selected setting"""
         lookup_add = [128, 1, 2, 4, 8, 16, 32, 64]

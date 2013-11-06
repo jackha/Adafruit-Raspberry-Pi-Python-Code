@@ -2,6 +2,29 @@ from time import sleep
 from Adafruit_LEDBackpack.Adafruit_7Segment import SevenSegment
 from Adafruit_LEDBackpack.Adafruit_8x8 import EightByEight
 
+SPIRAL_DISPLAY = [
+	[63,36,37,38,39,40,41,42],
+	[62,35,16,17,18,19,20,43],
+	[61,34,15,4,5,6,21,44],
+	[60,33,14,3,0,7,22,45],
+	[59,32,13,2,1,8,23,46],
+	[58,31,12,11,10,9,24,47],
+	[57,30,29,28,27,26,25,48],
+	[56,55,54,53,52,51,50,49],
+]
+
+
+def arr_to_bytes(arr):
+	result = []
+    lookup_add = [128, 1, 2, 4, 8, 16, 32, 64]
+        
+    for y in range(len(arr)):
+        byte_value = 0
+        for x in range(8):
+            byte_value += lookup_add[x] * arr[y][x]
+            #grid.setPixel(x, y, arr[y][x])
+        result.append(byte_value)
+    return byte_value
 
 
 class EightByEightPlus(EightByEight):
@@ -42,6 +65,19 @@ class EightByEightPlus(EightByEight):
             self.writeRowRaw(y, arr[y], update=False)
         self.disp.writeDisplay()
 
+    def special(self, value, matrix=SPIRAL_DISPLAY):
+    	"""Turns a value of 0..64 to a spiral display"""
+    	arr = []
+    	for row in matrix:
+    		disp_row = []
+    		for col_value in row:
+    			if value <= col_value:
+    				disp_row.append(0)
+    			else:
+    				disp_row.append(1)
+    		arr.append(disp_row)
+    	self.bytes_array(arr_to_bytes(arr))
+    	
 
 class SevenSegmentPlus(SevenSegment):
     letters = {
