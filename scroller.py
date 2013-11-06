@@ -38,8 +38,8 @@ class Scroller(object):
         self.byte_array = self.char_height * [0]  # for sending to display
 
     def timedelta(self, delta):
-        """time that it takes for the whole text"""
-        return (8+len(self.scroll_array[0])) * delta
+        """time that it takes for the whole text. delta in seconds, it's just a guess """
+        return (8+len(self.scroll_array[0])) * (delta+0.05)
 
     # def arr(self, pos):
     #     result = []
