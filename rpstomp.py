@@ -468,8 +468,9 @@ if __name__ == '__main__':
             print "TODO: Do something with %r" % comm_msg
 
         if push[0]:
-            disp_timer_expiration = now + datetime.timedelta(seconds=2)
             scroller = effects.scroller
+            disp_timer_expiration = now + datetime.timedelta(
+                seconds=scroller.timedelta(SCROLLER_DELAY))
             scroller.reset()
             disp_needs_updating = True
 
@@ -486,6 +487,8 @@ if __name__ == '__main__':
         if push[3] and not pushed_in[3]:
             effects.down()
             scroller = effects.scroller
+            disp_timer_expiration = now + datetime.timedelta(
+                seconds=scroller.timedelta(SCROLLER_DELAY))
             scroller.reset()
             selected = 0
             selected_idx = 0
@@ -495,6 +498,8 @@ if __name__ == '__main__':
         if push[4] and not pushed_in[4]:
             effects.up()
             scroller = effects.scroller
+            disp_timer_expiration = now + datetime.timedelta(
+                seconds=scroller.timedelta(SCROLLER_DELAY))
             scroller.reset()
             selected = 0
             selected_idx = 0

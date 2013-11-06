@@ -1,6 +1,4 @@
 #!/usr/bin/python
-
-import time
 import datetime
 from font import font
 
@@ -19,21 +17,29 @@ class Scroller(object):
         self.pos = 0
         self.byte_array = self.char_height * [0]  # for sending to display
 
-    def up(self):
+    def up(self, autorestart=False):
         """move 1 pixel"""
         byte_array_for_display = []
         for idx in range(self.char_height):
             self.byte_array[idx] >>= 1  # shift 1 pixel
-            self.byte_array[idx] += 128*self.scroll_array[idx][self.pos]
+            if self.pos < self.max_pos:
+                self.byte_array[idx] += 128*self.scroll_array[idx][self.pos]
             # Byte array for display has weird bit ordering: [128, 1, 2, 4, 8, 16, 32, 64]
             byte_array_for_display.append((self.byte_array[idx] >> 1) + (128*(self.byte_array[idx] & 1)))
             #byte_array_for_display.append(self.byte_array[idx])
-        self.pos = (self.pos + 1) % self.max_pos
+
+        self.pos += 1
+        if autorestart:
+            self.pos %= self.max_pos
         return byte_array_for_display
 
     def reset(self):
         self.pos = 0
         self.byte_array = self.char_height * [0]  # for sending to display
+
+    def timedelta(self, delta):
+        """time that it takes for the whole text"""
+        return (8+len(self.scroll_array[0])) * delta
 
     # def arr(self, pos):
     #     result = []
@@ -44,6 +50,7 @@ class Scroller(object):
 
 
 if __name__=='__main__':
+    import time
     from rpstomp import EightByEightPlus
     pos = 0
     grid = EightByEightPlus(address=0x70, brightness=0)
