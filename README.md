@@ -19,8 +19,8 @@ Hardware used
 - Adafruit 8x8 LED display (address 0x70)
 - mcp3008 chip for the expression pedal
 
-Pins
-----
+Wiring up
+---------
 
 WiringPi has its own numbering scheme. Let's see what's what.
 
@@ -28,8 +28,8 @@ WiringPi has its own numbering scheme. Let's see what's what.
 | WiringPi | Header | | WiringPi |
 | --- | --- | --- | --- |
 | | 1 | 2 | |
-| 8 | 3 | 4 | |    
-| 9 | 5 | 6 | |
+| I2C DATA 8 | 3 | 4 | |    
+| I2C CLOCK 9 | 5 | 6 | |
 | ENC1_PIN_B 7 | 7 | 8 | 15 PUSH (left footsw)|
 | | 9 | 10 | 16 PUSH (middle footsw) |
 | ENC1_PIN_A 0 | 11 | 12 | 1 PUSH (right footsw) |
@@ -58,8 +58,8 @@ exp. pedals::
 - + to pin 15 of mcp3008
 - - to ground
 
-switches: one side to ground, other side to given pin.
-
+- switches: one side to ground, other side to given pin.
+- displays: 2 i2c pins to raspberry pi header, and ground and 3.3v
 
 
 Hook up the displays
