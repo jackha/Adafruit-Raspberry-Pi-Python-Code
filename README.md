@@ -30,45 +30,33 @@ WiringPi has its own numbering scheme. Let's see what's what.
 | | 1 | 2 | |
 | 8 | 3 | 4 | |    
 | 9 | 5 | 6 | |
-| 7 | 7 | 8 | 15 |
-| | 9 | 10 | 16 |
-| 0 | 11 | 12 | 1 |
-| 2 | 13 | 14 | |
-| 3 | 15 | 16 | 4 |
-| | 17 | 18 | 5 |
-| 12 | 19 | 20 | |
-| 13 | 21 | 22 | 6 |
-| 14 | 23 | 24 | 10 |
-| | 25 | 26 | 11 |
+| ENC1_PIN_B 7 | 7 | 8 | 15 PUSH (left footsw)|
+| | 9 | 10 | 16 PUSH (middle footsw) |
+| ENC1_PIN_A 0 | 11 | 12 | 1 PUSH (right footsw) |
+| PUSH1 2 | 13 | 14 | |
+| ENC2_PIN_B 3 | 15 | 16 | 4 PUSH (OFF button)|
+| | 17 | 18 | 5 SPICLK = MCP3008 pin 13|
+| ENC2_PIN_A 12 | 19 | 20 | |
+| PUSH2 13 | 21 | 22 | 6 SPIMISO = MCP3008 pin 12|
+| 14 | 23 | 24 | 10 SPIMOSI = MCP3008 pin 11 |
+| | 25 | 26 | 11 SPICS = MCP3008 pin 10 |
 
+mcp3008::
 
-ENC1_PIN_A = 0  # use wiring pin numbers here
-ENC1_PIN_B = 7
-#ENC1_PIN_C = 6  # Push button
+| | left | right | |
+| --- | --- | --- | --- |
+| to exp. pedal1 | 1 | 16 | to 3.3v |
+| to exp. pedal2 | 2 | 15 | to resistor 10k, then to 3.3v |
+| to ldr and resistor 10k to gnd | 3 | 14 | to gnd |
+| | 4 | 13 | to SPICLK |
+| | 5 | 12 | to SPIMISO |
+| | 6 | 11 | to SPIMOSI |
+| | 7 | 10 | to SPICS |
+| | 8 | 9 | to GND |
 
-ENC2_PIN_A = 12  # use wiring pin numbers here
-ENC2_PIN_B = 3
-#ENC2_PIN_C = 3  # Push button
-
-PUSH_BUTTON_PINS = [2, 13, 15, 16, 1, 4]
-
-EIGHT_BY_EIGHT_ADDRESS = 0x70
-EIGHT_BY_EIGHT_BRIGHTNESS = 0
-
-SEVEN_SEGMENT_ADDRESS= 0x74
-SEVEN_SEGMENT_BRIGHTNESS = 0
-
-SLEEP_TIME = 0.02  # In seconds: give audio more time.
-SLEEP_TIME_ROTARY = 0.005
-SCROLLER_DELAY = 0.1  # Time before scrolling 1 pixel
-SCROLLER_PRE_DELAY = 1  # Show before scrolling
-
-
-# For the Mcp3008
-SPICLK = 5
-SPIMISO = 6
-SPIMOSI = 10
-SPICS = 11
+exp. pedals::
+- + to pin 15 of mcp3008
+- - to ground
 
 
 Hook up the displays
