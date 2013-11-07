@@ -24,10 +24,9 @@ Pins
 
 WiringPi has its own numbering scheme. Let's see what's what.
 
-========  =====  =====  ======== 
-WiringPi     Header     WiringPi 
-========  =====  =====  ======== 
-            1      2
+
+| WiringPi | Header | | WiringPi | 
+| | 1 | 2 | |
    8        3      4    
    9        5      6
    7        7      8       15
@@ -40,7 +39,6 @@ WiringPi     Header     WiringPi
    13       21     22       6
    14       23     24      10
             25     26      11
-========  =====  =====  ========
 
 
 ENC1_PIN_A = 0  # use wiring pin numbers here
