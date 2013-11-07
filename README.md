@@ -25,7 +25,8 @@ Pins
 WiringPi has its own numbering scheme. Let's see what's what.
 
 
-| WiringPi | Header | | WiringPi | 
+| WiringPi | Header | | WiringPi |
+| --- | --- | --- | --- |
 | | 1 | 2 | |
    8        3      4    
    9        5      6
