@@ -33,11 +33,11 @@ WiringPi has its own numbering scheme. Let's see what's what.
 | ENC1_PIN_B 7 | 7 | 8 | 15 PUSH (left footsw)|
 | | 9 | 10 | 16 PUSH (middle footsw) |
 | ENC1_PIN_A 0 | 11 | 12 | 1 PUSH (right footsw) |
-| PUSH1 2 | 13 | 14 | |
+| ENC1 PUSH 2 | 13 | 14 | |
 | ENC2_PIN_B 3 | 15 | 16 | 4 PUSH (OFF button)|
 | | 17 | 18 | 5 SPICLK = MCP3008 pin 13|
 | ENC2_PIN_A 12 | 19 | 20 | |
-| PUSH2 13 | 21 | 22 | 6 SPIMISO = MCP3008 pin 12|
+| ENC2 PUSH 13 | 21 | 22 | 6 SPIMISO = MCP3008 pin 12|
 | 14 | 23 | 24 | 10 SPIMOSI = MCP3008 pin 11 |
 | | 25 | 26 | 11 SPICS = MCP3008 pin 10 |
 
@@ -57,6 +57,9 @@ mcp3008::
 exp. pedals::
 - + to pin 15 of mcp3008
 - - to ground
+
+switches: one side to ground, other side to given pin.
+
 
 
 Hook up the displays
