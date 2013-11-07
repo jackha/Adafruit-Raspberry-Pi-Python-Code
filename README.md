@@ -19,6 +19,58 @@ Hardware used
 - Adafruit 8x8 LED display (address 0x70)
 - mcp3008 chip for the expression pedal
 
+Pins
+----
+
+WiringPi has its own numbering scheme. Let's see what's what.
+
+========  =====  =====  ======== 
+WiringPi     Header     WiringPi 
+========  =====  =====  ======== 
+            1      2
+   8        3      4    
+   9        5      6
+   7        7      8       15
+            9      10      16
+   0        11     12       1
+   2        13     14
+   3        15     16       4
+            17     18       5
+   12       19     20
+   13       21     22       6
+   14       23     24      10
+            25     26      11
+========  =====  =====  ========
+
+
+ENC1_PIN_A = 0  # use wiring pin numbers here
+ENC1_PIN_B = 7
+#ENC1_PIN_C = 6  # Push button
+
+ENC2_PIN_A = 12  # use wiring pin numbers here
+ENC2_PIN_B = 3
+#ENC2_PIN_C = 3  # Push button
+
+PUSH_BUTTON_PINS = [2, 13, 15, 16, 1, 4]
+
+EIGHT_BY_EIGHT_ADDRESS = 0x70
+EIGHT_BY_EIGHT_BRIGHTNESS = 0
+
+SEVEN_SEGMENT_ADDRESS= 0x74
+SEVEN_SEGMENT_BRIGHTNESS = 0
+
+SLEEP_TIME = 0.02  # In seconds: give audio more time.
+SLEEP_TIME_ROTARY = 0.005
+SCROLLER_DELAY = 0.1  # Time before scrolling 1 pixel
+SCROLLER_PRE_DELAY = 1  # Show before scrolling
+
+
+# For the Mcp3008
+SPICLK = 5
+SPIMISO = 6
+SPIMOSI = 10
+SPICS = 11
+
 
 Hook up the displays
 ====================
