@@ -99,9 +99,9 @@ diy2wetfilter = [
 ]
 
 diy2vibrato = [
-	{'name': ' spd', 'min': 0, 'max': 1, 'default': 1, 'type': 'float', 'exp1': {'min': 0, 'max': 1}},
-	{'name': 'dept', 'min': 0, 'max': 1, 'default': 1, 'type': 'float'},
-	{'name': 'fdbk', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
+	{'name': ' spd', 'min': 0, 'max': 1, 'default': 0.2, 'type': 'float', 'exp1': {'min': 0, 'max': 1}},
+	{'name': 'dept', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
+	{'name': 'fdbk', 'min': 0, 'max': 1, 'default': 0.8, 'type': 'float'},
 	{'name': 'gain', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
 	{'name': 'slope', 'min': 0.1, 'max': 5000, 'default': 0.1, 'type': 'float'},
 ]
