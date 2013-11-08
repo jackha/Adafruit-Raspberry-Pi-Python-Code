@@ -62,6 +62,9 @@ exp. pedals::
 - displays: 2 i2c pins to raspberry pi header, and ground and 3.3v
 
 
+Neuktrik NAUSB-W
+
+
 Hook up the displays
 ====================
 

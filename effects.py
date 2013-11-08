@@ -77,7 +77,6 @@ class Effects(object):
         if self.effect_on:
             self.unload()
         self.current_effect = (self.current_effect + 1) % len(self.available_effects)
-        self.set_setting_step_sizes()
         if self.effect_on:
             self.load()
             self.set_default_settings()
