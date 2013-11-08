@@ -33,9 +33,13 @@ class Effects(object):
         # Determine step sizes
         self.step_sizes = []
         self.exp1 = []
+        self.exp2 = []
+        self.ldr = []
         for effect in self.available_effects:
             curr_step_sizes = []
             curr_exp1 = {}  # key is option number, value is {'min': xx, 'max': yy}
+            curr_exp2 = {}
+            curr_ldr = {}
             for idx, setting in enumerate(effect['settings']):
                 if setting['type'] == 'float':
                     curr_step_sizes.append((setting['max'] - setting['min']) / 100.)
@@ -43,10 +47,14 @@ class Effects(object):
                     curr_step_sizes.append(1)
                 if 'exp1' in setting:
                     curr_exp1[idx] = setting['exp1']
-                    print 'yo'
-                    print setting
+                if 'exp2' in setting:
+                    curr_exp1[idx] = setting['exp2']
+                if 'ldr' in setting:
+                    curr_exp1[idx] = setting['ldr']
             self.step_sizes.append(curr_step_sizes)
             self.exp1.append(curr_exp1)
+            self.exp2.append(curr_exp2)
+            self.ldr.append(curr_ldr)
         for effect in self.available_effects:
             self.scrollers.append(Scroller(effect['full_name']))
 
@@ -154,10 +162,14 @@ class Effects(object):
             self.setting(k, value=value)
 
     def expression2(self, raw_value):
-        pass
+        for k, v in self.exp2[self.current_effect].items():
+            value = v['min'] + raw_value / 1024. * (v['max'] - v['min'])
+            self.setting(k, value=value)
 
     def lightsensor(self, raw_value):
-        pass
+        for k, v in self.ldr[self.current_effect].items():
+            value = v['min'] + raw_value / 1024. * (v['max'] - v['min'])
+            self.setting(k, value=value)
 
     def settings_as_eight(self, selected=None):
         """Return byte array of 8 settings. Optionally give index for selected setting"""
