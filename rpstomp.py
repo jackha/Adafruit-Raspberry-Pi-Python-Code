@@ -200,8 +200,11 @@ if __name__ == '__main__':
     scroller = None
     scroller_timer_expiration = now
 
+
+    push3_timer_expiration = None
     hi_res_mode = False  # For ENC1, push to activate
     setting_switcher = True # For ENC2, push to switch to 'setting B' mode
+    preset_forward = True  # For middle footswitch, which way to advance
 
     while(running):
         # read rotary encoder
@@ -251,34 +254,43 @@ if __name__ == '__main__':
             disp_needs_updating = True
             pushed_in[1] = True
 
+        # Effect on/off
         if push[2] and not pushed_in[2]:
             effects.effect_on_off()
             pushed_in[2] = True
             disp_needs_updating = True
 
+        # up or down. Hold to switch direction
         if push[3] and not pushed_in[3]:
-            effects.down()
+            if preset_forward:
+                effects.up()
+            else:
+                effects.down()
+            push2_timer_expiration = now + datetime.timedelta(seconds=2)
             selected = 0
             selected_idx = 0
             pushed_in[3] = True
             segment_needs_updating = True
             disp_needs_updating = True
 
-        if push[4] and not pushed_in[4]:
-            effects.up()
-            # scroller = Scroller('4')
-            # disp_timer_expiration = now + datetime.timedelta(seconds=2)
-            # #scroller = effects.scroller
-            # #disp_timer_expiration = now + datetime.timedelta(
-            # #    seconds=scroller.timedelta(SCROLLER_DELAY))
-            # scroller.reset()
-            # grid.bytes_array(scroller.up())
-            # scroller_timer_expiration = now + datetime.timedelta(seconds=SCROLLER_PRE_DELAY)
-            selected = 0
-            selected_idx = 0
-            pushed_in[4] = True
-            segment_needs_updating = True
+        if pushed_in[3] and now > push2_timer_expiration:
+            preset_forward = not preset_forward
+            # Put the activation in the fast future 'easter egg'
+            push2_timer_expiration += datetime.timedelta(days=1)
+            scroller = Scroller('>>>' if preset_forward else '<<<')
+            scroller.reset()
+            grid.bytes_array(scroller.up())
+            disp_timer_expiration = now + datetime.timedelta(seconds=2)
+            scroller_timer_expiration = now + datetime.timedelta(seconds=2)
             disp_needs_updating = True
+            
+        # if push[4] and not pushed_in[4]:
+        #     effects.up()
+        #     selected = 0
+        #     selected_idx = 0
+        #     pushed_in[4] = True
+        #     segment_needs_updating = True
+        #     disp_needs_updating = True
 
         # Quit button
         if push[5] and not pushed_in[5]:
