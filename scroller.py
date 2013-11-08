@@ -31,7 +31,7 @@ class Scroller(object):
         self.pos += 1
         if autorestart:
             self.pos %= self.max_pos
-        return byte_array_for_display
+        return byte_array_for_display + [0,0,0]
 
     def reset(self):
         self.pos = 0
