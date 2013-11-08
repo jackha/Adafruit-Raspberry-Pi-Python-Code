@@ -303,7 +303,7 @@ if __name__ == '__main__':
             # Set 7 segment
             value = 1000*effects.setting_norm(selected_idx)
             segment.writeValue(value)
-            grid.special(64*effects.setting_norm(selected_idx))
+            # grid.special(64*effects.setting_norm(selected_idx))
 
             disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             segment_timer_expiration = disp_timer_expiration
