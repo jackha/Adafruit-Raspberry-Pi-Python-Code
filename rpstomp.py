@@ -45,7 +45,7 @@ SEVEN_SEGMENT_BRIGHTNESS = 0
 SLEEP_TIME = 0.02  # In seconds: give audio more time.
 SLEEP_TIME_ROTARY = 0.005
 SCROLLER_DELAY = 0.1  # Time before scrolling 1 pixel
-#SCROLLER_PRE_DELAY = 1  # Show before scrolling
+SCROLLER_PRE_DELAY = 1  # Show before scrolling
 
 
 # For the Mcp3008
@@ -247,7 +247,7 @@ if __name__ == '__main__':
             scroller.reset()
             grid.bytes_array(scroller.up())
             disp_timer_expiration = now + datetime.timedelta(seconds=2)
-            scroller_timer_expiration = now + datetime.timedelta(seconds=2)
+            scroller_timer_expiration = now + datetime.timedelta(seconds=SCROLLER_PRE_DELAY)
             disp_needs_updating = True
             pushed_in[1] = True
 
