@@ -34,7 +34,7 @@ ENC2_PIN_A = 12  # use wiring pin numbers here
 ENC2_PIN_B = 3
 #ENC2_PIN_C = 3  # Push button
 
-PUSH_BUTTON_PINS = [2, 13, 15, 16, 1, 4]
+PUSH_BUTTON_PINS = [2, 13, 16, 1, 15, 4]
 
 EIGHT_BY_EIGHT_ADDRESS = 0x70
 EIGHT_BY_EIGHT_BRIGHTNESS = 0
