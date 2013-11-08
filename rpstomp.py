@@ -252,7 +252,7 @@ if __name__ == '__main__':
             disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             disp_needs_updating = True
 
-        if abs(mcp_values[7] - exp1_value) > 50:
+        if abs(mcp_values[7] - exp1_value) > 100:
             ldr_value = mcp_values[7]
             effects.lightsensor(ldr_value)
             print ldr_value
