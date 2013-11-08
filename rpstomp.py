@@ -45,7 +45,7 @@ SEVEN_SEGMENT_BRIGHTNESS = 0
 SLEEP_TIME = 0.02  # In seconds: give audio more time.
 SLEEP_TIME_ROTARY = 0.005
 SCROLLER_DELAY = 0.1  # Time before scrolling 1 pixel
-SCROLLER_PRE_DELAY = 1  # Show before scrolling
+#SCROLLER_PRE_DELAY = 1  # Show before scrolling
 
 
 # For the Mcp3008
@@ -200,6 +200,8 @@ if __name__ == '__main__':
     scroller = None
     scroller_timer_expiration = now
 
+    hi_res_mode = False  # For ENC1, push to activate
+
     while(running):
         # read rotary encoder
         # delta1 = 0
@@ -227,9 +229,12 @@ if __name__ == '__main__':
             print "TODO: Do something with %r" % comm_msg
 
         if push[0]:
-            scroller = Scroller('0')
+            hi_res_mode = !hi_res_mode
+            scroller = Scroller('hi' if hi_res_mode else 'lo')
             scroller.reset()
+            grid.bytes_array(scroller.up())
             disp_timer_expiration = now + datetime.timedelta(seconds=2)
+            scroller_timer_expiration = now + datetime.timedelta(seconds=2)
             #scroller.reset()
             disp_needs_updating = True
 
@@ -298,12 +303,15 @@ if __name__ == '__main__':
             scroller = None
             if len(effects.settings) == 0:
                 continue
-            effects.setting(selected_idx, delta=delta1)
+            if hi_res_mode:
+                effects.setting(selected_idx, delta=delta1/4.)
+            else:
+                effects.setting(selected_idx, delta=delta1)
 
             # Set 7 segment
             value = 1000*effects.setting_norm(selected_idx)
             segment.writeValue(value)
-            # grid.special(64*effects.setting_norm(selected_idx))
+            grid.special(64*effects.setting_norm(selected_idx))
 
             disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             segment_timer_expiration = disp_timer_expiration
