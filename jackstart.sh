@@ -51,4 +51,4 @@ python sleep.py
 echo Starting RP stomp...
 sudo python rpstomp.py
 
-halt
+#halt
