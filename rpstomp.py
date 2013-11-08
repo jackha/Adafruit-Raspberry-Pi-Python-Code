@@ -201,6 +201,7 @@ if __name__ == '__main__':
     scroller_timer_expiration = now
 
     hi_res_mode = False  # For ENC1, push to activate
+    setting_switcher = True # For ENC2, push to switch to 'setting B' mode
 
     while(running):
         # read rotary encoder
@@ -228,23 +229,27 @@ if __name__ == '__main__':
         if comm_changes:
             print "TODO: Do something with %r" % comm_msg
 
-        if push[0]:
+        # Switch hi-res-mode
+        if push[0] and not pushed_in[0]:
             hi_res_mode = not hi_res_mode
             scroller = Scroller('hi' if hi_res_mode else 'lo')
             scroller.reset()
             grid.bytes_array(scroller.up())
             disp_timer_expiration = now + datetime.timedelta(seconds=2)
             scroller_timer_expiration = now + datetime.timedelta(seconds=2)
-            #scroller.reset()
             disp_needs_updating = True
+            pushed_in[0] = True
 
-        if push[1]:
-            scroller = Scroller('1')
-            disp_timer_expiration = now + datetime.timedelta(seconds=2)
+        # Switch 'setting switcher' and 'setting b'
+        if push[1] and not pushed_in[1]:
+            setting_switcher = not setting_switcher
+            scroller = Scroller('set' if setting_switcher else 'b')
             scroller.reset()
-            #disp_timer_expiration = now + datetime.timedelta(seconds=2)
-
+            grid.bytes_array(scroller.up())
+            disp_timer_expiration = now + datetime.timedelta(seconds=2)
+            scroller_timer_expiration = now + datetime.timedelta(seconds=2)
             disp_needs_updating = True
+            pushed_in[1] = True
 
         if push[2] and not pushed_in[2]:
             effects.effect_on_off()
@@ -329,12 +334,12 @@ if __name__ == '__main__':
                 selected = 0
             selected_idx = selected/8
 
-            segment.write('set ')
             grid.bytes_array(effects.settings_as_eight(selected=selected_idx))
-
             disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
-            segment_timer_expiration = disp_timer_expiration
             disp_needs_updating = True
+
+            segment.write(effects.setting(selected_idx).get('name', 'set '))
+            segment_timer_expiration = disp_timer_expiration
             segment_needs_updating = True
 
         # grid scroller

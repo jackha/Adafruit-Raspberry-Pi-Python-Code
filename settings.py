@@ -1,10 +1,10 @@
 spectraldelay = [
-	{'name': 'mix', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
-	{'name': 'del-sin', 'min': 0., 'max': 1., 'default': 1., 'type': 'float'},
-	{'name': 'fb-sin', 'min': 0., 'max': 1., 'default': 1., 'type': 'float'},
-	{'name': 'gain-flat', 'min': 0., 'max': 1., 'default': 1., 'type': 'float'},
-	{'name': 'lp-freq', 'min': 1, 'max': 880, 'default': 220, 'type': 'float'},
-	{'name': 'slope', 'min': -0.1, 'max': -0.001, 'default': -0.04, 'type': 'float'},
+	{'name': 'n7ix', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
+	{'name': ' del', 'min': 0., 'max': 1., 'default': 1., 'type': 'float'},
+	{'name': '  fb', 'min': 0., 'max': 1., 'default': 1., 'type': 'float'},
+	{'name': 'gain', 'min': 0., 'max': 1., 'default': 1., 'type': 'float'},
+	{'name': 'lpfq', 'min': 1, 'max': 880, 'default': 220, 'type': 'float'},
+	{'name': 'slpe', 'min': -0.1, 'max': -0.001, 'default': -0.04, 'type': 'float'},
 	]
 
 stepvibrato = [
