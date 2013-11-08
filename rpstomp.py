@@ -255,6 +255,7 @@ if __name__ == '__main__':
         if abs(mcp_values[7] - exp1_value) > 50:
             ldr_value = mcp_values[7]
             effects.lightsensor(ldr_value)
+            print ldr_value
 
         for i in range(len(PUSH_BUTTON_PINS)):
             push[i] = push_buttons.get_button(i)
@@ -296,7 +297,7 @@ if __name__ == '__main__':
         # Middle big footswitch
         # up or down. Hold to switch direction
         if push[3] and not pushed_in[3]:
-            push2_timer_expiration = now + datetime.timedelta(seconds=2)
+            push2_timer_expiration = now + datetime.timedelta(seconds=1)
             pushed_in[3] = True
 
         if pushed_in[3] and now > push2_timer_expiration:
