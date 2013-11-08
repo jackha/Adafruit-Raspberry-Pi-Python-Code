@@ -225,12 +225,10 @@ if __name__ == '__main__':
         #segment.writeValue(mcp_values[7])
         # test
         #effects.setting(0, value=mcp_values[1]/1024.)
+        print mcp_values
 
-        #some_push = False
         for i in range(len(PUSH_BUTTON_PINS)):
             push[i] = push_buttons.get_button(i)
-            #if push[i]:
-            #    some_push = True
 
         comm_changes, comm_msg = communication.get()
 
