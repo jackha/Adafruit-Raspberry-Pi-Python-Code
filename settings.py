@@ -29,7 +29,7 @@ hexxiter = [
 ]
 
 ringmodulator = [
-	{'name': 'mix', 'min': 0, 'max': 1, 'default': 1, 'type': 'float'},
+	{'name': 'mmix', 'min': 0, 'max': 1, 'default': 1, 'type': 'float'},
 	{'name': 'lfo_freq', 'min': 0, 'max': 40, 'default': 4, 'type': 'float'},
 
 ]
@@ -49,7 +49,7 @@ boldaslove = [
 ]
 
 reverb = [
-	{'name': 'mix', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
+	{'name': 'mmix', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
 	{'name': 'roomsize', 'min': 0, 'max': 1, 'default': 0.3, 'type': 'float'},
 	{'name': 'damping', 'min': 0, 'max': 1, 'default': 0.3, 'type': 'float'},
 ]
