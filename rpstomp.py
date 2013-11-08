@@ -227,27 +227,35 @@ if __name__ == '__main__':
             print "TODO: Do something with %r" % comm_msg
 
         if push[0]:
-            scroller = effects.scroller
-            disp_timer_expiration = now + datetime.timedelta(
-                seconds=scroller.timedelta(SCROLLER_DELAY))
+            scroller = Scroller('0')
             scroller.reset()
+            disp_timer_expiration = now + datetime.timedelta(seconds=2)
+            #scroller.reset()
             disp_needs_updating = True
 
         if push[1]:
+            scroller = Scroller('1')
             disp_timer_expiration = now + datetime.timedelta(seconds=2)
+            scroller.reset()
+            #disp_timer_expiration = now + datetime.timedelta(seconds=2)
 
             disp_needs_updating = True
 
         if push[2] and not pushed_in[2]:
+            scroller = Scroller('2')
+            disp_timer_expiration = now + datetime.timedelta(seconds=2)
+            scroller.reset()
             effects.effect_on_off()
             pushed_in[2] = True
             disp_needs_updating = True
 
         if push[3] and not pushed_in[3]:
             effects.down()
-            scroller = effects.scroller
-            disp_timer_expiration = now + datetime.timedelta(
-                seconds=scroller.timedelta(SCROLLER_DELAY))
+            scroller = Scroller('3')
+            disp_timer_expiration = now + datetime.timedelta(seconds=2)
+            # scroller = effects.scroller
+            # disp_timer_expiration = now + datetime.timedelta(
+            #     seconds=scroller.timedelta(SCROLLER_DELAY))
             scroller.reset()
             grid.bytes_array(scroller.up())
             scroller_timer_expiration = now + datetime.timedelta(seconds=SCROLLER_PRE_DELAY)
@@ -260,9 +268,11 @@ if __name__ == '__main__':
 
         if push[4] and not pushed_in[4]:
             effects.up()
-            scroller = effects.scroller
-            disp_timer_expiration = now + datetime.timedelta(
-                seconds=scroller.timedelta(SCROLLER_DELAY))
+            scroller = Scroller('4')
+            disp_timer_expiration = now + datetime.timedelta(seconds=2)
+            #scroller = effects.scroller
+            #disp_timer_expiration = now + datetime.timedelta(
+            #    seconds=scroller.timedelta(SCROLLER_DELAY))
             scroller.reset()
             grid.bytes_array(scroller.up())
             scroller_timer_expiration = now + datetime.timedelta(seconds=SCROLLER_PRE_DELAY)
