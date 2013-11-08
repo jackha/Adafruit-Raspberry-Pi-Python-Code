@@ -1,4 +1,4 @@
-#N canvas 937 664 1199 428 10;
+#N canvas 180 457 1199 428 10;
 #X obj 8 54 bng 15 250 50 0 \$0-eee-lfosig ewtewennnnnnnnnnnn LFO 18
 9 0 13 -262144 -1 -1;
 #X obj 8 74 bng 15 250 50 0 \$0-eee-adsrsig ewtewennnnnnnnnnnn ADSR
@@ -946,9 +946,9 @@ specdelay 18 9 0 13 -262144 -1 -1;
 readme 17 7 0 14 -261682 -1 -258113;
 #X obj 8 179 bng 15 250 50 0 readme-perk wuyriuewyuiyerwiiiiiioio readme
 17 7 0 14 -261682 -1 -258113;
-#N canvas 892 121 619 702 \$0-creator 1;
+#N canvas 742 92 619 702 \$0-creator 1;
 #X obj 87 204 adc~;
-#X obj 159 418 dac~;
+#X obj 353 440 dac~;
 #X obj 202 53 netreceive 3000;
 #X obj 202 93 route a b c d e f g h;
 #X msg 171 141 0 \$1;
@@ -960,7 +960,11 @@ readme 17 7 0 14 -261682 -1 -258113;
 #X obj 165 232 syn-xfm /key;
 #X floatatom 110 144 5 0 0 0 - - -;
 #X msg 114 117 \$1;
-#X msg 470 147 6 \$1;
+#X msg 470 147 \$1 10;
+#X obj 355 401 *~ 1;
+#X obj 396 224 loadbang;
+#X msg 396 255 6 0.5;
+#X obj 470 187 line 1 10;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
 #X connect 3 1 5 0;
@@ -976,10 +980,14 @@ readme 17 7 0 14 -261682 -1 -258113;
 #X connect 7 0 10 1;
 #X connect 8 0 10 1;
 #X connect 9 0 10 1;
-#X connect 10 0 1 0;
+#X connect 10 0 14 0;
 #X connect 11 0 10 0;
 #X connect 12 0 11 0;
-#X connect 13 0 10 1;
+#X connect 13 0 17 0;
+#X connect 14 0 1 0;
+#X connect 15 0 16 0;
+#X connect 16 0 10 1;
+#X connect 17 0 14 1;
 #X coords 0 0 1 1 323 230 0;
 #X restore 699 383 pd \$0-creator;
 #X obj 150 21 bng 15 250 50 0 readme-synth wuyriuewyuiyerwiiiiiioio
