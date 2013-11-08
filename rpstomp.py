@@ -338,7 +338,7 @@ if __name__ == '__main__':
             disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             disp_needs_updating = True
 
-            segment.write(effects.setting(selected_idx).get('name', 'set '))
+            segment.write(effects.settings[selected_idx].get('name', 'set '))
             segment_timer_expiration = disp_timer_expiration
             segment_needs_updating = True
 
