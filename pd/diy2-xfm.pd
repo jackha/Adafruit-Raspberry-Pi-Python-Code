@@ -946,7 +946,7 @@ specdelay 18 9 0 13 -262144 -1 -1;
 readme 17 7 0 14 -261682 -1 -258113;
 #X obj 8 179 bng 15 250 50 0 readme-perk wuyriuewyuiyerwiiiiiioio readme
 17 7 0 14 -261682 -1 -258113;
-#N canvas 742 92 619 702 \$0-creator 1;
+#N canvas 502 132 619 702 \$0-creator 1;
 #X obj 87 204 adc~;
 #X obj 353 440 dac~;
 #X obj 202 53 netreceive 3000;
@@ -965,6 +965,7 @@ readme 17 7 0 14 -261682 -1 -258113;
 #X msg 396 255 6 0.5;
 #X obj 470 187 line 1 100;
 #X msg 470 147 \$1 100;
+#X obj 465 318 sigmund~;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
 #X connect 3 1 5 0;
