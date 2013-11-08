@@ -30,9 +30,9 @@ WiringPi has its own numbering scheme. Let's see what's what.
 | | 1 | 2 | |
 | I2C DATA 8 | 3 | 4 | |    
 | I2C CLOCK 9 | 5 | 6 | |
-| ENC1_PIN_B 7 | 7 | 8 | 15 PUSH (left footsw)|
-| | 9 | 10 | 16 PUSH (middle footsw) |
-| ENC1_PIN_A 0 | 11 | 12 | 1 PUSH (right footsw) |
+| ENC1_PIN_B 7 | 7 | 8 | 15 PUSH (right footsw)|
+| | 9 | 10 | 16 PUSH (left footsw) |
+| ENC1_PIN_A 0 | 11 | 12 | 1 PUSH (middle footsw) |
 | ENC1 PUSH 2 | 13 | 14 | |
 | ENC2_PIN_B 3 | 15 | 16 | 4 PUSH (OFF button)|
 | | 17 | 18 | 5 SPICLK = MCP3008 pin 13|
