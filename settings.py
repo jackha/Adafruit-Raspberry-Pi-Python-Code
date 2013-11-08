@@ -125,3 +125,13 @@ diy2xfm = [
 	{'name': 'gain', 'min': 0, 'max': 1, 'default': 0.3, 'type': 'float', 'exp1': {'min': 0, 'max': 0.5}},
 	{'name': 'frequency', 'min': 44, 'max': 880, 'default': 440, 'type': 'float', 'ldr': {'min': 44, 'max': 880}},
 ]
+
+diy2xfm2 = [
+	{'name': 'nume', 'min': 0, 'max': 1, 'default': 0.1, 'type': 'float'},
+	{'name': 'deno', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
+	{'name': 'fbka', 'min': 0, 'max': 1, 'default': 0.4, 'type': 'float'},
+	{'name': 'fbkb', 'min': 0, 'max': 1, 'default': 0.4, 'type': 'float'},
+	{'name': 'slid', 'min': 0, 'max': 1, 'default': 0.4, 'type': 'float'},
+	{'name': 'type', 'min': 0, 'max': 1, 'default': 1, 'type': 'integer'},
+	{'name': 'gain', 'min': 0, 'max': 1, 'default': 0.3, 'type': 'float', 'exp1': {'min': 0, 'max': 0.5}},
+]
