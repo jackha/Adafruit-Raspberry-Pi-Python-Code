@@ -74,3 +74,26 @@ diy2pitch = [
 	{'name': 'metro-speed', 'min': 100, 'max': 2000, 'default': 1000, 'type': 'float'},
 	{'name': 'metro-vol', 'min': 0, 'max': 1, 'default': 0, 'type': 'float'},	
 ]
+
+diy2highpass = [
+	{'name': 'cuto', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float', 'exp1': {'min': 0, 'max': 1}},
+	{'name': 'amnt', 'min': 0, 'max': 1, 'default': 1, 'type': 'float'},
+	{'name': 'gain', 'min': 0, 'max': 1, 'default': 1, 'type': 'float'},
+]
+
+diy2material = [
+	{'name': 'form', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float', 'exp1': {'min': 0, 'max': 1}},
+	{'name': 'gain', 'min': 0, 'max': 1, 'default': 1, 'type': 'float'},
+]
+
+diy2vcf = [
+	{'name': 'cuto', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float', 'exp1': {'min': 0, 'max': 1}},
+	{'name': 'reso', 'min': 0, 'max': 1, 'default': 1, 'type': 'float'},
+	{'name': 'gain', 'min': 0, 'max': 1, 'default': 1, 'type': 'float'},
+]
+
+diy2wetfilter = [
+	{'name': ' dly', 'min': 0, 'max': 1, 'default': 1, 'type': 'float', 'exp1': {'min': 0, 'max': 1}},
+	{'name': '   q', 'min': 0, 'max': 1, 'default': 1, 'type': 'float'},
+	{'name': 'gain', 'min': 0, 'max': 1, 'default': 1, 'type': 'float'},
+]
