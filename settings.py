@@ -52,7 +52,6 @@ reverb = [
 	{'name': 'mix', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
 	{'name': 'roomsize', 'min': 0, 'max': 1, 'default': 0.3, 'type': 'float'},
 	{'name': 'damping', 'min': 0, 'max': 1, 'default': 0.3, 'type': 'float'},
-	{'name': 'freeze', 'min': 0, 'max': 1, 'default': 0, 'type': 'integer'},
 ]
 
 weird = [
