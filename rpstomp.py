@@ -64,6 +64,7 @@ AVAILABLE_EFFECTS = [
 #    {'display_name': 'test', 'full_name': 'test', 'patch_name': '14', 'settings': settings.diy2pitch},
     {'display_name': ' dly', 'full_name': 'delay', 'patch_name': '1', 'settings': settings.spectraldelay},
     {'display_name': 'revb', 'full_name': 'reverb', 'patch_name': '6', 'settings': settings.reverb},
+    {'display_name': ' xfm', 'full_name': 'xfm', 'patch_name': '21', 'settings': settings.diy2xfm},
     {'display_name': '4tap', 'full_name': '4tap', 'patch_name': '20', 'settings': settings.diy24tap},
     {'display_name': 'vibr', 'full_name': 'vibrato', 'patch_name': '19', 'settings': settings.diy2vibrato},
     {'display_name': 'hipa', 'full_name': 'highpass', 'patch_name': '15', 'settings': settings.diy2highpass},
