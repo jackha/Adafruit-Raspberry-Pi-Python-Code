@@ -145,16 +145,16 @@ class Effects(object):
         return ((float(self.current_settings[idx]) - self.settings[idx]['min']) / 
                     (self.settings[idx]['max'] - self.settings[idx]['min']))
 
-    def exp1(self, raw_value):
+    def expression1(self, raw_value):
         """Raw value is 0..1023"""
         for k, v in self.exp1[self.current_effect]:
             value = raw_value / 1024. * (v['max'] - v['min']) + v['min']
             self.setting(k, value=value)
 
-    def exp2(self, raw_value):
+    def expression2(self, raw_value):
         pass
 
-    def ldr(self, raw_value):
+    def lightsensor(self, raw_value):
         pass
 
     def settings_as_eight(self, selected=None):

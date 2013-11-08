@@ -233,13 +233,13 @@ if __name__ == '__main__':
         #print mcp_values
         if abs(mcp_values[0] - exp1_value) > 5:
             exp1_value = mcp_values[0]
-            effects.exp1(exp1_value)
+            effects.expression1(exp1_value)
         if abs(mcp_values[1] - exp2_value) > 5:
             exp2_value = mcp_values[1]
-            effects.exp2(exp2_value)
+            effects.expression2(exp2_value)
         if abs(mcp_values[7] - exp1_value) > 5:
             ldr_value = mcp_values[7]
-            effects.ldr(ldr_value)
+            effects.lightsensor(ldr_value)
 
         for i in range(len(PUSH_BUTTON_PINS)):
             push[i] = push_buttons.get_button(i)
