@@ -36,7 +36,7 @@ class Effects(object):
         for effect in self.available_effects:
             curr_step_sizes = []
             curr_exp1 = {}  # key is option number, value is {'min': xx, 'max': yy}
-            for idx, setting in enumerate(self.settings):
+            for idx, setting in enumerate(effect['settings']):
                 if setting['type'] == 'float':
                     curr_step_sizes.append((setting['max'] - setting['min']) / 100.)
                 else:
