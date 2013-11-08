@@ -43,7 +43,8 @@ class Effects(object):
                     curr_step_sizes.append(1)
                 if 'exp1' in setting:
                     curr_exp1[idx] = setting['exp1']
-                    print 'yo' + setting
+                    print 'yo'
+                    print setting
             self.step_sizes.append(curr_step_sizes)
             self.exp1.append(curr_exp1)
         print self.exp1
