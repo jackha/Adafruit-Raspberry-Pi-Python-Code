@@ -291,6 +291,7 @@ if __name__ == '__main__':
         if push[2] and not pushed_in[2]:
             effects.effect_on_off()
             pushed_in[2] = True
+            disp_timer_expiration = now
             disp_needs_updating = True
 
         # Middle big footswitch
