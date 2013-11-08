@@ -229,7 +229,7 @@ if __name__ == '__main__':
             print "TODO: Do something with %r" % comm_msg
 
         if push[0]:
-            hi_res_mode = !hi_res_mode
+            hi_res_mode = not hi_res_mode
             scroller = Scroller('hi' if hi_res_mode else 'lo')
             scroller.reset()
             grid.bytes_array(scroller.up())
