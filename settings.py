@@ -60,11 +60,11 @@ weird = [
 	{'name': 'dunno', 'min': -0.9, 'max': 0.9, 'default': 0, 'type': 'float'},
 ]
 
-fourtap = [
-	{'name': 'dunno', 'min': 0, 'max': 25, 'default': 15, 'type': 'float'},
-	{'name': 'mod-add', 'min': 0, 'max': 15, 'default': 5, 'type': 'integer'},
-	{'name': 'mod-multiply', 'min': 0, 'max': 15, 'default': 5, 'type': 'integer'},
-	]
+# fourtap = [
+# 	{'name': 'dunno', 'min': 0, 'max': 25, 'default': 15, 'type': 'float'},
+# 	{'name': 'mod-add', 'min': 0, 'max': 15, 'default': 5, 'type': 'integer'},
+# 	{'name': 'mod-multiply', 'min': 0, 'max': 15, 'default': 5, 'type': 'integer'},
+# 	]
 
 diy2pitch = [
 	{'name': 'transpose', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
@@ -111,6 +111,6 @@ diy24tap = [
 	{'name': ' 2nd', 'min': 0, 'max': 1, 'default': 0.6, 'type': 'float'},
 	{'name': ' 3rd', 'min': 0, 'max': 1, 'default': 0.7, 'type': 'float'},
 	{'name': ' 4th', 'min': 0, 'max': 1, 'default': 0.9, 'type': 'float'},
-	{'name': 'scale', 'min': 0, 'max': 1, 'default': 0.6, 'type': 'float'},
-	{'name': 'slide', 'min': 0, 'max': 1, 'default': 0.2, 'type': 'float'},
+	{'name': 'scale', 'min': 0, 'max': 1, 'default': 1, 'type': 'float', 'exp1': {'min': 0, 'max': 1}},
+	{'name': 'slide', 'min': 0, 'max': 1, 'default': 1, 'type': 'float'},
 ]
