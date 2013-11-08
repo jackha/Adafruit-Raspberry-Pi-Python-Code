@@ -5,7 +5,7 @@ spectraldelay = [
 	{'name': 'mmix', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float', 'display': MIX_DISPLAY},
 	{'name': ' del', 'min': 0., 'max': 1., 'default': 1., 'type': 'float'},
 	{'name': '  fb', 'min': 0., 'max': 1., 'default': 1., 'type': 'float'},
-	{'name': 'gain', 'min': 0., 'max': 1., 'default': 1., 'type': 'float'},
+	{'name': 'gain', 'min': 0., 'max': 1., 'default': 1., 'type': 'float', 'display': MIX_DISPLAY},
 	{'name': 'lpfq', 'min': 1, 'max': 880, 'default': 220, 'type': 'float'},
 	{'name': 'slpe', 'min': -0.1, 'max': -0.001, 'default': -0.04, 'type': 'float'},
 	]

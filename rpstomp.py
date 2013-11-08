@@ -14,6 +14,7 @@ import smiley
 from mcp3008 import Mcp3008
 from display import EightByEightPlus, SevenSegmentPlus, SPIRAL_DISPLAY
 from effects import Effects
+from taptempo import TapTempo
 
 import os
 from scroller import Scroller
@@ -195,16 +196,20 @@ if __name__ == '__main__':
         pushed_in[i] = False
 
     running = True
-    mcp = Mcp3008(SPICLK, SPIMISO, SPIMOSI, SPICS)
+    mcp = Mcp3008(SPICLK, SPIMISO, SPIMOSI, SPICS)  # Expr pedals on 0, 1, LDR on 7
     mcp_values = 8*[0]
     scroller = None
     scroller_timer_expiration = now
 
-
-    push3_timer_expiration = None
     hi_res_mode = False  # For ENC1, push to activate
     setting_switcher = True # For ENC2, push to switch to 'setting B' mode
+
+    # Middle big footswitch
+    push3_timer_expiration = None
     preset_forward = True  # For middle footswitch, which way to advance
+
+    # Right big footswitch, double function
+    tap_tempo = TapTempo()
 
     while(running):
         # read rotary encoder
@@ -254,12 +259,14 @@ if __name__ == '__main__':
             disp_needs_updating = True
             pushed_in[1] = True
 
+        # Left big footswitch
         # Effect on/off
         if push[2] and not pushed_in[2]:
             effects.effect_on_off()
             pushed_in[2] = True
             disp_needs_updating = True
 
+        # Middle big footswitch
         # up or down. Hold to switch direction
         if push[3] and not pushed_in[3]:
             push2_timer_expiration = now + datetime.timedelta(seconds=2)
@@ -288,6 +295,16 @@ if __name__ == '__main__':
             disp_timer_expiration = now + datetime.timedelta(seconds=1)
             segment_needs_updating = True
             disp_needs_updating = True
+
+        # Right big footswitch
+        if push[4] and not pushed_in[4]:
+            tap_tempo.tap()
+            effects.send_sock.sendall('bpm %f;' % tap_tempo.bpm())
+            effects.send_sock.sendall('hold on;')
+            pushed_in[4] = True
+
+        if not push[4] and pushed_in[4]:
+            effects.send_sock.sendall('hold off;')
 
         # if push[4] and not pushed_in[4]:
         #     effects.up()
