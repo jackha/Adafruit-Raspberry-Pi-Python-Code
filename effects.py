@@ -45,6 +45,7 @@ class Effects(object):
                     curr_exp1[idx] = setting['exp1']
             self.step_sizes.append(curr_step_sizes)
             self.exp1.append(curr_exp1)
+        print self.exp1
         for effect in self.available_effects:
             self.scrollers.append(Scroller(effect['full_name']))
 
@@ -148,7 +149,7 @@ class Effects(object):
     def expression1(self, raw_value):
         """Raw value is 0..1023"""
         for k, v in self.exp1[self.current_effect]:
-            value = raw_value / 1024. * (v['max'] - v['min']) + v['min']
+            value = v['min'] + raw_value / 1024. * (v['max'] - v['min'])
             self.setting(k, value=value)
 
     def expression2(self, raw_value):
