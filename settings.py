@@ -10,6 +10,12 @@ spectraldelay = [
 	{'name': 'slpe', 'min': -0.1, 'max': -0.001, 'default': -0.04, 'type': 'float'},
 	]
 
+reverb = [
+	{'name': 'mmix', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float', 'display': MIX_DISPLAY},
+	{'name': 'roomsize', 'min': 0, 'max': 1, 'default': 0.3, 'type': 'float', 'exp1': {'min': 0, 'max': 1}},
+	{'name': 'damping', 'min': 0, 'max': 1, 'default': 0.3, 'type': 'float'},
+]
+
 stepvibrato = [
 	{'name': 'depth', 'min': 0., 'max': 40., 'default': 15., 'type': 'float', 'exp1': {'min': 20, 'max': 10}},
 	{'name': 'speed', 'min': 0.5, 'max': 30., 'default': 4., 'type': 'float', 'exp1': {'min': 0.5, 'max': 10}},
@@ -48,12 +54,6 @@ boldaslove = [
 
 ]
 
-reverb = [
-	{'name': 'mmix', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float', 'display': MIX_DISPLAY},
-	{'name': 'roomsize', 'min': 0, 'max': 1, 'default': 0.3, 'type': 'float'},
-	{'name': 'damping', 'min': 0, 'max': 1, 'default': 0.3, 'type': 'float'},
-]
-
 weird = [
 	{'name': 'dunno', 'min': 0, 'max': 5, 'default': 1, 'type': 'float'},
 	{'name': 'dunno', 'min': 0, 'max': 5, 'default': 1, 'type': 'float'},
@@ -76,7 +76,7 @@ diy2pitch = [
 ]
 
 diy2highpass = [
-	{'name': 'cuto', 'min': 0, 'max': 1, 'default': 0.2, 'type': 'float', 'exp1': {'min': 0, 'max': 0.5}},
+	{'name': 'cuto', 'min': 0, 'max': 1, 'default': 0.2, 'type': 'float', 'exp1': {'min': 0.5, 'max': 0}},
 	{'name': 'amnt', 'min': 0, 'max': 1, 'default': 1, 'type': 'float'},
 	{'name': 'gain', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
 ]
@@ -99,9 +99,9 @@ diy2wetfilter = [
 ]
 
 diy2vibrato = [
-	{'name': ' spd', 'min': 0, 'max': 1, 'default': 0.2, 'type': 'float', 'exp1': {'min': 0, 'max': 1}},
-	{'name': 'dept', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
-	{'name': 'fdbk', 'min': 0, 'max': 1, 'default': 0.8, 'type': 'float'},
+	{'name': ' spd', 'min': 0, 'max': 1, 'default': 0.2, 'type': 'float', 'exp1': {'min': 0, 'max': 0.5}},
+	{'name': 'dept', 'min': 0, 'max': 1, 'default': 0.3, 'type': 'float'},
+	{'name': 'fdbk', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
 	{'name': 'gain', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
 	{'name': 'slope', 'min': 0.1, 'max': 5000, 'default': 0.1, 'type': 'float'},
 ]
