@@ -48,9 +48,9 @@ class Effects(object):
                 if 'exp1' in setting:
                     curr_exp1[idx] = setting['exp1']
                 if 'exp2' in setting:
-                    curr_exp1[idx] = setting['exp2']
+                    curr_exp2[idx] = setting['exp2']
                 if 'ldr' in setting:
-                    curr_exp1[idx] = setting['ldr']
+                    curr_ldr[idx] = setting['ldr']
             self.step_sizes.append(curr_step_sizes)
             self.exp1.append(curr_exp1)
             self.exp2.append(curr_exp2)
