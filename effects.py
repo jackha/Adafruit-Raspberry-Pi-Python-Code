@@ -32,14 +32,19 @@ class Effects(object):
         self.scrollers = []
         # Determine step sizes
         self.step_sizes = []
+        self.exp1 = []
         for effect in self.available_effects:
             curr_step_sizes = []
+            curr_exp1 = {}  # key is option number, value is {'min': xx, 'max': yy}
             for idx, setting in enumerate(self.settings):
                 if setting['type'] == 'float':
                     curr_step_sizes.append((setting['max'] - setting['min']) / 100.)
                 else:
                     curr_step_sizes.append(1)
+                if 'exp1' in setting:
+                    curr_exp1[idx] = setting['exp1']
             self.step_sizes.append(curr_step_sizes)
+            self.exp1.append(curr_exp1)
         for effect in self.available_effects:
             self.scrollers.append(Scroller(effect['full_name']))
 
@@ -139,6 +144,12 @@ class Effects(object):
         """Return normalized value 0..1"""
         return ((float(self.current_settings[idx]) - self.settings[idx]['min']) / 
                     (self.settings[idx]['max'] - self.settings[idx]['min']))
+
+    def exp1(self, raw_value):
+        """Raw value is 0..1023"""
+        for k, v in self.exp1[self.current_effect]:
+            value = raw_value / 1024. * (v['max'] - v['min']) + v['min']
+            self.setting(k, value=value)
 
     def settings_as_eight(self, selected=None):
         """Return byte array of 8 settings. Optionally give index for selected setting"""

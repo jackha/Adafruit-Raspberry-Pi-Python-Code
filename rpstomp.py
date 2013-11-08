@@ -211,6 +211,11 @@ if __name__ == '__main__':
     # Right big footswitch, double function
     tap_tempo = TapTempo()
 
+    #
+    exp1_value = 0
+    exp2_value = 0
+    ldr_value = 0
+
     while(running):
         # read rotary encoder
         # delta1 = 0
@@ -225,7 +230,16 @@ if __name__ == '__main__':
         #segment.writeValue(mcp_values[7])
         # test
         #effects.setting(0, value=mcp_values[1]/1024.)
-        print mcp_values
+        #print mcp_values
+        if abs(mcp_values[0] - exp1_value) > 5:
+            exp1_value = mcp_values[0]
+            effects.exp1(exp1_value)
+        if abs(mcp_values[1] - exp2_value) > 5:
+            exp2_value = mcp_values[1]
+            effects.exp2(exp2_value)
+        if abs(mcp_values[7] - exp1_value) > 5:
+            ldr_value = mcp_values[7]
+            effects.ldr(ldr_value)
 
         for i in range(len(PUSH_BUTTON_PINS)):
             push[i] = push_buttons.get_button(i)

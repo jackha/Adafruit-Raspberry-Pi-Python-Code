@@ -2,7 +2,7 @@ from display import SPIRAL_DISPLAY, MIX_DISPLAY
 
 
 spectraldelay = [
-	{'name': 'mmix', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float', 'display': MIX_DISPLAY},
+	{'name': 'mmix', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float', 'display': MIX_DISPLAY, 'exp1': {'min': 0, 'max': 1}},
 	{'name': ' del', 'min': 0., 'max': 1., 'default': 1., 'type': 'float'},
 	{'name': '  fb', 'min': 0., 'max': 1., 'default': 1., 'type': 'float'},
 	{'name': 'gain', 'min': 0., 'max': 1., 'default': 1., 'type': 'float', 'display': MIX_DISPLAY},
@@ -29,7 +29,7 @@ hexxiter = [
 ]
 
 ringmodulator = [
-	{'name': 'mmix', 'min': 0, 'max': 1, 'default': 1, 'type': 'float'},
+	{'name': 'mmix', 'min': 0, 'max': 1, 'default': 1, 'type': 'float', 'display': MIX_DISPLAY},
 	{'name': 'lfo_freq', 'min': 0, 'max': 40, 'default': 4, 'type': 'float'},
 
 ]
@@ -49,7 +49,7 @@ boldaslove = [
 ]
 
 reverb = [
-	{'name': 'mmix', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
+	{'name': 'mmix', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float', 'display': MIX_DISPLAY},
 	{'name': 'roomsize', 'min': 0, 'max': 1, 'default': 0.3, 'type': 'float'},
 	{'name': 'damping', 'min': 0, 'max': 1, 'default': 0.3, 'type': 'float'},
 ]
