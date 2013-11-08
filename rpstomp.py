@@ -284,6 +284,8 @@ if __name__ == '__main__':
                 effects.down()
             selected = 0
             selected_idx = 0
+            grid.grid_array(smiley.numbers[effects.current_effect % len(smiley.numbers)])
+            disp_timer_expiration = now + datetime.timedelta(seconds=1)
             segment_needs_updating = True
             disp_needs_updating = True
 
