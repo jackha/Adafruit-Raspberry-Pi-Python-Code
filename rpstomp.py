@@ -262,16 +262,8 @@ if __name__ == '__main__':
 
         # up or down. Hold to switch direction
         if push[3] and not pushed_in[3]:
-            if preset_forward:
-                effects.up()
-            else:
-                effects.down()
             push2_timer_expiration = now + datetime.timedelta(seconds=2)
-            selected = 0
-            selected_idx = 0
             pushed_in[3] = True
-            segment_needs_updating = True
-            disp_needs_updating = True
 
         if pushed_in[3] and now > push2_timer_expiration:
             preset_forward = not preset_forward
@@ -283,7 +275,18 @@ if __name__ == '__main__':
             disp_timer_expiration = now + datetime.timedelta(seconds=2)
             scroller_timer_expiration = now + datetime.timedelta(seconds=2)
             disp_needs_updating = True
-            
+
+        # Button up triggers the preset switching
+        if not push[3] and pushed_in[3]:
+            if preset_forward:
+                effects.up()
+            else:
+                effects.down()
+            selected = 0
+            selected_idx = 0
+            segment_needs_updating = True
+            disp_needs_updating = True
+
         # if push[4] and not pushed_in[4]:
         #     effects.up()
         #     selected = 0
