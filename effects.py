@@ -151,6 +151,12 @@ class Effects(object):
             value = raw_value / 1024. * (v['max'] - v['min']) + v['min']
             self.setting(k, value=value)
 
+    def exp2(self, raw_value):
+        pass
+
+    def ldr(self, raw_value):
+        pass
+
     def settings_as_eight(self, selected=None):
         """Return byte array of 8 settings. Optionally give index for selected setting"""
         lookup_add = [128, 1, 2, 4, 8, 16, 32, 64]
