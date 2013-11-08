@@ -124,7 +124,6 @@ class Effects(object):
         self.loaded = False
         self.loaded_patch = None
 
-
     def set_default_settings(self):
         """ Set all default settings"""
         for idx, setting in enumerate(self.settings):
