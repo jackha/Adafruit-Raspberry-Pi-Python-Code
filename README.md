@@ -230,13 +230,11 @@ Finishing up the software
 
 Automatically startup and shut down::
 
-$ sudo chmod 755 jackstart.sh
+$ copy boot.sh /boot
 
-Add /home/pi/raspberry-stomp/jackstart.sh to /etc/rc.local
+Add /boot/boot.sh to /etc/rc.local
 
-at the end, add 
-
-$ halt
+If anything goes wrong in jackstart.sh, you can edit boot.sh from your windows/mac computer without mounting the ext4 volume. Yaay! (I got experience...)
 
 
 Background info
