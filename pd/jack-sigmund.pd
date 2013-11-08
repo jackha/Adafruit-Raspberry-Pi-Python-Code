@@ -1,0 +1,13 @@
+#N canvas 619 487 450 300 10;
+#X obj 115 46 adc~;
+#X obj 116 97 sigmund~;
+#X obj 108 178 osc~;
+#X obj 109 136 mtof;
+#X obj 109 258 dac~;
+#X obj 165 219 *~ 0.5;
+#X obj 227 84 netreceive 3000;
+#X connect 0 0 1 0;
+#X connect 1 0 3 0;
+#X connect 2 0 5 0;
+#X connect 3 0 2 0;
+#X connect 5 0 4 0;
