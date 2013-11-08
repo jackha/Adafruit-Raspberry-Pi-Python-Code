@@ -150,7 +150,7 @@ class Effects(object):
 
     def expression1(self, raw_value):
         """Raw value is 0..1023"""
-        for k, v in self.exp1[self.current_effect]:
+        for k, v in self.exp1[self.current_effect].items():
             value = v['min'] + raw_value / 1024. * (v['max'] - v['min'])
             self.setting(k, value=value)
 
