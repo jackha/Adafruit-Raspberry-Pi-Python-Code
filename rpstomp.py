@@ -234,6 +234,10 @@ if __name__ == '__main__':
         if abs(mcp_values[0] - exp1_value) > 5:
             exp1_value = mcp_values[0]
             effects.expression1(exp1_value)
+            grid.bytes_array(effects.settings_as_eight(selected=selected_idx))
+            disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
+            disp_needs_updating = True
+
         if abs(mcp_values[1] - exp2_value) > 5:
             exp2_value = mcp_values[1]
             effects.expression2(exp2_value)

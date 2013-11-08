@@ -47,7 +47,6 @@ class Effects(object):
                     print setting
             self.step_sizes.append(curr_step_sizes)
             self.exp1.append(curr_exp1)
-        print self.exp1
         for effect in self.available_effects:
             self.scrollers.append(Scroller(effect['full_name']))
 
