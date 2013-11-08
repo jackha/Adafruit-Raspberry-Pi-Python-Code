@@ -1,5 +1,8 @@
+from display import SPIRAL_DISPLAY, MIX_DISPLAY
+
+
 spectraldelay = [
-	{'name': 'n7ix', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
+	{'name': ' mix', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float', 'display': MIX_DISPLAY},
 	{'name': ' del', 'min': 0., 'max': 1., 'default': 1., 'type': 'float'},
 	{'name': '  fb', 'min': 0., 'max': 1., 'default': 1., 'type': 'float'},
 	{'name': 'gain', 'min': 0., 'max': 1., 'default': 1., 'type': 'float'},

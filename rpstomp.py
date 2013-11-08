@@ -12,7 +12,7 @@ from subprocess import Popen
 import settings
 import smiley
 from mcp3008 import Mcp3008
-from display import EightByEightPlus, SevenSegmentPlus
+from display import EightByEightPlus, SevenSegmentPlus, SPIRAL_DISPLAY
 from effects import Effects
 
 import os
@@ -316,7 +316,9 @@ if __name__ == '__main__':
             # Set 7 segment
             value = 1000*effects.setting_norm(selected_idx)
             segment.writeValue(value)
-            grid.special(64*effects.setting_norm(selected_idx))
+            grid.special(
+                64*effects.setting_norm(selected_idx), 
+                matrix=effects.settings[selected_idx].get('display', SPIRAL_DISPLAY))
 
             disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             segment_timer_expiration = disp_timer_expiration
