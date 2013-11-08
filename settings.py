@@ -105,3 +105,12 @@ diy2vibrato = [
 	{'name': 'gain', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float'},
 	{'name': 'slope', 'min': 0.1, 'max': 5000, 'default': 0.1, 'type': 'float'},
 ]
+
+diy24tap = [
+	{'name': ' 1st', 'min': 0, 'max': 1, 'default': 0.1, 'type': 'float'},
+	{'name': ' 2nd', 'min': 0, 'max': 1, 'default': 0.6, 'type': 'float'},
+	{'name': ' 3rd', 'min': 0, 'max': 1, 'default': 0.7, 'type': 'float'},
+	{'name': ' 4th', 'min': 0, 'max': 1, 'default': 0.9, 'type': 'float'},
+	{'name': 'scale', 'min': 0, 'max': 1, 'default': 0.6, 'type': 'float'},
+	{'name': 'slide', 'min': 0, 'max': 1, 'default': 0.2, 'type': 'float'},
+]
