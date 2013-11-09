@@ -153,10 +153,10 @@ class Effects(object):
                 self.off_settings[idx] = value
             return
             self.off_settings[idx] += delta * self.off_step_sizes[idx]
-            if self.off_settings[idx] < self.settings[idx]['min']:
-                self.off_settings[idx] = self.settings[idx]['min']
-            if self.off_settings[idx] > self.settings[idx]['max']:
-                self.off_settings[idx] = self.settings[idx]['max']
+            if self.off_settings[idx] < self.off_effect['settings'][idx]['min']:
+                self.off_settings[idx] = self.off_effect['settings'][idx]['min']
+            if self.off_settings[idx] > self.off_effect['settings'][idx]['max']:
+                self.off_settings[idx] = self.off_effect['settings'][idx]['max']
             if self.off_effect['settings'][idx]['type'] == 'float':
                 self.send_sock.sendall('%s %f;' % (self.option_names[idx], self.off_settings[idx]))
             else:
