@@ -152,7 +152,6 @@ class Effects(object):
             print 'off setting' + str(idx) + ' ' + str(value)
             if value is not None:
                 self.off_settings[idx] = value
-            return
             self.off_settings[idx] += delta * self.off_step_sizes[idx]
             if self.off_settings[idx] < self.off_effect['settings'][idx]['min']:
                 self.off_settings[idx] = self.off_effect['settings'][idx]['min']
