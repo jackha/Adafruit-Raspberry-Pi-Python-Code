@@ -15,6 +15,7 @@ cycle = [1,2,4,8,16,32]
 cycle_counter = 0
 
 # Display animation while shutting down.
+print 'Bye...'
 while True:
     segment.writeDigitRaw(4, cycle[cycle_counter])
     cycle_counter = (cycle_counter + 1) % len(cycle)
