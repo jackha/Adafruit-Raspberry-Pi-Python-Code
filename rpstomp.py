@@ -320,7 +320,7 @@ if __name__ == '__main__':
                 effects.up()
             else:
                 effects.down()
-                # preset_forward = True
+                preset_forward = True
             selected = 0
             selected_idx = 0
             grid.grid_array(smiley.numbers[effects.current_effect % len(smiley.numbers)])
