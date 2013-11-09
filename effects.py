@@ -40,7 +40,7 @@ class Effects(object):
         self.off_exp1 = {}
         self.off_settings = 8*[0]  # Off has settings too!
 
-        for idx, setting in enumerate(self.off_effect):
+        for idx, setting in enumerate(self.off_effect['settings']):
             if setting['type'] == 'float':
                 self.off_step_sizes.append((setting['max'] - setting['min']) / 100.)
             else:
