@@ -58,7 +58,7 @@ SPICS = 11
 
 # These should be files in pd directory (without .pd extension). Keys are displayed names
 # The effects must all have 2 audio inlets and 8 normal inlets, 2 audio outlets and 1 normal outlet
-OFF_EFFECT = {'display_name': '....', 'patch_name': '0', 'settings': []}
+OFF_EFFECT = {'display_name': '....', 'patch_name': '0', 'settings': settings.off}
 
 AVAILABLE_EFFECTS = [
 #    {'display_name': 'test', 'full_name': 'test', 'patch_name': '14', 'settings': settings.diy2pitch},
