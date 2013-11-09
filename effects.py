@@ -194,7 +194,7 @@ class Effects(object):
                 value = v['min'] + raw_value / 1024. * (v['max'] - v['min'])
                 self.setting(k, value=value)
         else:
-            for k, v in self.eff_exp1.items():
+            for k, v in self.off_exp1.items():
                 value = v['min'] + raw_value / 1024. * (v['max'] - v['min'])
                 self.setting(k, value=value)
 
