@@ -132,6 +132,7 @@ class SevenSegmentPlus(SevenSegment):
         '-': 64,
         '.': 128,
         '_': 8,
+        '!': 2 + 128,
     }
 
     def __init__(self, brightness=15, *args, **kwargs):
