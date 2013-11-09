@@ -236,6 +236,23 @@ Add /boot/boot.sh to /etc/rc.local
 
 If anything goes wrong in jackstart.sh, you can edit boot.sh from your windows/mac computer without mounting the ext4 volume. Yaay! (I got experience...)
 
+I used overclocking to make the pi snappier and to make some patches work at all.
+
+#arm_freq=900
+#core_freq=350
+#sdram_freq=500
+
+force_turbo=1
+
+arm_freq=1000
+gpu_freq=350
+core_freq=500
+sdram_freq=500
+over_voltage=6
+gpu_mem=16
+
+
+
 
 Background info
 ---------------
