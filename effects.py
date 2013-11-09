@@ -125,14 +125,14 @@ class Effects(object):
         self.loaded = True
         self.loaded_patch = patch_name
         self.loader_socket.sendall('load %s;' % patch_name)
-        sleep(0.3)  # essential! Or Pd will sometimes stop with a segmentation fault.
+        sleep(0.2)  # essential! Or Pd will sometimes stop with a segmentation fault.
         self.send_sock = init_pd_socket()
 
     def unload(self):
         if not self.loaded:
             return
         self.send_sock.close()
-        sleep(.2)  # essential!
+        sleep(.1)  # essential!
         self.loader_socket.sendall('unload %s;' % self.loaded_patch)
         self.loaded = False
         self.loaded_patch = None
@@ -218,9 +218,9 @@ class Effects(object):
             row_value = 0
             normalized_value = (8*(float(value) - self.off_effect['settings'][0]['min']) / 
                 (self.off_effect['settings'][0]['max'] - self.off_effect['settings'][0]['min']))
-            for col in range(0, 7):
+            for col in range(0, 8):
                 if normalized_value >= col:
-                    row_value += lookup_add[col+1]
+                    row_value += lookup_add[col]
             return 8*[row_value]
         
         result = []
