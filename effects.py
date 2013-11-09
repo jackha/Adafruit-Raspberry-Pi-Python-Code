@@ -159,6 +159,7 @@ class Effects(object):
             if self.off_settings[idx] > self.off_effect['settings'][idx]['max']:
                 self.off_settings[idx] = self.off_effect['settings'][idx]['max']
             if self.off_effect['settings'][idx]['type'] == 'float':
+                print 'a'
                 self.send_sock.sendall('%s %f;' % (self.option_names[idx], self.off_settings[idx]))
             else:
                 self.send_sock.sendall('%s %d;' % (self.option_names[idx], self.off_settings[idx]))
