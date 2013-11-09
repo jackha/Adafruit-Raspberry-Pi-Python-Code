@@ -216,7 +216,7 @@ class Effects(object):
             value = self.off_settings[0]
             row_value = 0
             normalized_value = (8*(float(value) - self.off_effect['settings'][0]['min']) / 
-                    (.off_effect['settings'][0]['max'] - self.off_effect['settings'][0]['min']))
+                    (self.off_effect['settings'][0]['max'] - self.off_effect['settings'][0]['min']))
             for col in range(0, 7):
                 if normalized_value >= col:
                     row_value += lookup_add[col+1]
