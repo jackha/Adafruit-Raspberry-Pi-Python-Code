@@ -139,9 +139,15 @@ class Effects(object):
 
     def set_default_settings(self):
         """ Set all default settings"""
-        for idx, setting in enumerate(self.settings):
-            self.current_settings[idx] = setting['default']
-            self.setting(idx, self.current_settings[idx])
+        if self.effect_on:
+            for idx, setting in enumerate(self.settings):
+                self.current_settings[idx] = setting['default']
+                self.setting(idx, self.current_settings[idx])
+        else:
+            for idx, setting in enumerate(self.off_effect['settings']):
+                self.current_settings[idx] = setting['default']
+                self.setting(idx, self.current_settings[idx])
+
 
     def setting(self, idx, value=None, delta=0):
         """ Add delta to setting and update to Pd. 
