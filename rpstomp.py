@@ -241,21 +241,21 @@ if __name__ == '__main__':
         # test
         #effects.setting(0, value=mcp_values[1]/1024.)
         #print mcp_values
-        if abs(mcp_values[0] - exp1_value) > 10:
+        if abs(mcp_values[0] - exp1_value) > 15:
             exp1_value = mcp_values[0]
             effects.expression1(exp1_value)
             grid.bytes_array(effects.settings_as_eight(selected=selected_idx))
             disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             disp_needs_updating = True
 
-        if abs(mcp_values[1] - exp2_value) > 10:
+        if abs(mcp_values[1] - exp2_value) > 15:
             exp2_value = mcp_values[1]
             effects.expression2(exp2_value)
             grid.bytes_array(effects.settings_as_eight(selected=selected_idx))
             disp_timer_expiration = datetime.datetime.now() + datetime.timedelta(seconds=2)
             disp_needs_updating = True
 
-        if abs(mcp_values[7] - exp1_value) > 10:
+        if abs(mcp_values[7] - exp1_value) > 15:
             ldr_value = mcp_values[7]
             effects.lightsensor(ldr_value)
 
