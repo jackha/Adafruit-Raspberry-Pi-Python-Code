@@ -149,7 +149,7 @@ class Effects(object):
         Return curr value"""
         if not self.effect_on:
             # do our effect off thing, ugly because it's the same as effect on
-            print 'off setting' + idx + value
+            print 'off setting' + str(idx) + ' ' + str(value)
             if value is not None:
                 self.off_settings[idx] = value
             return
