@@ -211,12 +211,12 @@ class Effects(object):
     def settings_as_eight(self, selected=None):
         """Return byte array of 8 settings. Optionally give index for selected setting"""
         lookup_add = [128, 1, 2, 4, 8, 16, 32, 64]
-        if not effect_on:
+        if not self.effect_on:
             # TODO: currently this is lame. Use display function instead.
             value = self.off_settings[0]
             row_value = 0
             normalized_value = (8*(float(value) - self.off_effect['settings'][0]['min']) / 
-                    (self.off_effect['settings'][0]['max'] - self.off_effect['settings'][0]['min']))
+                (self.off_effect['settings'][0]['max'] - self.off_effect['settings'][0]['min']))
             for col in range(0, 7):
                 if normalized_value >= col:
                     row_value += lookup_add[col+1]
