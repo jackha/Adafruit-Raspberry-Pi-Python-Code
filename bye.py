@@ -16,6 +16,6 @@ cycle_counter = 0
 
 # Display animation while shutting down.
 while True:
-    grid.writeDigitRaw(4, cycle[cycle_counter])
+    segment.writeDigitRaw(4, cycle[cycle_counter])
     cycle_counter = (cycle_counter + 1) % len(cycle)
     sleep(0.2)
