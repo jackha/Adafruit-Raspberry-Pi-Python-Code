@@ -35,6 +35,19 @@ class Effects(object):
         self.exp1 = []
         self.exp2 = []
         self.ldr = []
+
+        self.off_step_sizes = []
+        self.off_exp1 = {}
+        self.off_settings = 8*[0]  # Off has settings too!
+
+        for idx, setting in enumerate(self.off_effect):
+            if setting['type'] == 'float':
+                self.off_step_sizes.append((setting['max'] - setting['min']) / 100.)
+            else:
+                self.off_step_sizes.append(1)
+            if 'exp1' in setting:
+                self.off_exp1[idx] = setting['exp1']
+
         for effect in self.available_effects:
             curr_step_sizes = []
             curr_exp1 = {}  # key is option number, value is {'min': xx, 'max': yy}
@@ -55,8 +68,8 @@ class Effects(object):
             self.exp1.append(curr_exp1)
             self.exp2.append(curr_exp2)
             self.ldr.append(curr_ldr)
-        for effect in self.available_effects:
-            self.scrollers.append(Scroller(effect['full_name']))
+        #for effect in self.available_effects:
+        #    self.scrollers.append(Scroller(effect['full_name']))
 
     @property
     def settings(self):
@@ -134,6 +147,22 @@ class Effects(object):
         """ Add delta to setting and update to Pd. 
 
         Return curr value"""
+        if not self.effect_on:
+            # do our effect off thing, ugly because it's the same as effect on
+            if value is not None:
+                self.off_settings[idx] = value
+            return
+            self.off_settings[idx] += delta * self.off_step_sizes[idx]
+            if self.off_settings[idx] < self.settings[idx]['min']:
+                self.off_settings[idx] = self.settings[idx]['min']
+            if self.off_settings[idx] > self.settings[idx]['max']:
+                self.off_settings[idx] = self.settings[idx]['max']
+            if self.off_effect['settings'][idx]['type'] == 'float':
+                self.send_sock.sendall('%s %f;' % (self.option_names[idx], self.off_settings[idx]))
+            else:
+                self.send_sock.sendall('%s %d;' % (self.option_names[idx], self.off_settings[idx]))
+            return self.off_settings[idx]
+
         if idx >= len(self.settings):
             return
         if value is not None:
@@ -151,14 +180,23 @@ class Effects(object):
 
     def setting_norm(self, idx):
         """Return normalized value 0..1"""
-        return ((float(self.current_settings[idx]) - self.settings[idx]['min']) / 
-                    (self.settings[idx]['max'] - self.settings[idx]['min']))
+        if self.effect_on:
+            return ((float(self.current_settings[idx]) - self.settings[idx]['min']) / 
+                        (self.settings[idx]['max'] - self.settings[idx]['min']))
+        else:
+            return ((float(self.off_settings[idx]) - self.off_settings[idx]['min']) / 
+                        (self.off_settings[idx]['max'] - self.off_settings[idx]['min']))
 
     def expression1(self, raw_value):
         """Raw value is 0..1023"""
-        for k, v in self.exp1[self.current_effect].items():
-            value = v['min'] + raw_value / 1024. * (v['max'] - v['min'])
-            self.setting(k, value=value)
+        if self.effect_on:
+            for k, v in self.exp1[self.current_effect].items():
+                value = v['min'] + raw_value / 1024. * (v['max'] - v['min'])
+                self.setting(k, value=value)
+        else:
+            for k, v in self.eff_exp1.items():
+                value = v['min'] + raw_value / 1024. * (v['max'] - v['min'])
+                self.setting(k, value=value)
 
     def expression2(self, raw_value):
         for k, v in self.exp2[self.current_effect].items():
