@@ -1,4 +1,4 @@
-#N canvas 149 489 1199 428 10;
+#N canvas 49 770 1199 428 10;
 #X obj 8 54 bng 15 250 50 0 \$0-eee-lfosig ewtewennnnnnnnnnnn LFO 18
 9 0 13 -262144 -1 -1;
 #X obj 8 74 bng 15 250 50 0 \$0-eee-adsrsig ewtewennnnnnnnnnnn ADSR
@@ -950,24 +950,29 @@ readme 17 7 0 14 -261682 -1 -258113;
 #X obj 107 54 adc~;
 #X obj 140 558 dac~;
 #X obj 202 53 netreceive 3000;
-#X obj 202 93 route a b c d e f g h;
 #X msg 171 141 0 \$1;
 #X msg 218 142 1 \$1;
 #X msg 267 144 2 \$1;
 #X msg 354 143 1 0.5;
 #X msg 357 118 0 0.5;
 #X obj 106 293 mono-material /key;
-#X connect 0 0 9 0;
-#X connect 2 0 3 0;
-#X connect 3 0 4 0;
-#X connect 3 1 5 0;
-#X connect 3 2 6 0;
-#X connect 4 0 9 1;
-#X connect 5 0 9 1;
-#X connect 6 0 9 1;
-#X connect 7 0 9 1;
-#X connect 8 0 9 1;
-#X connect 9 0 1 0;
+#X obj 202 93 route a b c d e f g h bpm hold active;
+#X msg 441 139 \; active \$1 \;;
+#X obj 59 473 pi-active~;
+#X connect 0 0 8 0;
+#X connect 0 0 11 0;
+#X connect 2 0 9 0;
+#X connect 3 0 8 1;
+#X connect 4 0 8 1;
+#X connect 5 0 8 1;
+#X connect 6 0 8 1;
+#X connect 7 0 8 1;
+#X connect 8 0 11 1;
+#X connect 9 0 3 0;
+#X connect 9 1 4 0;
+#X connect 9 2 5 0;
+#X connect 9 10 10 0;
+#X connect 11 0 1 0;
 #X coords 0 0 1 1 323 230 0;
 #X restore 699 383 pd \$0-creator;
 #X obj 150 21 bng 15 250 50 0 readme-synth wuyriuewyuiyerwiiiiiioio

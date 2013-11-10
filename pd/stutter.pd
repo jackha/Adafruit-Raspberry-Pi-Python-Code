@@ -14,7 +14,7 @@
 #X obj 242 88 loadbang;
 #X msg 235 112 200;
 #X obj 273 166 delread~ delay_essai \$1;
-#X obj 381 100 route a b c d e f g h bpm hold;
+#X obj 381 100 route a b c d e f g h bpm hold active;
 #X connect 1 0 0 0;
 #X connect 1 0 9 0;
 #X connect 3 0 15 0;

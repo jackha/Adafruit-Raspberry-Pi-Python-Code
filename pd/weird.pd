@@ -1,6 +1,6 @@
 #N canvas 234 126 1280 720 10;
 #X obj 75 54 adc~;
-#X obj 75 175 dac~;
+#X obj 83 336 dac~;
 #X obj 203 95 phasor~;
 #X obj 49 92 delwrite~ voice1 100;
 #X obj 203 137 *~ 2;
@@ -35,9 +35,12 @@
 #X obj 611 94 * 0.005;
 #X obj 680 103 * 0.001;
 #X obj 646 40 netreceive 3000;
-#X obj 646 62 route a b c d e f g h;
+#X obj 646 62 route a b c d e f g h bpm hold active;
+#X msg 857 131 \; active \$1 \;;
+#X obj 24 302 pi-active~;
 #X connect 0 0 3 0;
-#X connect 0 0 1 0;
+#X connect 0 0 35 1;
+#X connect 0 0 35 0;
 #X connect 2 0 7 0;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
@@ -58,8 +61,8 @@
 #X connect 14 0 16 0;
 #X connect 15 0 13 0;
 #X connect 16 0 17 0;
-#X connect 17 0 1 0;
 #X connect 17 0 24 0;
+#X connect 17 0 35 1;
 #X connect 18 0 21 0;
 #X connect 19 0 20 0;
 #X connect 20 0 22 0;
@@ -79,3 +82,5 @@
 #X connect 33 0 8 0;
 #X connect 33 1 30 0;
 #X connect 33 2 31 0;
+#X connect 33 10 34 0;
+#X connect 35 0 1 0;
