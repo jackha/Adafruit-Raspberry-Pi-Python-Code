@@ -64,6 +64,7 @@ AVAILABLE_EFFECTS = [
 #    {'display_name': 'test', 'full_name': 'test', 'patch_name': '14', 'settings': settings.diy2pitch},
     {'display_name': ' dly', 'full_name': 'delay', 'patch_name': '1', 'settings': settings.spectraldelay},
     {'display_name': 'revb', 'full_name': 'reverb', 'patch_name': '6', 'settings': settings.reverb},
+    {'display_name': 'stut', 'full_name': 'stutter', 'patch_name': '24', 'settings': settings.stutter},
 #    {'display_name': 'sigm', 'full_name': 'sigmund', 'patch_name': '23', 'settings': []},
 
 #    {'display_name': ' xfm', 'full_name': 'xfm', 'patch_name': '22', 'settings': settings.diy2xfm2},

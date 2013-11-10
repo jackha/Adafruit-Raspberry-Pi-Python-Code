@@ -4,6 +4,10 @@ off = [
 	{'name': 'vol', 'min': 0., 'max': 1., 'default': 1., 'type': 'float', 'exp1': {'min': 0, 'max': 1.5}},  # max 1.5 allows for some dead space
 ]
 
+stutter = [
+	{' dly': ' del', 'min': 10, 'max': 1000, 'default': 200, 'type': 'float', 'exp1': {'min': 10, 'max': 1000}},
+]
+
 spectraldelay = [
 	{'name': 'mmix', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float', 'display': MIX_DISPLAY, 'exp1': {'min': 0, 'max': 1}},
 	{'name': ' del', 'min': 0., 'max': 1., 'default': 1., 'type': 'float'},
