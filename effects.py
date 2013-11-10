@@ -17,7 +17,7 @@ class Effects(object):
     # Option names in Pd.
     option_names = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 
-    def __init__(self, loader_socket, available_effects, off_effect):
+    def __init__(self, loader_socket, available_effects):
         self.current_effect = 0  # by index of AVAILABLE_EFFECTS
         self.loader_socket = loader_socket
         self.loaded = False
