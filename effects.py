@@ -28,25 +28,13 @@ class Effects(object):
         #self.load()
         self.effect_on = False
         self.load(off_effect['patch_name'])
-        self.off_effect = off_effect
+        
         self.scrollers = []
         # Determine step sizes
         self.step_sizes = []
         self.exp1 = []
         self.exp2 = []
         self.ldr = []
-
-        self.off_step_sizes = []
-        self.off_exp1 = {}
-        self.off_settings = 8*[0]  # Off has settings too!
-
-        for idx, setting in enumerate(self.off_effect['settings']):
-            if setting['type'] == 'float':
-                self.off_step_sizes.append((setting['max'] - setting['min']) / 100.)
-            else:
-                self.off_step_sizes.append(1)
-            if 'exp1' in setting:
-                self.off_exp1[idx] = setting['exp1']
 
         for effect in self.available_effects:
             curr_step_sizes = []
@@ -68,6 +56,8 @@ class Effects(object):
             self.exp1.append(curr_exp1)
             self.exp2.append(curr_exp2)
             self.ldr.append(curr_ldr)
+
+        self.load()
         #for effect in self.available_effects:
         #    self.scrollers.append(Scroller(effect['full_name']))
 
@@ -94,28 +84,23 @@ class Effects(object):
 
     def effect_on_off(self):
         self.effect_on = not self.effect_on
-        self.unload()
         if self.effect_on:
-            self.load()
+            send_sock('active 1;')
         else:
-            self.load(self.off_effect['patch_name'])
+            send_sock('active 0;')
         self.set_default_settings()
 
     def up(self):
-        if self.effect_on:
-            self.unload()
+        self.unload()
         self.current_effect = (self.current_effect + 1) % len(self.available_effects)
-        if self.effect_on:
-            self.load()
-            self.set_default_settings()
+        self.load()
+        self.set_default_settings()
 
     def down(self):
-        if self.effect_on:
-            self.unload()
+        self.unload()
         self.current_effect = (self.current_effect - 1) % len(self.available_effects)
-        if self.effect_on:
-            self.load()
-            self.set_default_settings()
+        self.load()
+        self.set_default_settings()
 
     def load(self, patch_name=None):
         if patch_name is None:
@@ -139,37 +124,16 @@ class Effects(object):
 
     def set_default_settings(self):
         """ Set all default settings"""
-        if self.effect_on:
-            for idx, setting in enumerate(self.settings):
-                self.current_settings[idx] = setting['default']
-                self.setting(idx, self.current_settings[idx])
-        else:
-            for idx, setting in enumerate(self.off_effect['settings']):
-                self.current_settings[idx] = setting['default']
-                self.setting(idx, self.current_settings[idx])
+
+        for idx, setting in enumerate(self.settings):
+            self.current_settings[idx] = setting['default']
+            self.setting(idx, self.current_settings[idx])
 
 
     def setting(self, idx, value=None, delta=0):
         """ Add delta to setting and update to Pd. 
 
         Return curr value"""
-        if not self.effect_on:
-            # do our effect off thing, ugly because it's the same as effect on
-            # print 'off setting' + str(idx) + ' ' + str(value)
-            idx = 0
-            if value is not None:
-                self.off_settings[idx] = value
-            self.off_settings[idx] += delta * self.off_step_sizes[idx]
-            if self.off_settings[idx] < self.off_effect['settings'][idx]['min']:
-                self.off_settings[idx] = self.off_effect['settings'][idx]['min']
-            if self.off_settings[idx] > self.off_effect['settings'][idx]['max']:
-                self.off_settings[idx] = self.off_effect['settings'][idx]['max']
-            if self.off_effect['settings'][idx]['type'] == 'float':
-                self.send_sock.sendall('%s %f;' % (self.option_names[idx], self.off_settings[idx]))
-            else:
-                self.send_sock.sendall('%s %d;' % (self.option_names[idx], self.off_settings[idx]))
-            return self.off_settings[idx]
-
         if idx >= len(self.settings):
             return
         if value is not None:
@@ -187,23 +151,14 @@ class Effects(object):
 
     def setting_norm(self, idx):
         """Return normalized value 0..1"""
-        if self.effect_on:
-            return ((float(self.current_settings[idx]) - self.settings[idx]['min']) / 
-                        (self.settings[idx]['max'] - self.settings[idx]['min']))
-        else:
-            return ((float(self.off_settings[idx]) - self.off_settings[idx]['min']) / 
-                        (self.off_settings[idx]['max'] - self.off_settings[idx]['min']))
+        return ((float(self.current_settings[idx]) - self.settings[idx]['min']) / 
+                    (self.settings[idx]['max'] - self.settings[idx]['min']))
 
     def expression1(self, raw_value):
         """Raw value is 0..1023"""
-        if self.effect_on:
-            for k, v in self.exp1[self.current_effect].items():
-                value = v['min'] + raw_value / 1024. * (v['max'] - v['min'])
-                self.setting(k, value=value)
-        else:
-            for k, v in self.off_exp1.items():
-                value = v['min'] + raw_value / 1024. * (v['max'] - v['min'])
-                self.setting(k, value=value)
+        for k, v in self.exp1[self.current_effect].items():
+            value = v['min'] + raw_value / 1024. * (v['max'] - v['min'])
+            self.setting(k, value=value)
 
     def expression2(self, raw_value):
         for k, v in self.exp2[self.current_effect].items():
@@ -218,17 +173,6 @@ class Effects(object):
     def settings_as_eight(self, selected=None):
         """Return byte array of 8 settings. Optionally give index for selected setting"""
         lookup_add = [128, 1, 2, 4, 8, 16, 32, 64]
-        if not self.effect_on:
-            # TODO: currently this is lame. Use display function instead.
-            value = self.off_settings[0]
-            row_value = 0
-            normalized_value = (8*(float(value) - self.off_effect['settings'][0]['min']) / 
-                (self.off_effect['settings'][0]['max'] - self.off_effect['settings'][0]['min']))
-            for col in range(0, 8):
-                if normalized_value >= col:
-                    row_value += lookup_add[col]
-            return 8*[row_value]
-        
         result = []
         for row in range(0, len(self.settings)):
             row_value = lookup_add[0] if selected==row else 0

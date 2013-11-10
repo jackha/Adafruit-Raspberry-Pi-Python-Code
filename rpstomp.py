@@ -181,7 +181,7 @@ if __name__ == '__main__':
     # We use this socket to switch patches
     loader_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     loader_socket.connect(('localhost', 5000))
-    effects = Effects(loader_socket, AVAILABLE_EFFECTS, OFF_EFFECT)
+    effects = Effects(loader_socket, AVAILABLE_EFFECTS)
     
     #sleep(0.1)  # essential! Or Pd will sometimes stop with a segmentation fault.
     #send_sock = init_pd_socket()
