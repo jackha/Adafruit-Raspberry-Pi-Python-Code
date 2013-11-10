@@ -85,9 +85,9 @@ class Effects(object):
     def effect_on_off(self):
         self.effect_on = not self.effect_on
         if self.effect_on:
-            send_sock('active 1;')
+            self.send_sock('active 1;')
         else:
-            send_sock('active 0;')
+            self.send_sock('active 0;')
         self.set_default_settings()
 
     def up(self):
