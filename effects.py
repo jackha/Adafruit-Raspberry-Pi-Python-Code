@@ -27,7 +27,6 @@ class Effects(object):
         #self.step_sizes = 8*[1]  # for settings
         #self.load()
         self.effect_on = False
-        self.load(off_effect['patch_name'])
         
         self.scrollers = []
         # Determine step sizes
@@ -58,6 +57,7 @@ class Effects(object):
             self.ldr.append(curr_ldr)
 
         self.load()
+
         #for effect in self.available_effects:
         #    self.scrollers.append(Scroller(effect['full_name']))
 
