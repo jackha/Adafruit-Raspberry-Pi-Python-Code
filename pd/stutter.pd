@@ -1,4 +1,4 @@
-#N canvas 133 416 855 403 10;
+#N canvas 505 334 855 403 10;
 #X obj -23 168 delwrite~ delay_essai 1000;
 #X obj 27 55 adc~;
 #X obj 411 350 dac~;
@@ -19,10 +19,14 @@
 #X obj 482 281 hsl 128 15 0 1 0 0 empty stutter empty -2 -8 0 10 -262144
 -1 -1 0 1;
 #X text 509 299 stutter;
-#X msg 574 216 \; stutter 0 \; bypass 1 \;;
 #X msg 480 213 \; stutter 1 \; bypass 0 \;;
-#X obj 616 167 loadbang;
+#X obj 612 168 loadbang;
 #X obj 477 169 route 1 0;
+#X msg 611 203 \; bypass 1 \;;
+#X obj 648 272 line 0 500;
+#X msg 650 302 \; stutter \$1 \;;
+#X msg 523 335 set \$1;
+#X msg 608 249 0 500;
 #X connect 1 0 0 0;
 #X connect 1 0 6 0;
 #X connect 3 0 10 0;
@@ -34,11 +38,16 @@
 #X connect 9 0 4 0;
 #X connect 9 0 5 0;
 #X connect 10 0 9 0;
-#X connect 10 9 20 0;
-#X connect 10 10 20 0;
+#X connect 10 9 19 0;
+#X connect 10 10 19 0;
 #X connect 11 0 4 1;
 #X connect 13 0 6 0;
 #X connect 15 0 5 1;
+#X connect 15 0 23 0;
+#X connect 18 0 20 0;
 #X connect 19 0 17 0;
-#X connect 20 0 18 0;
-#X connect 20 1 17 0;
+#X connect 19 1 20 0;
+#X connect 19 1 24 0;
+#X connect 21 0 22 0;
+#X connect 23 0 21 0;
+#X connect 24 0 21 0;
