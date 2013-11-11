@@ -108,6 +108,7 @@ class Effects(object):
         self.current_effect = idx
         self.load()
         self.set_default_settings()
+        self.effect_on = False  # this is the default
 
     def load(self, patch_name=None):
         if patch_name is None:
