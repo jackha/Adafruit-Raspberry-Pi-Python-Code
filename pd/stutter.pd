@@ -1,28 +1,28 @@
-#N canvas 533 149 855 403 10;
+#N canvas 165 501 855 403 10;
 #X obj -23 168 delwrite~ delay_essai 1000;
 #X obj 27 55 adc~;
 #X obj 411 350 dac~;
-#X obj 392 58 netreceive 3000;
+#X obj 398 32 netreceive 3000;
 #X obj 75 311 *~ 0;
 #X obj 453 314 *~ 0;
 #X obj 389 315 *~ 1;
 #X obj 242 88 loadbang;
 #X msg 235 112 200;
 #X obj 273 166 delread~ delay_essai \$1;
-#X obj 381 100 route a b c d e f g h bpm hold active;
+#X obj 387 74 route a b c d e f g h bpm hold active;
 #X obj 128 333 hsl 128 15 0 1 0 0 empty stutter empty -2 -8 0 10 -262144
 -1 -1 0 1;
 #X text 143 352 stutter feedback;
 #X obj 217 272 hsl 128 15 0 1 0 0 empty bypass empty -2 -8 0 10 -262144
--1 -1 0 1;
+-1 -1 12700 1;
 #X text 241 252 bypass;
 #X obj 482 281 hsl 128 15 0 1 0 0 empty stutter empty -2 -8 0 10 -262144
 -1 -1 0 1;
 #X text 509 299 stutter;
 #X msg 574 216 \; stutter 0 \; bypass 1 \;;
 #X msg 480 213 \; stutter 1 \; bypass 0 \;;
-#X obj 477 169 route on 1 off 0;
 #X obj 616 167 loadbang;
+#X obj 477 169 route 1 0;
 #X connect 1 0 0 0;
 #X connect 1 0 6 0;
 #X connect 3 0 10 0;
@@ -34,13 +34,12 @@
 #X connect 9 0 4 0;
 #X connect 9 0 5 0;
 #X connect 10 0 9 0;
-#X connect 10 9 19 0;
-#X connect 10 10 19 0;
+#X connect 10 9 20 0;
+#X connect 10 10 20 0;
 #X connect 11 0 4 1;
 #X connect 13 0 6 0;
 #X connect 15 0 5 1;
-#X connect 19 0 18 0;
-#X connect 19 1 18 0;
-#X connect 19 2 17 0;
-#X connect 19 3 17 0;
-#X connect 20 0 17 0;
+#X connect 19 0 17 0;
+#X connect 20 0 18 0;
+#X connect 20 1 18 0;
+#X connect 20 2 17 0;
