@@ -296,7 +296,7 @@ if __name__ == '__main__':
         # Effect on/off
         if push[2] and not pushed_in[2]:
             effects.effect_on_off()
-            print "effects on: %s" effects.effect_on
+            print "effects on: %s" % effects.effect_on
             pushed_in[2] = True
             disp_timer_expiration = now
             disp_needs_updating = True
