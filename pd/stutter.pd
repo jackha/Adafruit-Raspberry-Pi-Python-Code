@@ -1,4 +1,4 @@
-#N canvas 165 501 855 403 10;
+#N canvas 133 416 855 403 10;
 #X obj -23 168 delwrite~ delay_essai 1000;
 #X obj 27 55 adc~;
 #X obj 411 350 dac~;
@@ -41,5 +41,4 @@
 #X connect 15 0 5 1;
 #X connect 19 0 17 0;
 #X connect 20 0 18 0;
-#X connect 20 1 18 0;
-#X connect 20 2 17 0;
+#X connect 20 1 17 0;
