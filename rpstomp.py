@@ -182,6 +182,7 @@ if __name__ == '__main__':
     loader_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     loader_socket.connect(('localhost', 5000))
     effects = Effects(loader_socket, AVAILABLE_EFFECTS)
+    wanted_effect = effects.current_effect
     
     #sleep(0.1)  # essential! Or Pd will sometimes stop with a segmentation fault.
     #send_sock = init_pd_socket()
@@ -201,6 +202,7 @@ if __name__ == '__main__':
     disp_timer_expiration = now
     segment_timer_expiration = now
     quit_timer_expiration = now
+    wanted_effect_timer_expiration = now
     push = {}
     pushed_in = {}  # You want to trigger a push only once.
     for i in range(len(PUSH_BUTTON_PINS)):
@@ -301,7 +303,7 @@ if __name__ == '__main__':
         # Middle big footswitch
         # up or down. Hold to switch direction
         if push[3] and not pushed_in[3]:
-            push2_timer_expiration = now + datetime.timedelta(seconds=1)
+            push2_timer_expiration = now + datetime.timedelta(seconds=0.5)
             pushed_in[3] = True
 
         if pushed_in[3] and now > push2_timer_expiration:
@@ -318,9 +320,15 @@ if __name__ == '__main__':
         # Button up triggers the preset switching
         if not push[3] and pushed_in[3]:
             if preset_forward:
-                effects.up()
+                wanted_effect = (wanted_effect + 1) % effects.num_effects
+                wanted_effect_timer_expiration = now + datetime.timedelta(seconds=0.5)
+                #effects.up()
+                #effects.choose(wanted_effect)
             else:
-                effects.down()
+                wanted_effect = (wanted_effect + 1) % effects.num_effects
+                wanted_effect_timer_expiration = now + datetime.timedelta(seconds=0.5)
+                #effects.down()
+                #effects.choose(wanted_effect)
                 preset_forward = True
             selected = 0
             selected_idx = 0
@@ -431,6 +439,9 @@ if __name__ == '__main__':
                 grid.grid_array(smiley.smiley_sleep)
             disp_needs_updating = False
             push_timer_expiration = now
+
+        if now > wanted_effect_timer_expiration and effects.current_effect != wanted_effect:
+            effects.choose(wanted_effect)
 
         sleep(SLEEP_TIME)
 

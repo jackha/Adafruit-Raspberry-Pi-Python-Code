@@ -23,6 +23,7 @@ class Effects(object):
         self.loaded = False
         self.loaded_patch = None  
         self.available_effects = available_effects
+        self.num_effects = len(self.available_effects)
         self.current_settings = 8*[0]
         #self.step_sizes = 8*[1]  # for settings
         #self.load()
@@ -99,6 +100,12 @@ class Effects(object):
     def down(self):
         self.unload()
         self.current_effect = (self.current_effect - 1) % len(self.available_effects)
+        self.load()
+        self.set_default_settings()
+
+    def choose(self, idx):
+        self.unload()
+        self.current_effect = idx
         self.load()
         self.set_default_settings()
 
