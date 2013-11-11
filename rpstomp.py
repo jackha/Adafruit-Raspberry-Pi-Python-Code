@@ -296,6 +296,7 @@ if __name__ == '__main__':
         # Effect on/off
         if push[2] and not pushed_in[2]:
             effects.effect_on_off()
+            print "effects on: %s" effects.effect_on
             pushed_in[2] = True
             disp_timer_expiration = now
             disp_needs_updating = True
@@ -325,13 +326,11 @@ if __name__ == '__main__':
                 #effects.up()
                 #effects.choose(wanted_effect)
             else:
-                wanted_effect = (wanted_effect + 1) % effects.num_effects
+                wanted_effect = (wanted_effect - 1) % effects.num_effects
                 wanted_effect_timer_expiration = now + datetime.timedelta(seconds=0.5)
                 #effects.down()
                 #effects.choose(wanted_effect)
                 preset_forward = True
-            selected = 0
-            selected_idx = 0
             grid.grid_array(smiley.numbers[effects.current_effect % len(smiley.numbers)])
             disp_timer_expiration = now + datetime.timedelta(seconds=1)
             segment_needs_updating = True
@@ -442,6 +441,9 @@ if __name__ == '__main__':
 
         if now > wanted_effect_timer_expiration and effects.current_effect != wanted_effect:
             effects.choose(wanted_effect)
+            print "Loaded effect: %s" % effects.display_name
+            selected = 0
+            selected_idx = 0
 
         sleep(SLEEP_TIME)
 
