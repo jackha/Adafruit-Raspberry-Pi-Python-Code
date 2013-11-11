@@ -6,7 +6,7 @@ from scroller import Scroller
 def init_pd_socket():
     # Create a socket (SOCK_STREAM means a TCP socket)
     # client of puredata: use 'netreceive 3000' in pd
-    print "init send socket to Pd..."
+    # print "init send socket to Pd..."
     send_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     send_sock.connect(('localhost', 3000))
     return send_sock
