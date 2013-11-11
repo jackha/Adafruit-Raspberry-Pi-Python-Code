@@ -331,10 +331,9 @@ if __name__ == '__main__':
                 #effects.down()
                 #effects.choose(wanted_effect)
                 preset_forward = True
-            grid.grid_array(smiley.numbers[effects.current_effect % len(smiley.numbers)])
+            segment.write(effects.available_effects[wanted_effect]['display_name'])
+            grid.grid_array(smiley.numbers[wanted_effect % len(smiley.numbers)])
             disp_timer_expiration = now + datetime.timedelta(seconds=1)
-            segment_needs_updating = True
-            disp_needs_updating = True
 
         # Right big footswitch
         if push[4] and not pushed_in[4]:
@@ -423,6 +422,15 @@ if __name__ == '__main__':
             grid.bytes_array(scroller.up())
             scroller_timer_expiration = now + datetime.timedelta(seconds=SCROLLER_DELAY)
 
+        # Choose effect
+        if now > wanted_effect_timer_expiration and effects.current_effect != wanted_effect:
+            effects.choose(wanted_effect)
+            print "Loaded effect: %s" % effects.display_name
+            selected = 0
+            selected_idx = 0
+            segment_needs_updating = True
+            disp_needs_updating = True
+
         # grid display: default view
         if now > segment_timer_expiration and segment_needs_updating:
             # default view for segment
@@ -438,12 +446,6 @@ if __name__ == '__main__':
                 grid.grid_array(smiley.smiley_sleep)
             disp_needs_updating = False
             push_timer_expiration = now
-
-        if now > wanted_effect_timer_expiration and effects.current_effect != wanted_effect:
-            effects.choose(wanted_effect)
-            print "Loaded effect: %s" % effects.display_name
-            selected = 0
-            selected_idx = 0
 
         sleep(SLEEP_TIME)
 
