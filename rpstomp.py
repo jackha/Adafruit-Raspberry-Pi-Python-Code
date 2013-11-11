@@ -339,11 +339,11 @@ if __name__ == '__main__':
         if push[4] and not pushed_in[4]:
             tap_tempo.tap()
             effects.send_sock.sendall('bpm %f;' % tap_tempo.bpm())
-            effects.send_sock.sendall('hold on;')
+            effects.send_sock.sendall('hold 1;')
             pushed_in[4] = True
 
         if not push[4] and pushed_in[4]:
-            effects.send_sock.sendall('hold off;')
+            effects.send_sock.sendall('hold 0;')
 
         # if push[4] and not pushed_in[4]:
         #     effects.up()
