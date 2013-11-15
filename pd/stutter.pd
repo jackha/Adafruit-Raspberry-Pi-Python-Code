@@ -1,60 +1,62 @@
-#N canvas 526 72 948 554 10;
-#X obj -12 230 delwrite~ delay_essai 1000;
-#X obj 27 55 adc~;
-#X obj 305 439 dac~;
-#X obj 398 32 netreceive 3000;
-#X obj 55 304 *~ 0;
-#X obj 347 403 *~ 0;
-#X obj 283 404 *~ 1;
-#X obj 242 88 loadbang;
-#X msg 259 127 200;
-#X obj 273 166 delread~ delay_essai \$1;
-#X obj 387 74 route a b c d e f g h bpm hold active;
-#X obj 57 394 hsl 128 15 0 1 0 0 empty stutter-feedback empty -2 -8
+#N canvas 526 72 954 610 10;
+#X obj 1 290 delwrite~ delay_essai 1000;
+#X obj 40 115 adc~;
+#X obj 318 499 dac~;
+#X obj 371 8 netreceive 3000;
+#X obj 68 364 *~ 0;
+#X obj 360 463 *~ 0;
+#X obj 296 464 *~ 1;
+#X obj 255 148 loadbang;
+#X msg 272 187 200;
+#X obj 286 226 delread~ delay_essai \$1;
+#X obj 360 50 route a b c d e f g h bpm hold active;
+#X obj 70 454 hsl 128 15 0 1 0 0 empty stutter-feedback empty -2 -8
 0 10 -262144 -1 -1 0 1;
-#X text 72 413 stutter feedback;
-#X obj 146 333 hsl 128 15 0 1 0 0 empty bypass empty -2 -8 0 10 -262144
+#X text 85 473 stutter feedback;
+#X obj 159 393 hsl 128 15 0 1 0 0 empty bypass empty -2 -8 0 10 -262144
 -1 -1 12700 1;
-#X text 149 311 bypass;
-#X obj 371 376 hsl 128 15 0 1 0 0 empty stutter empty -2 -8 0 10 -262144
+#X text 162 371 bypass;
+#X obj 384 436 hsl 128 15 0 1 0 0 empty stutter empty -2 -8 0 10 -262144
 -1 -1 0 1;
-#X text 398 394 stutter;
-#X obj 739 58 loadbang;
-#X obj 477 169 route 1 0;
-#X obj 436 170 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X text 411 454 stutter;
+#X obj 752 118 loadbang;
+#X obj 590 161 route 1 0;
+#X obj 500 210 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 540 345 line 0;
-#X obj 599 337 line 0;
-#X obj 652 337 line 0;
-#X obj 635 167 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 553 405 line 0;
+#X obj 612 397 line 0;
+#X obj 665 397 line 0;
+#X obj 667 217 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X msg 601 261 0 500;
-#X msg 654 259 0 500;
-#X msg 706 265 1 500;
-#X msg 465 251 1 0;
-#X msg 511 252 0 10;
-#X text 351 247 stutter on;
-#X text 762 234 stutter off;
-#X msg 424 286 \$1 10;
-#X obj 30 185 *~;
-#X obj 50 147 hsl 128 15 0 1 0 0 empty input-gain empty -2 -8 0 10
+#X msg 633 327 0 500;
+#X msg 686 325 0 500;
+#X msg 738 331 1 500;
+#X msg 478 311 1 0;
+#X msg 524 312 0 10;
+#X text 364 307 stutter on;
+#X text 810 296 stutter off;
+#X msg 437 346 \$1 10;
+#X obj 43 245 *~;
+#X obj 63 207 hsl 128 15 0 1 0 0 empty input-gain empty -2 -8 0 10
 -262144 -1 -1 12700 1;
-#X obj 635 207 t b b b b;
-#X msg 753 268 1 500;
-#X obj 709 339 line 0;
-#X obj 604 388 pack f f f f;
-#X obj 475 216 t b b b b;
-#X text 103 127 input gain;
-#X msg 627 448 \; stutter \$1 \; stutter-feedback \$2 \; bypass \$3
+#X obj 667 273 t b b b b;
+#X msg 785 334 1 500;
+#X obj 722 399 line 0;
+#X obj 617 448 pack f f f f;
+#X obj 500 265 t b b b b;
+#X text 116 187 input gain;
+#X msg 640 508 \; stutter \$1 \; stutter-feedback \$2 \; bypass \$3
 \; input-gain \$4 \;;
-#X msg 552 254 \$1 0;
-#X obj 422 208 vsl 15 64 0 1 0 0 empty stutter-volume-control stutter_volume
+#X msg 565 314 \$1 0;
+#X obj 435 268 vsl 15 64 0 1 0 0 empty stutter-volume-control stutter_volume
 0 -9 0 10 -262144 -1 -1 2500 1;
-#X obj 571 169 vsl 15 64 0 1 0 0 empty input-gain-control input_gain
+#X obj 584 229 vsl 15 64 0 1 0 0 empty input-gain-control input_gain
 0 -9 0 10 -262144 -1 -1 0 1;
-#X obj 381 331 print;
-#X msg 712 131 \; input-gain-control 0 \; stutter-volume-control 0.6
+#X obj 394 391 print;
+#X msg 752 174 \; input-gain-control 0 \; stutter-volume-control 0.6
 \;;
+#X msg 353 127 \; stutter-volume-control \$1 \;;
+#X msg 398 87 \; input-gain-control \$1 \;;
 #X connect 1 0 6 0;
 #X connect 1 0 32 0;
 #X connect 3 0 10 0;
@@ -66,8 +68,8 @@
 #X connect 9 0 4 0;
 #X connect 9 0 5 0;
 #X connect 10 0 9 0;
-#X connect 10 1 42 0;
-#X connect 10 2 43 0;
+#X connect 10 1 46 0;
+#X connect 10 2 47 0;
 #X connect 10 9 18 0;
 #X connect 10 10 18 0;
 #X connect 11 0 4 1;
