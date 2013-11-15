@@ -1,28 +1,48 @@
-#N canvas 367 309 855 403 10;
+#N canvas 578 130 896 527 10;
 #X obj -23 168 delwrite~ delay_essai 1000;
 #X obj 27 55 adc~;
-#X obj 411 350 dac~;
+#X obj 305 439 dac~;
 #X obj 398 32 netreceive 3000;
-#X obj 75 311 *~ 0;
-#X obj 453 314 *~ 0;
-#X obj 389 315 *~ 1;
+#X obj 4 372 *~ 0;
+#X obj 347 403 *~ 0;
+#X obj 283 404 *~ 1;
 #X obj 242 88 loadbang;
-#X msg 235 112 200;
+#X msg 259 127 200;
 #X obj 273 166 delread~ delay_essai \$1;
 #X obj 387 74 route a b c d e f g h bpm hold active;
-#X obj 128 333 hsl 128 15 0 1 0 0 empty stutter empty -2 -8 0 10 -262144
--1 -1 0 1;
-#X text 143 352 stutter feedback;
-#X obj 217 272 hsl 128 15 0 1 0 0 empty bypass empty -2 -8 0 10 -262144
+#X obj 57 394 hsl 128 15 0 1 0 0 empty stutter-feedback empty -2 -8
+0 10 -262144 -1 -1 0 1;
+#X text 72 413 stutter feedback;
+#X obj 146 333 hsl 128 15 0 1 0 0 empty bypass empty -2 -8 0 10 -262144
 -1 -1 12700 1;
-#X text 241 252 bypass;
-#X obj 482 281 hsl 128 15 0 1 0 0 empty stutter empty -2 -8 0 10 -262144
+#X text 149 311 bypass;
+#X obj 371 376 hsl 128 15 0 1 0 0 empty stutter empty -2 -8 0 10 -262144
 -1 -1 0 1;
-#X text 509 299 stutter;
-#X msg 480 213 \; stutter 1 \; bypass 0 \;;
-#X obj 573 167 loadbang;
+#X text 398 394 stutter;
+#X obj 670 162 loadbang;
 #X obj 477 169 route 1 0;
-#X msg 575 214 \; bypass 1 \; stutter 0 \;;
+#X obj 436 170 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 627 447 \; stutter \$1 \; stutter-feedback \$2 \; bypass \$3
+\;;
+#X obj 540 345 line 0;
+#X obj 599 337 line 0;
+#X obj 652 337 line 0;
+#X obj 635 207 t b b b;
+#X obj 634 415 print;
+#X obj 635 167 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 604 388 pack f f f;
+#X obj 475 216 t b b b;
+#X msg 601 261 0 500;
+#X msg 654 259 0 500;
+#X msg 706 265 1 500;
+#X msg 492 252 1 0;
+#X msg 444 248 0.3;
+#X msg 444 275 \$1 0;
+#X msg 538 253 0 10;
+#X text 376 247 stutter on;
+#X text 747 265 stutter off;
 #X connect 1 0 0 0;
 #X connect 1 0 6 0;
 #X connect 3 0 10 0;
@@ -33,12 +53,33 @@
 #X connect 8 0 9 0;
 #X connect 9 0 4 0;
 #X connect 9 0 5 0;
-#X connect 10 0 9 0;
-#X connect 10 9 19 0;
-#X connect 10 10 19 0;
+#X connect 10 0 8 0;
+#X connect 10 1 33 0;
+#X connect 10 9 18 0;
+#X connect 10 10 18 0;
 #X connect 11 0 4 1;
 #X connect 13 0 6 0;
 #X connect 15 0 5 1;
-#X connect 18 0 20 0;
-#X connect 19 0 17 0;
-#X connect 19 1 20 0;
+#X connect 17 0 24 0;
+#X connect 18 0 28 0;
+#X connect 18 1 24 0;
+#X connect 19 0 28 0;
+#X connect 21 0 27 0;
+#X connect 22 0 27 1;
+#X connect 23 0 27 2;
+#X connect 24 0 29 0;
+#X connect 24 1 30 0;
+#X connect 24 2 31 0;
+#X connect 26 0 24 0;
+#X connect 27 0 20 0;
+#X connect 27 0 25 0;
+#X connect 28 0 33 0;
+#X connect 28 1 32 0;
+#X connect 28 2 35 0;
+#X connect 29 0 21 0;
+#X connect 30 0 22 0;
+#X connect 31 0 23 0;
+#X connect 32 0 22 0;
+#X connect 33 0 34 0;
+#X connect 34 0 21 0;
+#X connect 35 0 23 0;

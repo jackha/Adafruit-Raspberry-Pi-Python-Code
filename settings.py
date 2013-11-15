@@ -5,7 +5,8 @@ off = [
 ]
 
 stutter = [
-	{' dly': ' del', 'min': 10, 'max': 1000, 'default': 200, 'type': 'float', 'exp1': {'min': 10, 'max': 1000}},
+	{'name': ' dly', 'min': 10, 'max': 1000, 'default': 200, 'type': 'float', 'exp1': {'min': 10, 'max': 1000}},
+	{'name': 'amnt', 'min': 0, 'max': 1, 'default': 0.3, 'type': 'float'},
 ]
 
 spectraldelay = [
