@@ -1,29 +1,66 @@
-#N canvas 244 438 591 364 10;
-#X obj 105 236 dac~;
-#X obj 114 144 osc~ 440;
-#X obj 284 23 notein;
-#X obj 254 172 / 127;
-#X obj 110 184 *~;
+#N canvas 311 231 932 519 10;
+#X obj 66 303 dac~;
+#X obj 75 211 osc~ 440;
+#X obj 272 15 notein;
+#X obj 327 160 / 127;
+#X obj 71 251 *~;
 #X obj 276 60 stripnote;
-#X obj 145 105 mtof;
-#X msg 124 38 60.2;
-#X msg 64 72 60;
-#X msg 182 43 61;
-#X msg 225 216 0;
-#X obj 404 77 netreceive 3000;
-#X obj 345 134 route a b c d e f g h bpm hold active;
-#X obj 197 100 print midi note;
+#X obj 81 171 mtof;
+#X msg 186 283 0;
+#X obj 518 77 netreceive 3000;
+#X obj 459 134 route a b c d e f g h bpm hold active;
+#X obj 150 48 print midi note;
+#X obj 482 347 hsl 128 15 -36 36 0 0 pitch-semitones pitch-semitones
+empty -2 -8 0 10 -262144 -1 -1 6350 1;
+#X text 620 346 pitch-semitones;
+#X obj 502 290 hsl 128 15 -0.5 0.5 0 0 pitch-finetune pitch-finetune
+empty -2 -8 0 10 -262144 -1 -1 6350 1;
+#X obj 161 108 hsl 128 15 -36 36 0 0 pitch-semitones pitch-semitones
+empty -2 -8 0 10 -262144 -1 -1 6350 1;
+#X obj 161 140 hsl 128 15 -0.5 0.5 0 0 pitch-finetune pitch-finetune
+empty -2 -8 0 10 -262144 -1 -1 6350 1;
+#X text 640 290 pitch-finetune;
+#X text 162 121 pitch-semitones;
+#X text 157 151 pitch-finetune;
+#X obj 79 110 +;
+#X obj 80 141 +;
+#X obj 479 373 print semitones;
+#X obj 292 332 loadbang;
+#X obj 266 332 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 499 314 print finetune;
+#X msg 292 365 \; pitch-semitones 0 \; pitch-finetune 0 \; master 0.5
+\;;
+#X obj 462 403 hsl 128 15 0 1 0 0 master master empty -2 -8 0 10 -262144
+-1 -1 6350 1;
+#X obj 459 430 print master;
+#X text 600 402 master;
+#X obj 244 234 *;
+#X obj 298 221 hsl 128 15 0 1 0 0 master master empty -2 -8 0 10 -262144
+-1 -1 6350 1;
+#X text 308 234 master;
 #X connect 1 0 4 0;
 #X connect 2 0 5 0;
-#X connect 2 0 13 0;
+#X connect 2 0 10 0;
 #X connect 2 1 5 1;
-#X connect 3 0 4 1;
+#X connect 3 0 29 0;
 #X connect 4 0 0 0;
-#X connect 5 0 6 0;
+#X connect 5 0 19 0;
 #X connect 5 1 3 0;
 #X connect 6 0 1 0;
-#X connect 7 0 6 0;
-#X connect 8 0 6 0;
-#X connect 9 0 6 0;
-#X connect 10 0 4 1;
-#X connect 11 0 12 0;
+#X connect 7 0 4 1;
+#X connect 8 0 9 0;
+#X connect 9 0 26 0;
+#X connect 9 1 11 0;
+#X connect 9 2 13 0;
+#X connect 11 0 21 0;
+#X connect 13 0 24 0;
+#X connect 14 0 19 1;
+#X connect 15 0 20 1;
+#X connect 19 0 20 0;
+#X connect 20 0 6 0;
+#X connect 22 0 25 0;
+#X connect 23 0 25 0;
+#X connect 26 0 27 0;
+#X connect 29 0 4 1;
+#X connect 30 0 29 1;
