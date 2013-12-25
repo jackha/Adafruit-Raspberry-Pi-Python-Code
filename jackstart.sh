@@ -36,7 +36,7 @@ killall dbus-launch
 echo -n performance | sudo tee /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 
 ## And finally start JACK
-jackd -R -P70 -p8 -t2000 -d alsa -dhw:0,0 -p 128 -n 3 -r 44100 -s &
+jackd -R -P70 -p8 -t2000 -d alsa -dhw:0,0 -p 64 -n 2 -r 44100 -s &
 
 cd ~pi/raspberry-stomp
 
