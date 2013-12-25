@@ -4,6 +4,12 @@ off = [
 	{'name': 'vol', 'min': 0., 'max': 1., 'default': 1., 'type': 'float', 'exp1': {'min': 0, 'max': 1.5}},  # max 1.5 allows for some dead space
 ]
 
+midi_osc = [
+	{'name': 'mstr', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float', 'display': MIX_DISPLAY, 'exp2': {'min': 0, 'max': 1}},
+	{'name': 'tune', 'min': -36, 'max': 36, 'default': 1., 'type': 'float'},
+	{'name': 'ftun', 'min': -0.5, 'max': 0.5, 'default': 1., 'type': 'float', 'exp1': {'min': 0.5, 'max': 0.5}},
+	]
+
 stutter = [
 	{'name': ' dly', 'min': 10, 'max': 1000, 'default': 200, 'type': 'float', 'exp1': {'min': 10, 'max': 1000}},
 	{'name': 'amnt', 'min': 0, 'max': 1, 'default': 0.6, 'type': 'float'},
