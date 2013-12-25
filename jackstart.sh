@@ -43,7 +43,7 @@ cd ~pi/raspberry-stomp
 echo Sleeping...
 python sleep.py
 echo pd-extended
-pd-extended -jack -nogui -path /home/pi/raspberry-stomp/pd/diy2 pd/loader.pd &
+pd-extended -jack -nogui -midiindev 1 -path /home/pi/raspberry-stomp/pd/diy2 pd/loader.pd &
 
 echo Sleeping...
 python sleep.py

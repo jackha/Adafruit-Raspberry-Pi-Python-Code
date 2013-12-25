@@ -19,6 +19,10 @@ Hardware used
 - Adafruit 8x8 LED display (address 0x70)
 - mcp3008 chip for the expression pedal
 
+- focusrite scarlett 2i2
+- m-audio uno
+
+
 Wiring up
 ---------
 
@@ -215,6 +219,13 @@ $ speaker-test -c2 -D hw:0,0 -F S32_LE
 
 (somehow only the sample format S32_LE works...)
 
+
+Midi interface
+==============
+
+For my M-audio Uno we need::
+
+    $ sudo apt-get install midisport-firmware 
 
 
 Expression pedal
