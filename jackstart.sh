@@ -48,7 +48,7 @@ pd-extended -jack -nogui -path /home/pi/raspberry-stomp/pd/diy2 pd/loader.pd &
 echo Sleeping...
 python sleep.py
 # let supervisor handle this
-echo Starting RP stomp...
-sudo python rpstomp.py
+#echo Starting RP stomp...
+#sudo python rpstomp.py
 
 #halt
