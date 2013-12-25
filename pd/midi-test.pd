@@ -1,4 +1,4 @@
-#N canvas 244 438 450 300 10;
+#N canvas 244 438 591 364 10;
 #X obj 105 236 dac~;
 #X obj 114 144 osc~ 440;
 #X obj 284 23 notein;
@@ -9,6 +9,9 @@
 #X msg 124 38 60.2;
 #X msg 64 72 60;
 #X msg 182 43 61;
+#X msg 225 216 0;
+#X obj 404 77 netreceive 3000;
+#X obj 345 134 route a b c d e f g h bpm hold active;
 #X connect 1 0 4 0;
 #X connect 2 0 5 0;
 #X connect 2 1 5 1;
@@ -20,3 +23,5 @@
 #X connect 7 0 6 0;
 #X connect 8 0 6 0;
 #X connect 9 0 6 0;
+#X connect 10 0 4 1;
+#X connect 11 0 12 0;
