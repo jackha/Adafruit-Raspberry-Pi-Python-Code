@@ -5,7 +5,7 @@ off = [
 ]
 
 midi_osc = [
-	{'name': 'mstr', 'min': 0, 'max': 1, 'default': 0.5, 'type': 'float', 'display': MIX_DISPLAY, 'exp2': {'min': 0, 'max': 1}},
+	{'name': 'mstr', 'min': 0, 'max': 1, 'default': 1, 'type': 'float', 'display': MIX_DISPLAY, 'exp2': {'min': 0, 'max': 1}},
 	{'name': 'tune', 'min': -36, 'max': 36, 'default': 1., 'type': 'float'},
 	{'name': 'ftun', 'min': -0.5, 'max': 0.5, 'default': 1., 'type': 'float', 'exp1': {'min': 0.5, 'max': 0.5}},
 	]
