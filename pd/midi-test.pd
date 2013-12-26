@@ -1,4 +1,4 @@
-#N canvas 93 260 932 519 10;
+#N canvas 623 194 932 519 10;
 #X obj 114 452 dac~;
 #X obj 172 327 osc~ 440;
 #X obj 310 22 notein;
@@ -18,7 +18,7 @@
 #X obj 843 359 1;
 #X obj 843 299 loadbang;
 #X obj 843 330 delay 100;
-#X text 200 128;
+#X text 200 128 comment;
 #X obj 117 205 + 0;
 #X obj 118 148 + 0;
 #X obj 117 117 + 0;
@@ -30,6 +30,7 @@
 #X text 498 409 mix sine (0..1) \; mix saw (0..1) \; mix square (0..1)
 (not yet implemented) \; pitch-semitones (-36..36) \; pitch-finetune-pre
 (-0.5..0.5) \; pitch-finetune-post (-3.5..3.5) \;;
+#X obj 303 134 * 12;
 #X connect 1 0 4 0;
 #X connect 2 0 5 0;
 #X connect 2 1 5 1;
@@ -48,7 +49,7 @@
 #X connect 9 1 24 1;
 #X connect 9 2 12 0;
 #X connect 9 3 12 0;
-#X connect 9 3 21 1;
+#X connect 9 3 28 0;
 #X connect 9 4 12 0;
 #X connect 9 4 20 1;
 #X connect 9 5 12 0;
@@ -69,3 +70,4 @@
 #X connect 24 0 25 1;
 #X connect 24 0 26 0;
 #X connect 25 0 0 0;
+#X connect 28 0 21 1;
