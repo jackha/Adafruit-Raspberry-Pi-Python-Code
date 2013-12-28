@@ -382,7 +382,7 @@ if __name__ == '__main__':
             scroller = None
             if len(effects.settings) == 0:
                 continue
-            if hi_res_mode or effects.settings['type'] == 'integer':
+            if hi_res_mode or effects.settings[selected_idx]['type'] == 'integer':
                 effects.setting(selected_idx, delta=delta1/4.)
             else:
                 effects.setting(selected_idx, delta=delta1)
