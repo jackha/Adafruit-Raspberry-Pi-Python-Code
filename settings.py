@@ -8,9 +8,9 @@ midi_osc = [
 	{'name': 'tria', 'min': 0., 'max': 1., 'default': 1., 'type': 'float', 'display': MIX_DISPLAY},
 	{'name': ' saw', 'min': 0., 'max': 1., 'default': 0., 'type': 'float', 'display': MIX_DISPLAY},
 	{'name': 'squa', 'min': 0., 'max': 1., 'default': 0., 'type': 'float', 'display': MIX_DISPLAY},
-	{'name': 'tune', 'min': -1, 'max': 1, 'default': 0., 'type': 'integer'},
-	{'name': 'ftun', 'min': -7, 'max': 7, 'default': 0., 'type': 'float', 'exp1': {'min': -7, 'max': 7}},
-	{'name': 'ftu2', 'min': -3.5, 'max': 3.5, 'default': 0., 'type': 'float'},
+	{'name': 'octa', 'min': -1, 'max': 1, 'default': 0., 'type': 'integer'},
+	{'name': 'tune', 'min': -7, 'max': 7, 'default': 0., 'type': 'float', 'exp1': {'min': -7, 'max': 7}},
+	{'name': 'tun2', 'min': -3.5, 'max': 3.5, 'default': 0., 'type': 'float'},
 	]
 
 stutter = [
